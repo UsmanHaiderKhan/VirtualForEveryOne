@@ -89,6 +89,40 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="Scripts\jquery-1.12.1.min.js" />
+    <None Include="Scripts\jquery-1.7.1.intellisense.js" />
+    <Content Include="Scripts\jquery-1.7.1.js" />
+    <Content Include="Scripts\jquery-1.7.1.min.js" />
+    <Content Include="Scripts\jquery-ui-1.8.20.js" />
+    <Content Include="Scripts\jquery-ui-1.8.20.min.js" />
+    <Content Include="Scripts\jquery.flexdatalist.js" />
+    <Content Include="Scripts\jquery.flexdatalist.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\js\bootstrap.js" />
+    <Content Include="Scripts\js\bootstrap.min.js" />
+    <Content Include="Scripts\js\classie.js" />
+    <Content Include="Scripts\js\css-filters-polyfill.js" />
+    <Content Include="Scripts\js\cssParser.js" />
+    <Content Include="Scripts\js\index.js" />
+    <Content Include="Scripts\js\jquery.cbpContentSlider.js" />
+    <Content Include="Scripts\js\jquery.cbpContentSlider.min.js" />
+    <Content Include="Scripts\js\jquery.js" />
+    <Content Include="Scripts\js\like-dislike.js" />
+    <Content Include="Scripts\js\like-dislike.min.js" />
+    <Content Include="Scripts\js\modalEffects.js" />
+    <Content Include="Scripts\js\modernizr.custom.js" />
+    <Content Include="Scripts\js\scrollbar.js" />
+    <Content Include="Scripts\knockout-2.1.0.debug.js" />
+    <Content Include="Scripts\knockout-2.1.0.js" />
+    <Content Include="Scripts\modernizr-2.5.3.js" />
+    <None Include="Scripts\_references.js" />
+    <Content Include="Style\StyleSheet.css" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
