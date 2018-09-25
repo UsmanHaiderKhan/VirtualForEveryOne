@@ -1,0 +1,41 @@
+﻿body {
+}
+label {
+    font-weight: bold;
+    
+}
+input {
+    width:60%;
+}
+
+.logo {
+    height: 150px;
+     width: 200px; 
+     text-align:center;
+      margin-top: -15px
+}
+img {
+    height: 150px;
+    width: 200px;
+    text-align: center;
+    margin-top: -15px;
+}
+.panel-body {
+    background:linear-gradient(grey, rgba(255,0,0,2));
+     border-color:black
+}
+button {
+    background-color:lightgrey;
+    width:20% ;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+#d1 {
+    width:70%;
+}
+.bold {
+    color:black;
+}
+.white {
+    color:white;
+}
+
