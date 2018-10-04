@@ -1,0 +1,59 @@
+@model virtually_everyone.Models.user
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Student</legend>
+
+    
+        @if(@Model.profilepic != null)
+        {
+            <div>
+  <img src="@Model.profilepic" id="profile_img"     style="width:300px; height:400px" />
+                 </div>
+        }
+           
+    <div >
+        
+       Id:  @Model.Id
+    </div>
+    
+    <div >
+        Username : @Model.username
+    </div>
+    
+
+    <div >
+       FullName : @Model.fullname
+    </div>
+    <div >
+        Email: @Model.email
+    </div>
+    <div >
+        Password : @Model.password
+    </div>
+    <div >
+        Date Of Birth : @Model.dob
+    </div>
+    <div >
+        Skills : @Model.skills
+    </div>
+   <div >
+        Gender : @Model.gender
+    </div>
+    <div >
+         Bio : @Model.bio
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "UserAdd")
+    </p>
+}
