@@ -1,0 +1,56 @@
+﻿@model List<virtually_everyone.Models.group>
+@{
+    ViewBag.Title = "GroupAdd";
+}
+@{    
+    Layout = "~/Views/Shared/_AdminLayoutPage.cshtml";
+    if(null != TempData["alert message"])
+    {
+          <script type="text/javascript">
+              alert("@TempData["alert message"]");
+          </script>
+    }
+ }
+
+
+<html>
+    
+    <body>
+        <div class="container">
+       
+        <div class="row" style="background-color:lightgray; overflow-x:auto">
+            
+                    <table  style="width:100%" class="table-bordered" >
+                        <caption>GROUPS:</caption>
+                            <tr>
+                                <th>Group ID</th>
+                                <th>Group Name</th>
+                                
+                                <th></th>
+                            </tr>
+                         @{
+                            foreach(var g in Model)
+                            {
+                                <tr>
+                                    <td>@g.groupid</td>
+                                    <td>@g.groupname</td>
+                                    
+                                    <td>@Html.ActionLink("DeleteGroup", "DeleteGroup", new { id = g.Id, groupid=g.groupid})</td>
+                                </tr>
+                            }
+                          }        
+
+                    </table>
+
+            
+			</div>
+
+
+       
+            <hr>
+            
+        </div>
+
+    </body>
+
+</html>
