@@ -1,0 +1,65 @@
+﻿@model List<virtually_everyone.Models.user>
+@{
+    ViewBag.Title = "UserAdd";
+}
+
+@{    
+    Layout = "~/Views/Shared/_AdminLayoutPage.cshtml";
+    if(null != TempData["alert message"])
+    {
+          <script type="text/javascript">
+              alert("@TempData["alert message"]");
+          </script>
+    }
+ }
+
+
+<html>
+    
+    <body>
+        <div class="container">
+       
+        <div class="row" style="background-color:lightgray; overflow-x:auto">
+            
+                    <table  style="width:100%" class="table-bordered" >
+                        <caption>USERS DATA:</caption>
+                            <tr>
+                                <th>ID</th>
+                                <th>UserName</th>
+                                <th>FullName</th>
+                                <th>Email</th>
+                                <th>Password</th>
+                                <th>Date Of Birth</th>
+                                
+                                <th></th>
+                            </tr>
+                         @{
+                            foreach(var user in Model)
+                            {
+                                <tr>
+                                    <td>@user.Id</td>
+                                    <td>@user.username</td>
+                                    <td>@user.fullname</td>
+                                    <td>@user.email</td>
+                                    <td>@user.password</td>
+                                    <td>@user.dob</td>
+                                    
+                                    <td>@Html.ActionLink("Delete", "Delete", new { id = user.Id, username=user.username})</td>
+                                </tr>
+                            }
+                          }        
+
+                    </table>
+
+            
+			</div>
+
+
+       
+            <hr>
+            
+        </div>
+
+    </body>
+
+</html>
