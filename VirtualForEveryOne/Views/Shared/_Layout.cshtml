@@ -1,0 +1,372 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+    <title>@ViewBag.Title</title>
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="~/Content/css/tab-component.css" />
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/Content/css/default.css" />
+    <link rel="stylesheet" href="~/Content/css/component.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/css/ans-component.css" />
+    <link type="text/css" href="~/Content/css/m-style.css" rel="stylesheet">
+    <link type="text/css" href="~/Content/css/float.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/Content/css/font-awesome.min.css">
+
+    <script src="~/Scripts/js/modernizr.custom.js"></script>
+    <script src="~/Scripts/js/modernizr.custom.js"></script>
+
+    <script src="~/Scripts/jquery.cbpContentSlider.min.js.js"></script>
+
+    <script>
+
+        var dataList = document.getElementById('faq_list');
+        var input = document.getElementById('search_faq');
+
+        // Create a new XMLHttpRequest.
+        var request = new XMLHttpRequest();
+        // Handle state changes for the request. 
+        request.onreadystatechange = function (response) {
+            if (request.readyState === 4) {
+                if (request.status === 200) {
+                    // Parse the JSON
+                    var jsonOptions = JSON.parse(request.responseText);
+
+                    //Loop over the JSON array.
+
+                    jsonOptions.forEach(function (item) {
+                        // Create a new <option> element.
+                        var option = document.createElement('option');
+
+                        // Set the value using the item in the JSON array.
+
+                        option.value = item;
+                        // Add the <option> element to the <datalist>.
+
+                        dataList.appendChild(option);
+                    });
+
+                    // Update the placeholder text.
+                    input.placeholder = "Search user";
+                }
+                else {
+                    // An error occured :(
+                    input.placeholder = "Couldn't load datalist options :(";
+                }
+            }
+        };
+        // Update the placeholder text.
+
+        input.placeholder = "Loading options...";
+
+        // Set up and make the request.
+
+        request.open('GET', "check?val1=" + name, true);
+
+        request.send();
+
+    </script>
+
+</head>
+
+<body>
+
+
+    <nav id="menu" class="top-nav">
+        <a href="~/Home/Feed" style="position: absolute">
+            <img style="height: 150px; width: 200px; float: left; margin-top: -15px" src="~/Content/images/ve.png" /></a>
+
+        <ul>
+
+            <li>
+                <a id="01" href="~/Home/Settings#profile">
+                    <span class="icon">
+                        <i aria-hidden="true" class="icon-portfolio"></i>
+                    </span>
+                    <span>Settings</span>
+                </a>
+            </li>
+
+            <li>
+                <a id="02" href="~/Home/Notifications#all">
+                    <span class="icon">
+                        @if(ViewBag.count != 0)
+                        {
+                            <span class="fa fa-comment"></span>
+                            <span class="num">@ViewBag.count</span>
+                        }
+                        <i aria-hidden="true" class="fa fa-globe"></i>
+                    </span>
+                    <span>Notifications</span>
+                </a>
+            </li>
+
+            <li>
+                <a id="03" href="~/Home/UserProfile">
+                    <span class="icon">
+                        <i aria-hidden="true" class="icon-blog"></i>
+                    </span>
+                    <span>Profile</span>
+                </a>
+            </li>
+            <li>
+                <a id="04" href="~/Home/Friends#friend">
+                    <span class="icon">
+                        <i aria-hidden="true" class="icon-team"></i>
+                    </span>
+                    <span>Friends</span>
+                </a>
+            </li>
+
+            <li>
+                <a id="05" href="~/Home/Questions">
+                    <span class="icon">
+                        <i aria-hidden="true" class="icon-contact"></i>
+                    </span>
+                    <span>Questions</span>
+                </a>
+            </li>
+
+            <li>
+                <a id="06" href="~/Home/Feed" class="active">
+                    <span class="icon">
+                        <i aria-hidden="true" class="icon-home"></i>
+                    </span>
+                    <span>Feed</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <a href="~/Home/Logout" class="float">
+        <i class="fa fa-power-off  my-float"></i>
+    </a>
+    <div class="label-container">
+        <div class="label-text">Log Out</div>
+        <i class="fa fa-play label-arrow"></i>
+    </div>
+
+    @RenderBody()
+
+    <!-- The actual snackbar -->
+    <div id="snackbar">posted successfuly.</div>
+
+    <div class="md-overlay"></div>
+
+    <!-- FAQ Modal -->
+
+    <div id="myModalfaq" class="modal" style="z-index:1000">
+
+        <!-- FAQ Modal content -->
+        <div class="modal-content" style="width: 30%; height: 40%">
+            <span class="faqclose">&times;</span>
+            <p>FAQ</p>
+            <p id="faqtextarea"></p>
+        </div>
+
+    </div>
+
+    <script src="~/Scripts/js/like-dislike.js"></script>
+
+    <script>
+        function faqcheck() {
+            var value = document.getElementById("search_faq").value;
+
+            if (value == "How to post a question ?") {
+                document.getElementById("faqtextarea").innerText = "Write question on provided space at the top --> Click Ask Button --> Great you are done !";
+            }
+            else if (value == "How to answer a question ?") {
+                document.getElementById("faqtextarea").innerText = "Go to Questions page --> Select question --> Write answer and press the answer button --> Great you are done !"
+            }
+            else if (value == "How to change profile or cover image ?") {
+                document.getElementById("faqtextarea").innerText = "Go to Settings page --> Click profile tab --> scroll down for all settings --> Click save --> Great you are done ! ";
+            }
+            else {
+                document.getElementById("faqtextarea").innerText = "Sorry we could not find your desired results please contact our support team !"
+            }
+        }
+    </script>
+
+    <script>
+        // Get the modal
+        var modalfaq = document.getElementById('myModalfaq');
+
+        // Get the button that opens the modal
+        var faqbtn = document.getElementById("faqBtn");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("faqclose")[0];
+
+        // When the user clicks the button, open the modal 
+        faqbtn.onclick = function () {
+            modalfaq.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+            modalfaq.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modalfaq) {
+                modalfaq.style.display = "none";
+            }
+        }
+    </script>
+
+    <script>
+        $('#rating').likeDislike({
+            //reverseMode: false,
+            //disabledClass: 'disable',
+            click: function (value, l, d, event) {
+                var likes = $(this.element).find('.likes');
+                var dislikes = $(this.element).find('.dislikes');
+
+                likes.text(parseInt(likes.text()) + l);
+                dislikes.text(parseInt(dislikes.text()) + d);
+            }
+        });
+        $('#rating2').likeDislike({
+            reverseMode: true,
+            disabledClass: 'disable',
+            click: function (value, l, d, event) {
+                var likes = $(this.element).find('.likes');
+                var dislikes = $(this.element).find('.dislikes');
+
+                likes.text(parseInt(likes.text()) + l);
+                dislikes.text(parseInt(dislikes.text()) + d);
+            }
+        });
+        $('#rating3').likeDislike({
+            readOnly: true,
+            disabledClass: 'disable'
+        });
+    </script>
+
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-36251023-1']);
+        _gaq.push(['_setDomainName', 'jqueryscript.net']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+
+    </script>
+
+    <script>
+        // Get the modal
+        var modal = document.getElementById('myModal');
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("myBtn");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks the button, open the modal 
+        btn.onclick = function () {
+            modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+
+    <script>
+        function myFunction() {
+            // Get the snackbar DIV
+            var x = document.getElementById("snackbar")
+
+            // Add the "show" class to DIV
+            x.className = "show";
+
+            // After 3 seconds, remove the show class from DIV
+            setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+        }
+    </script>
+
+    <script>
+
+
+        $(document).ready(function () {
+            var page = '@Html.Raw(ViewBag.page)';
+
+            //alert(page);
+            if (page == 'Feed') {
+                $('.top-nav ul li:nth-child(6) a').css("border-bottom", "4px solid rgb(9, 18, 25)");
+                $('.top-nav ul li:nth-child(6) a').css("height", "6em");
+            }
+            else if (page == 'Questions') {
+                $('.top-nav ul li:nth-child(5) a').css("border-bottom", "4px solid rgb(16, 34, 44)");
+                $('.top-nav ul li:nth-child(5) a').css("height", "6em");
+            }
+            else if (page == 'Friends') {
+                $('.top-nav ul li:nth-child(4) a').css("border-bottom", "4px solid rgb(10, 75, 117)");
+                $('.top-nav ul li:nth-child(4) a').css("height", "6em");
+            }
+            else if (page == 'UserProfile') {
+                $('.top-nav ul li:nth-child(3) a').css("border-bottom", "4px solid rgb(12, 110, 149)");
+                $('.top-nav ul li:nth-child(3) a').css("height", "6em");
+            }
+            else if (page == 'Notifications') {
+                $('.top-nav ul li:nth-child(2) a').css("border-bottom", "4px solid rgb(191, 117, 20)");
+                $('.top-nav ul li:nth-child(2) a').css("height", "6em");
+            }
+            else if (page == 'Settings') {
+                $('.top-nav ul li:nth-child(1) a').css("border-bottom", "4px solid rgb(174, 78, 1)");
+                $('.top-nav ul li:nth-child(1) a').css("height", "6em");
+            }
+        });
+
+    </script>
+
+
+    <script src="~/Scripts/js/bootstrap.min.js"></script>
+
+    <script src="~/Scripts/js/classie.js"></script>
+
+    <script src="~/Scripts/js/modalEffects.js"></script>
+
+    <script>
+        // this is important for IEs
+        var polyfilter_scriptpath = '/js/';
+    </script>
+
+    <script src="~/Scripts/js/cssParser.js"></script>
+
+    <script src="~/bundles/jquery/css-filters-polyfill.js"></script>
+    <script src="~/bundles/jquery/bootstrap.min.js"></script>
+    <script src="~/bundles/jquery/jquery.cbpContentSlider.min.js"></script>
+
+    <script>
+        $(function () {
+            $('#cbp-contentslider').cbpContentSlider();
+        });
+    </script>
+
+    @*@Scripts.Render("~/bundles/jquery")*@
+@*    @RenderSection("scripts", required: false)*@
+
+</body>
+</html>
