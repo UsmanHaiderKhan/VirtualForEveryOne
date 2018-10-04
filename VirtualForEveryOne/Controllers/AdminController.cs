@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Mvc;
+using VirtualForEveryOne.Models;
 
 namespace VirtualForEveryOne.Controllers
 {
@@ -292,7 +293,7 @@ namespace VirtualForEveryOne.Controllers
                 db1.notification.Add(n);
 
 
-                notification n1 = new notification(); // notify who complaint
+                Notification n1 = new Notification(); // notify who complaint
                 n1.postid = "r" + r.postid.ToString();
                 n1.username = r.username;
                 n1.notifier = "Admin";
