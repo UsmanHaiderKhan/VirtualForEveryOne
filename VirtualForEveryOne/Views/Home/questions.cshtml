@@ -1,0 +1,458 @@
+﻿@using virtually_everyone.Models;
+
+@{
+    var f_id = -1;
+    
+    List<post> pos = TempData["post"] as List<post>;
+    List<friends> frnds = TempData["friends"] as List<friends>;
+    List<user> user = TempData["user"] as List<user>;
+    List<faq> faq = TempData["faq"] as List<faq>;
+    
+    var abc = TempData["value"];
+    ViewBag.page = "Questions";
+}
+
+
+<head>
+    <title>@{ViewBag.Title = "Questions | VituallyEveryone ";}</title>
+
+    <link rel="stylesheet" type="text/css" href="~/Content/css/ans-component.css" />
+    <script src="~/Scripts/js/jquery.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="~/Content/css/jquery.flexdatalist.css" >
+
+    <style>
+        #q_img:hover {
+            opacity: 0.7;
+        }
+    </style>
+
+</head>
+
+<body onload="check()">
+
+    <datalist id="faq_list">
+        @{
+            foreach (var f in faq)
+            {
+                <option value="@f.faq1"></option>
+            }
+
+        }
+    </datalist>
+
+    <datalist id="tag_user_list">
+        @{
+            foreach (var us in user)
+            {
+                <option value="@us.username.Remove(0,1)"></option>
+            }
+        }
+    </datalist>
+
+    <input type="text" id="chk" value="@abc" hidden/>
+    <div class="md-modal md-effect-1" id="modal-1">
+        <div class="md-content">
+            <h3>VE Answers</h3>
+            <div>
+                <input type="text" id="ques_id" name="ques_id" style="color: black" hidden />
+                <textarea class="form-control" id="ans-textarea" name="textarea" required></textarea>
+                <button id="ans-btn2" onclick="save_ans()">Answer</button>
+                <button id="ans-btn1" class="md-close">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="md-overlay"></div>
+
+    <div class="container" style="margin-left: 250px">
+        <div class="row">
+
+            <div>
+
+                <div class="well" style="background-color: #1E2326; width: 50%; display: inline-block">
+                    <div style="display: inline-block">
+                        <img src="~/Content/images/ques_icon.png" style="width: 50px; height: 50px; margin-bottom: 5px" />
+                        <h4 style="font: bold; color: white; display: inline-block">Questions</h4>
+                    </div>
+
+                    <div class="photo-sharing" style="display: inline-block">
+                        <img src="~/Content/images/image_icon.png" />
+                        <a href="#">
+                            <h4 id="myBtn">Photo Sharing</h4>
+                        </a>
+
+                        <!-- The Modal -->
+                        <div id="myModal" class="modal">
+
+                            <!-- Modal content -->
+                            <div class="modal-content" style="width: 30%; height: 40%">
+                                <span class="close">&times;</span>
+                                <p>Upload Image</p>
+                                <form method="post" action="/Home/Save_img_post" enctype="multipart/form-data">
+
+                                    <div class="form-group">
+                                        <textarea class="form-control" name="imgTxt"></textarea>
+                                    </div>
+
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <label class="switch">
+                                                    <input type="checkbox" name="img_checkbox" id="img_checkbox">
+                                                    <span class="slider"></span>
+                                                </label>
+
+                                            </td>
+                                            <td>
+                                                <h5 style="margin-left: 5px; color: #CC2222">Ask anonymously</h5>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                    <input type="file" multiple accept="image/*" name="upload" id="upload" required />
+                                    <input type="image" id="upload_img" src="~/Content/images/upload.png" alt="submit" />
+                                </form>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <input type="text" name="user" value="username" hidden />
+
+                        <input type='text' id="tags" placeholder='Tags' class='flexdatalist form-control' data-min-length='1' data-searchcontain='true' multiple='multiple' list='tag_user_list'>
+                        <textarea class="form-control" id="textarea" name="textarea" required></textarea>
+                    </div>
+                    <table>
+                        <tr>
+                            <td>
+                                <label class="switch">
+                                    <input type="checkbox" id="checkbox">
+                                    <span class="slider"></span>
+                                </label>
+
+                            </td>
+                            <td>
+                                <h5 style="margin-left: 5px; color: #CC2222">Ask anonymously</h5>
+                            </td>
+                            <td>
+                                <button class="btn btn-primary" id="btn_ask" style="margin-left: 225px; width: 100px">Ask</button>
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+
+                <div class="col-md-4" id="frnd_list_div" style="overflow-x:hidden; overflow-y:auto">
+                    <h5>Friends</h5>
+                    <hr />
+
+
+                    @for (var itr = 0; itr < frnds.Count; itr++)
+                    {
+                        foreach (var u in user)
+                        {
+                            if (u.username.Remove(0, 1) == frnds[itr].userfriends)
+                            {
+                                <a href="#">
+                                    <span id="@f_id" hidden>@u.username</span>
+                                    <p id="frnd-list-tag1" onclick="getProfile(@f_id)">
+                                        @if (@u.profilepic == null || @u.profilepic == "")
+                                        {
+                                            <img src="~/Content/images/ques_icon.png" />@u.fullname
+                                        }
+                                        else
+                                        {
+                                            <img src="@u.profilepic" />@u.fullname
+                                        }
+                                    </p>
+                                </a>
+                        
+                                f_id--;
+                            }
+                        }
+                    }
+
+                    <a href="~/Home/Friends#friend">
+                        <p id="frnd-list-tag2">See all friends</p>
+                    </a>
+                </div>
+
+                <div class="col-lg-8" style="border: solid 1px; border-color: lightgrey">
+                    <div class="ques-top">
+                        <div>
+                            <h4 style="display: inline-block">Questions</h4>
+                            <button id="rand-btn" class="btn btn-primary" onclick="/Home/Questions">Get Random questions</button>
+                        </div>
+@*                        <div class="delete-ques-div">
+                            <a href="#">
+                                <h6 style="padding: 10px">Delete all questions</h6>
+                            </a>
+                        </div>*@
+                    </div>
+
+                    <hr id="hr-1">
+
+                    <div>
+                        <table class="ques-table2">
+
+                            @{
+                                int i = 1;
+                                foreach (var ps in pos)
+                                {
+                                  
+                            
+                                <tr>
+                                    <td>
+                                        <h5 id="ques">@ps.questions</h5>
+                                        @if (ps.image != null)
+                                        {
+                                            <img style="width:300px; cursor:pointer" id="q_img" src="@ps.image" alt="Picture"/>
+                                        }
+
+@*                                        <div class="dropdown" style="float: right;">
+                                            <img src="~/Content/images/sett.png" style="width: 20px" data-toggle="dropdown" />
+                                            <span class="caret"></span>
+
+                                            <ul class="dropdown-menu">
+                                                <li><a href="#">Share</a></li>
+                                                <li><a href="#">Report</a></li>
+                                                <li><a href="#">Repost</a></li>
+                                            </ul>
+                                        </div>*@
+
+                                    </td>
+                                    <td>
+                                        <input type="text" name="@i" id="@i" value="@ps.Id" hidden /></td>
+                                    <td>
+                                        <button id="ans-btn" onclick="text(@i)" class="md-trigger" data-modal="modal-1" >Answer</button>
+                                    </td>
+
+                                </tr>
+                                        if (ps.anonymous == false)
+                                        {
+                                    <tr>
+                                        <td>
+                                            <p style="margin-bottom: 0px">@@ @ps.username</p>
+                                        </td>
+                                    </tr>   
+                                        }
+                                <tr>
+                                    <td colspan="2">
+                                        <hr id="hr-1">
+                                    </td>
+                                    <td>
+                                        <hr id="hr-1">
+                                    </td>
+                                </tr>
+                                        i++;
+                                }
+                            }
+
+                        </table>
+                    </div>
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <div class="well" id="help-cen-div" style="height: 275px; background-color: #1E2326;">
+
+                        <div class="input-group" style="margin-top: 25px">
+                            <input type="text" class="form-control" id="search_faq" onchange="faqcheck()" list="faq_list" placeholder="Search Frequently Asked Questions">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" id="faqBtn">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </button>
+                            </span>
+                        </div>
+
+                        <div id="well-div2">
+                            <img src="~/Content/images/download.png" style="margin-left: 10px; height: 40px;" />
+                            <img src="~/Content/images/help.png" style="margin-left: 10px; height: 30px;" />
+                            <span></span>
+                            <img src="~/Content/images/247.png" style="margin-left: 10px; height: 30px;" />
+
+                            <img src="~/Content/images/support.png" style="margin-left: 10px; height: 30px;" />
+
+                            <p style="margin-top: 15px; font-size: small; float: right; color: #CC2222;">
+                                <font size="3"><b>VirtuallyEveryone Help Center</b></font>.
+                            <br />
+                                Get answers you need or contact Support Team.
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <div class="well" style="background-color: #1E2326;">
+                        <p style="color: white;">
+                            <img src="~/Content/images/vesmall.png" style="margin-left: 10px; height: 20px;" />
+                            <img src="~/Content/images/copyright.png" style="margin-left: 10px; height: 20px;" />
+                            <font size="3"><b>VirtuallyEveryone 2018</b></font>
+                            <button id="extra-btn" hidden></button>
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div id="myModal1" class="modal1">
+            <span class="close1">&times;</span>
+            <img src="" class="modal-content1" id="q_img01">
+            <div id="caption"></div>
+        </div>
+
+        <script>
+            // Get the modal
+            var modal1 = document.getElementById('myModal1');
+
+            // Get the image and insert it inside the modal - use its "alt" text as a caption
+            var img = document.getElementById('q_img');
+            var modalImg = document.getElementById("q_img01");
+            var captionText = document.getElementById("caption");
+            img.onclick = function () {
+                modal1.style.display = "block";
+                modalImg.src = this.src;
+                captionText.innerHTML = this.alt;
+            }
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close1")[0];
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function () {
+                modal1.style.display = "none";
+            }
+        </script>
+    </div>
+
+    <!-- The actual snackbar -->
+    <div id="snackbar1">Answered sucessfully.</div>
+
+    <script>
+
+        $(document).ready(function () {
+
+            $('#btn_ask').click(function () {
+
+                var textarea = $('#textarea').val();
+                
+                var str = $('#tags').val();
+                var str2 = str.split(',');
+
+                var tags = str2[0];
+
+                //alert(tags);
+
+                if ($('#checkbox').is(":checked")) {
+                    var x = 1;
+                }
+                else {
+                    var x = 0;
+                }
+
+                if (textarea == "") {
+
+                }
+
+                else {
+                    $.getJSON("/Home/Save_post?" + "&textarea=" + textarea + "&checkbox=" + x + "&tags=" + tags, function (data) {
+                        if (data) {
+                            myFunction();
+                            document.getElementById("textarea").value = "";
+                        }
+                        else {
+                            alert("unsucessfull");
+                        }
+
+                    });
+
+                }
+
+            });
+
+
+            $('#rand-btn').click(function () {
+
+                window.location.href = "/Home/Questions";
+            });
+
+        });
+
+    </script>
+
+    <script>
+        function getProfile(x) {
+
+            var a = document.getElementById(x).innerHTML;
+            //alert(a);
+            $.post("/Home/Fprofile?a=" + a, function (data) {
+                window.location.href = '/Home/frndsprofile';
+            });
+        }
+    </script>
+
+
+    <script>
+        function text(x) {
+
+            //alert(x);
+            var a = document.getElementById(x).value;
+            //alert(a);
+            document.getElementById("ques_id").value = a;
+        }
+
+        function check()
+        {
+            var a = document.getElementById("chk").value;
+            if (a == 1)
+            {
+                myFunction();
+            }
+        }
+    </script>
+
+    <script>
+        function myFunction1() {
+            // Get the snackbar DIV
+            var x = document.getElementById("snackbar1")
+
+            // Add the "show" class to DIV
+            x.className = "show";
+
+            // After 3 seconds, remove the show class from DIV
+            setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+        }
+    </script>
+
+    <script>
+        function save_ans() {
+
+            var textarea = $('#ans-textarea').val();
+            var ques_id = $('#ques_id').val();
+
+            $.getJSON("/Home/Save_answer?" + "&ans-textarea=" + textarea + "&ques_id=" + ques_id, function (data) {
+
+                if (data) {
+                    $('#ans-btn1').click();
+                    document.getElementById("ans-textarea").value == " ";
+                    myFunction1();
+                }
+                else {
+                    alert("unsucessfull");
+                }
+            });
+        }
+    </script>
+
+    <script src="http://code.jquery.com/jquery-1.12.1.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.flexdatalist.js"></script>
+</body>

@@ -1,0 +1,528 @@
+﻿@using virtually_everyone.Models;
+
+@model virtually_everyone.Models.user
+
+@{
+    ViewBag.page = "Settings";
+    List<faq> faq = TempData["faq"] as List<faq>;
+}
+
+<head>
+    <title>@{ViewBag.Title = "Friend | VirtuallyEveryone";}</title>
+
+    <style>
+        .cbp-contentslider nav a {
+            width: 50.00%;
+        }
+    </style>
+</head>
+
+<body id="back-body">
+
+    <datalist id="faq_list">
+        @{
+            foreach (var f in faq)
+            {
+                <option value="@f.faq1"></option>
+            }
+
+        }
+    </datalist>
+
+    <div class="container">
+
+        <!-- Password Change Modal -->
+
+        <div id="myModal2" class="modal" style="height:115%;z-index:1001">
+
+            <!-- Modal content -->
+            <div class="modal-content" style="width: 30%; height: 40%">
+                <span class="close2">&times;</span>
+                <p><b>Change Password</b></p>
+                <input id="old_pass" class="form-control" type="password" placeholder="old password" required />
+                <p id="result" hidden></p>
+                <input id="new_pass" class="form-control" type="password" placeholder="new password" style="margin-top:5px ;margin-bottom:5px" required/>
+                <input id="c_pass" class="form-control" type="password" placeholder="confirm password" required/>
+                <span id="result1" hidden></span>
+                <button id="btn-changepass" class="btn btn-primary" style="margin-top: 10px; float:right" disabled>Change</button>
+            </div>
+
+        </div>
+
+        <!-- Deactivate Account Modal -->
+        <div id="myModal" class="modal" style="z-index:1001">
+
+            <!-- Modal content -->
+            <div class="modal-content" style="width: 30%; height: 40%">
+                <span id="close2" class="close">&times;</span>
+                <p>We are sorry that you are leaving :(</p>
+                <p>Help us to improve !</p>
+
+                <div class="form-group">
+                    <textarea class="form-control"></textarea>
+                </div>
+
+                <a href="~/Home/Deactivate"><h5 style="margin-left: 5px; color: #CC2222">Deactivate Account</h5></a>
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <!-- Main Body Column -->
+
+            <div class=" col-lg-8" style="height: 580px; border: solid 0.4px; background: none; margin-bottom: 50px; margin-left: 65px">
+
+                <div id="sett-cbp-contentslider" class="cbp-contentslider" style="height: 560px">
+
+                    <nav class="nav nav-tabs">
+                        <a href="#profile" class="active" id="1"><span>Profile</span></a>
+                        <a href="#account" class="icon-aligator" id="3"><span>Account</span></a>
+                    </nav>
+
+                    <ul>
+                        <li id="profile" style="">
+                            <br />
+                            <div style="">
+                                <div style="">
+                                    <form method="post" action="/Home/Save_settings" enctype="multipart/form-data">
+                                        <table class="sett-table">
+                                            <tr>
+                                                <td>
+                                                    <h5>Full Name</h5>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    <input type="text" class="form-control" name="fullname" value="@Model.fullname" />
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    <h5>Skills</h5>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    <textarea class="form-control" name="skills" style="height: 50px">@Model.skills</textarea>
+
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    <h6>A Little about yourself</h6>
+                                                    <textarea class="form-control" name="bio" style="height: 50px">@Model.bio</textarea>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    <h5>Username</h5>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    <input type="text" class="form-control" placeholder="@Model.username" readonly>
+                                                    <h6>Username can't be changed </h6>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    <h5>Email</h5>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td id="sett-td1">
+                                                    <input type="email" class="form-control" value="@Model.email" readonly>
+                                                    @*<a href="#emailConfirm" style="color:red;"><h6>Resend confirmation email</h6></a>*@
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    <h5>Birthday</h5>
+                                                </td>
+                                            </tr>
+                                        </table>
+
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <input type="date" name="birthday" value="@Model.dob">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <p style="color:lightgrey">@Model.dob</p>
+                                                </td>
+                                            </tr>
+@*                                                                                        <tr>
+                                                <td>
+                                                    <h6 style="color:lightgrey">Your age will not be visible to other users</h6>
+                                                </td>
+                                            </tr>*@
+
+                                        </table>
+
+                                        <table class="sett-table">
+                                            <tr>
+                                                <td>
+                                                    <h5>Gender</h5>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    <select name="gender">
+                                                        <option value="male">Male</option>
+                                                        <option value="female">Female</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    <h1 style="border-top: 5px solid red; width: 100%; margin-bottom: 18px"></h1>
+                                                </td>
+                                            </tr>
+
+                                        </table>
+                                        <div style="margin-left: 10px; color: red">
+                                            <div>
+                                                <table style="width:100%">
+                                                    <tr>
+                                                        <td>
+                                                            <b>Allow anonymous questions</b>
+                                                        </td>
+                                                        <td>
+                                                            <div class="checkboxF">
+                                                                <input id="c1" style="margin-right: 10px; float: right;" type="checkbox" name="chkbox-1" value="yes" checked>
+                                                                <label for="c1"></label>
+
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+
+                                            </div>
+                                            <hr id="hr-1" />
+                                            <div>
+                                                <table style="width:100%">
+                                                    <tr>
+                                                        <td>
+                                                            <b>Allow others to share my post</b>
+                                                        </td>
+                                                        <td>
+                                                            <div class="checkboxF2">
+                                                                <input id="c2" style="margin-right: 10px; float: right" type="checkbox" name="chkbox-2" value="yes" checked>
+                                                                <label for="c2"></label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+
+                                            </div>
+                                        </div>
+
+                                        <h1 style="border-top: 5px solid red; width: 100%; padding-bottom: 10px"></h1>
+
+                                        <div>
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <h4>Photo</h4>
+                                                        @*/*****tab-component*******\*@
+                                                    </td>
+
+                                                    <td>
+                                                        <div>
+                                                            <img id="sett_profile_img" src="@Model.profilepic" style="border-radius: 3%; height: 150px; width: 200px;margin-left:31% " />
+
+                                                            <div class="overlay">
+                                                                <input multiple accept="image/*" type="file" name="profile_img" class="imgInput" style="margin-left: 32%" />
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+
+                                        <hr id="hr-1" />
+
+                                        <div>
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <h4>Background</h4>
+                                                    </td>
+                                                    <td>
+                                                        <div class="conImage">
+                                                            <img src="@Model.coverpic" style=" margin-left: 4%; border-radius: 3%; height: 150px; width: 300px;" />
+                                                            <div class="overlay">
+                                                                <input multiple accept="image/*" type="file" name="background_img" class="imgInput" style="margin-left: 23%" />
+                                                            </div>
+                                                        </div>
+
+                                                    </td>
+                                                </tr>
+                                            </table>
+
+                                        </div>
+
+                                        <hr id="hr-1" />
+
+                                        <div class="zoom">
+                                            <input type="submit" value="SAVE CHANGES" style="width: 150px; background-color: #2b3237; color: #ff0404; font-weight: bold;height: 35px;border-radius: 5px; margin-left: 35%" />
+                                        </div>
+                                        <hr id="hr-1" />
+
+                                        <h6 style="padding-top: 30px">
+                                            <b>*</b>
+                                            Information you provide (other than your password) may be shared with affiliates,
+                                            third-party search engines, and other third parties as explained in our <a href="#privacyPolicy" style="color: red;"><span>Privacy Policy</span></a>.
+                                            If you do not want us to share your information, please do not provide it.
+                                            <b>*</b>
+                                        </h6>
+
+                                    </form>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li id="account">
+
+                            <div class="accountSet">
+                                <div>
+                                    <a href="#changePassword" style="color: red;"><span id="myBtn2"><b>Change Password</b></span></a>
+                                </div>
+                                <hr id="hr-1" style="margin-right: 20px" />
+
+                                <div>
+                                    <a href="#deactivateAccount" style="color: red;"><span id="myBtn" ><b>Deactivate Account</b></span></a>
+                                </div>
+
+@*                                <hr id="hr-1" style="margin-right: 20px" />
+                                <div>
+                                    <a href="#viewBlockList" style="color: red;"><span><b>View Block List</b></span></a>
+                                </div>*@
+
+                                <hr id="hr-1" style="margin-right: 20px" />
+                                <div>
+                                    <a href="~/Home/Logout" style="color: red;"><span><b>Log Out</b></span></a>
+                                </div>
+                            </div>
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-md-4" style="border-radius: 15px; margin-left: 30px; margin-top: 5%">
+
+                <div class="well" id="help-cen-div" style="height: 275px; background-color: #1E2326;">
+
+                    <div class="input-group" style="margin-top: 25px">
+                        <input type="text" class="form-control" id="search_faq" onchange="faqcheck()" list="faq_list" placeholder="Search Frequently Asked Questions">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" id="faqBtn">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </span>
+                    </div>
+                    <div id="well-div2">
+                        <img src="~/Content/images/download.png" style="margin-left: 10px; height: 40px;" />
+                        <img src="~/Content/images/help.png" style="margin-left: 10px; height: 30px;" />
+                        <span></span>
+                        <img src="~/Content/images/247.png" style="margin-left: 10px; height: 30px;" />
+
+                        <img src="~/Content/images/support.png" style="margin-left: 10px; height: 30px;" />
+
+                        <p style="margin-top: 15px; font-size: small; float: right; color: #CC2222;">
+                            <font size="3"><b>VirtuallyEveryone Help Center</b></font>.
+                            <br />
+                            Get answers you need or contact Support Team.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="well" style="background-color: #1E2326;">
+                    <p style="color: white;">
+                        <img src="~/Content/images/vesmall.png" style="margin-left: 10px; height: 20px;" />
+                        <img src="~/Content/images/copyright.png" style="margin-left: 10px; height: 20px;" />
+                        <font size="3"><b>VirtuallyEveryone 2018</b></font>
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        // Get the modal
+        var modal2 = document.getElementById('myModal2');
+
+        // Get the button that opens the modal
+        var btn2 = document.getElementById("myBtn2");
+
+        // Get the <span> element that closes the modal
+        var span2 = document.getElementsByClassName("close2")[0];
+
+        // When the user clicks the button, open the modal 
+        btn2.onclick = function () {
+            modal2.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span2.onclick = function () {
+            modal2.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal2) {
+                modal2.style.display = "none";
+            }
+        }
+    </script>
+
+    <script>
+        $(document).ready(function () {
+
+            $('#old_pass').change(function () {
+
+                $('#result').hide();
+
+                var old_pass = $('#old_pass').val();
+
+                $.getJSON("/Home/CheckPassword?old_pass=" + old_pass, function (data) {
+
+                    if (data) {
+                        $('#result').text("Correct password !");
+                        $('#result').show();
+                    }
+                    else {
+                        document.getElementById('result').innerHTML = 'Password not correct';
+                        $('#result').show();
+                        document.getElementById('old_pass').value = '';
+                    }
+                });
+
+            });
+
+            $('#c_pass').change(function () {
+
+                var password = $('#new_pass').val();
+                var c_password = $('#c_pass').val();
+
+                if (password == c_password && $('#old_pass').val() != '') {
+
+                    $('#btn-changepass').attr("disabled", false);
+                    $('#result1').text("Password matched.");
+                    $('#result1').show();
+
+                }
+                else {
+
+                    $('#btn-changepass').attr("disabled", true);
+                    $('#result1').text("Password not matched.");
+                    $('#result1').show();
+                    $('#result').hide();
+                    document.getElementById('old_pass').value = '';
+                    document.getElementById('new_pass').value = '';
+                    document.getElementById('c_pass').value = '';
+                }
+
+            });
+
+            $('#btn-changepass').click(function () {
+
+                var new_pass = $('#new_pass').val();
+
+                $.getJSON("/Home/ChangePassword?new_pass="+new_pass, function (data) {
+                    if (data) {
+                        document.getElementById('old_pass').value = '';
+                        document.getElementById('new_pass').value = '';
+                        document.getElementById('c_pass').value = '';
+
+                        var modal2 = document.getElementById('myModal2');
+                        modal2.style.display = "none";
+
+                        alert("Password change successfully !");
+                    }
+                    else {
+                        alert("Update Failed");
+                    }
+                });
+
+            });
+
+        });
+    </script>
+
+
+</body>
+
+
+@****************ACTIVE MENU HIGHLIGHT****************@
+<script src="~/Scripts/js/jquery.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#1').click(function () {
+
+
+            $("#1").css("background-color", " #db1313");
+            $("#1").css("color", "white");
+
+
+            $("#2").css("background-color", " white");
+            $("#2").css("color", " red");
+
+            $("#3").css("background-color", " white");
+            $("#3").css("color", " red");
+
+
+
+        });
+        $('#2').click(function () {
+
+            $("#2").css("background-color", " #db1313");
+            $("#2").css("color", "white");
+
+
+            $("#1").css("background-color", " white");
+            $("#1").css("color", " red");
+
+            $("#3").css("background-color", " white");
+            $("#3").css("color", " red");
+
+            //alert("2");
+
+        });
+        $('#3').click(function () {
+
+            $("#3").css("background-color", " #db1313");
+            $("#3").css("color", "white");
+
+
+            $("#2").css("background-color", " white");
+            $("#2").css("color", " red");
+
+            $("#1").css("background-color", " white");
+            $("#1").css("color", " red");
+
+            //alert("3");
+        });
+
+    });
+
+</script>

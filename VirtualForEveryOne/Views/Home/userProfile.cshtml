@@ -1,0 +1,591 @@
+﻿@model virtually_everyone.Models.user
+@using virtually_everyone.Models;
+
+
+@{
+    var totalPost = ViewBag.totalPost;
+    var totalLike = ViewBag.totalLike;
+    var follower = ViewBag.follower;
+    ViewBag.page = "UserProfile";
+
+    List<answer> ans = TempData["answer"] as List<answer>;
+    List<faq> faq = TempData["faq"] as List<faq>;
+}
+<html lang="en">
+<head>
+    <title>@{ViewBag.Title = "Profile | VituallyEveryone ";}</title>
+
+    <link rel="stylesheet" href="~/Content/css/follow-btn.css" />
+
+    <script src="~/Scripts/js/jquery.js"></script>
+
+    <style>
+        #profile_img:hover {
+            opacity: 0.7;
+        }
+
+        /*Modal Background*/
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+        }
+        /* Modal Content (image) */
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            max-height: 90%;
+        }
+        /* Caption of Modal Image */
+        #caption {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            text-align: center;
+            color: #ccc;
+            padding: 10px 0;
+            height: 150px;
+            font-weight: bold;
+        }
+        /* Add Animation */
+        .modal-content, #caption {
+            -webkit-animation-name: zoom;
+            -webkit-animation-duration: 0.6s;
+            animation-name: zoom;
+            animation-duration: 0.6s;
+        }
+
+        @@-webkit-keyframes zoom {
+            from {
+                -webkit-transform: scale(0);
+            }
+
+            to {
+                -webkit-transform: scale(1);
+            }
+        }
+
+        @@keyframes zoom {
+            from {
+                transform: scale(0);
+            }
+
+            to {
+                transform: scale(1);
+            }
+        }
+
+        /* The Close Button */
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+            .close:hover,
+            .close:focus {
+                color: #bbb;
+                text-decoration: none;
+                cursor: pointer;
+            }
+
+        /* 100% Image Width on Smaller Screens */
+
+        @@media only screen and (max-width: 700px) {
+            .modal-content {
+                width: 100%;
+            }
+        }
+    </style>
+
+    <script>
+        function div_change(x) {
+            if (x = 1) {
+                $('.profile-top').css("background", "linear-gradient(rgba(255,0,0,0), rgba(43,50,55,1)),round url('/Content/images/dummy_cover.jpg')");
+            }
+            else if (x = 2) {
+                //var img = document.getElementById("profile_img");
+                //img.src = "/Content/images/dummy.png";
+
+                //document.getElementById("profile_img").src = "/Content/images/dummy.png";
+            }
+
+        }
+    </script>
+
+</head>
+
+<body>
+
+    <datalist id="faq_list">
+        @{
+            foreach (var f in faq)
+            {
+                <option value="@f.faq1"></option>
+            }
+
+        }
+    </datalist>
+
+    <div class="container" style="margin-left: 250px">
+
+        <div class="row">
+            <div class="profile-top" style="background: linear-gradient(rgba(255,0,0,0), rgba(43,50,55,1)),round url('@Model.coverpic')">
+
+                <img src="@Model.profilepic" id="profile_img" alt="Profile Picture" style="cursor:pointer;" />
+               
+                    <!-- The Modal -->
+                <div id="myModal" class="modal">
+                    <span class="close">&times;</span>
+                    <img src="" class="modal-content" id="profile_img01">
+                    <div id="caption"></div>
+                </div>
+
+                <script>
+                    // Get the modal
+                    var modal = document.getElementById('myModal');
+
+                    // Get the image and insert it inside the modal - use its "alt" text as a caption
+                    var img = document.getElementById('profile_img');
+                    var modalImg = document.getElementById("profile_img01");
+                    var captionText = document.getElementById("caption");
+                    img.onclick = function () {
+                        modal.style.display = "block";
+                        document.getElementById("profile_img01").src = this.src;
+                        captionText.innerHTML = this.alt;
+                    }
+
+                    // Get the <span> element that closes the modal
+                    var span = document.getElementsByClassName("close")[0];
+
+                    // When the user clicks on <span> (x), close the modal
+                    span.onclick = function () {
+                        modal.style.display = "none";
+                    }
+                </script>
+                
+                <h4 style="color: white; font: bolder"><img src="~/Content/images/online.png" /> @Model.fullname</h4>
+                <h5 style="color: white" id="username">@Model.username</h5>
+
+            </div>
+
+            @{
+                if (@Model.coverpic == null)
+                {
+                <script> div_change(1) </script>
+                }
+                else if (@Model.profilepic == null)
+                {
+                <script> div_change(2) </script>
+                } 
+            }
+
+            <div>
+
+                <div class="well" style="background-color: #1E2326; width: 50%; display: inline-block">
+                    
+                    <h4 id="ask-well-top">Ask yourself</h4>
+
+                    <form action="#" method="post">
+                        <div class="form-group">
+
+                            <input type="text" name="user" value="username" hidden />
+
+                            <textarea id="textarea" class="form-control" name="textarea" required></textarea>
+                        </div>
+                        <table>
+                            <tr>
+                                <td>
+                                    <label class="switch">
+                                        <input type="checkbox" id="checkbox">
+                                        <span class="slider"></span>
+                                    </label>
+
+                                </td>
+                                <td>
+                                    <h5 style="margin-left: 5px; color: #CC2222">Ask anonymously</h5>
+                                </td>
+                                <td>
+                                    <button id="btn-ask" type="submit" class="btn btn-primary" style="margin-left: 225px; width: 100px">Ask</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+
+                </div>
+
+                <div class="col-md-4" id="profile_side_div">
+
+                    <div class="profile-side-div">
+                        <div style="border-left:none">
+                            <img src="~/Content/images/post.png" /><br />
+                            <h4>@totalPost</h4>
+                            <h6>posts</h6>
+                        </div>
+                        <div>
+                            <img src="~/Content/images/plike.png" /><br />
+                            <h4>@totalLike</h4>
+                            <h6>likes</h6>
+                        </div>
+
+                        <div>
+                            <img src="~/Content/images/follower.png" /><br />
+                            <h4>@follower</h4>
+                            <h6>follower</h6>
+                        </div>
+                    </div>
+                    <div class="profile-side-div2">
+                        <h5>About me</h5>
+                      <a href="~/Home/Settings#profile">  <h6>Edit profile</h6></a>
+                    </div>
+                    <div class="profile-side-div3">
+                        <img src="~/Content/images/ques_icon.png" />
+
+                        @if (@Model.bio == null)
+                        {
+                           <a href="#"> <p>Tell us some things about yourself...</p></a>
+                        }
+                        else
+                        {
+                            <a href="#"> <p>@Model.bio</p></a>
+                        }
+                        <br />
+                        <img src="~/Content/images/ques_icon.png" />
+                        @if (@Model.skills == null)
+                        {
+                           <a href="#"> <p>Add your skills...</p></a>  
+                        }
+                        else
+                        {
+                            <a href="#"> <p>Skills : @Model.skills</p></a>   
+                        }
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-lg-8" style="border: solid 1px; border-color: lightgrey">
+
+                <div id="mydiv">
+                    <table class="ques-table2">
+                        @{
+                            int i = 1;
+
+                            foreach (var a in ans)
+                            {
+                            <tr>
+                                <td>
+                                    <hr style="color: gray; width: 475px" />
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <h5 style="display: inline-block" id="ques">@a.question</h5>
+
+                                    @if (a.image != null)
+                                    {
+                                        <br />
+                                        <img style="display: inline-block; width:300px; cursor:pointer" id="ques-img" class="c-ques-img" src="@a.image" />
+                                    }
+                                    @if (a.s_profilepic != null)
+                                    {
+                                        <img style="width: 25px; height: 25px; display: inline-block" src="@a.s_profilepic" />
+                                    }
+                                </td>
+
+                                <td>
+                                    <input type="text" id="likefield" name="likefield" hidden />
+                                    <input type="text" id="dislikefield" name="dislikefield" hidden />
+                                    <input type="text" name="@i" id="@i" value="@a.Id" hidden />
+                                    <input type="text" id="input-field-id" name="input-field-id" value="@a.Id" hidden />
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <div id="ans-div">
+                                        <p><img src="@a.a_profilepic" />@@ @a.a_username</p>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <p style="font: bolder">@a.ans</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="example">
+                                        <div class="rating" id="rating">
+                                            <button class="btn btn-default like " id="like" onmouseover="like(@i)">
+                                                <img class="img-like" src="~/Content/images/like.png" />Like</button>
+                                            <span class="likes">@a.like</span>
+                                            <button class="btn btn-default dislike" id="dislike" onmouseover="dislike(@i)">
+                                                <img class="img-dislike" src="~/Content/images/dislike.png" />Dislike</button>
+                                            <span class="dislikes">@a.dislike</span>
+                                        </div>
+
+                                    </div>
+                                </td>
+                            </tr>
+
+                                i++;
+                            }
+                        }
+                    </table>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+
+                <div class="well" id="help-cen-div" style="height: 275px; background-color: #1E2326;">
+
+                    <div class="input-group" style="margin-top: 25px">
+                        <input type="text" class="form-control" id="search_faq" onchange="faqcheck()" list="faq_list" placeholder="Search Frequently Asked Questions">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" id="faqBtn">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </span>
+                    </div>
+                    <div id="well-div2">
+                        <img src="~/Content/images/download.png" style="margin-left: 10px; height: 40px;" />
+                        <img src="~/Content/images/help.png" style="margin-left: 10px; height: 30px;" />
+                        <span></span>
+                        <img src="~/Content/images/247.png" style="margin-left: 10px; height: 30px;" />
+
+                        <img src="~/Content/images/support.png" style="margin-left: 10px; height: 30px;" />
+
+                        <p style="margin-top: 15px; font-size: small; float: right; color: #CC2222;">
+                            <font size="3"><b>VirtuallyEveryone Help Center</b></font>.
+                            <br />
+                            Get answers you need or contact Support Team.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="well" style="background-color: #1E2326;">
+                    <p style="color: white;">
+                        <img src="~/Content/images/vesmall.png" style="margin-left: 10px; height: 20px;" />
+                        <img src="~/Content/images/copyright.png" style="margin-left: 10px; height: 20px;" />
+                        <font size="3"><b>VirtuallyEveryone 2018</b></font>
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div id="myModal1" class="modal1">
+            <span class="close1">&times;</span>
+            <img src="" class="modal-content1" id="q_img01">
+            <div id="caption1"></div>
+        </div>
+
+        <script>
+            // Get the modal
+            var modal1 = document.getElementById('myModal1');
+
+            // Get the image and insert it inside the modal - use its "alt" text as a caption
+            var classname = document.getElementsByClassName('c-ques-img');
+            var modalImg = document.getElementById("q_img01");
+            var captionText = document.getElementById("caption1");
+            var showModal = function () {
+                modal1.style.display = "block";
+                modalImg.src = this.src;
+                captionText.innerHTML = this.alt;
+            }
+
+            for (var i = 0; i < classname.length; i++) {
+                classname[i].addEventListener('click', showModal, false);
+            }
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close1")[0];
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function () {
+                modal1.style.display = "none";
+            }
+
+        </script>
+
+    </div>
+
+    <script src="~/Scripts/js/jquery.js"></script>
+    <script src="~/Scripts/js/bootstrap.min.js"></script>
+
+</body>
+
+    <script>
+        $('button.followButton').click('click', function (e) {
+            e.preventDefault();
+            $button = $(this);
+            if ($button.hasClass('following')) {
+
+                //$.ajax(); Do Unfollow
+
+                $button.removeClass('following');
+                $button.removeClass('unfollow');
+                $button.text('Follow');
+            } else {
+
+                // $.ajax(); Do Follow
+
+                $button.addClass('following');
+                $button.text('Following');
+            }
+        });
+
+        $('button.followButton').hover(function () {
+            $button = $(this);
+            if ($button.hasClass('following')) {
+                $button.addClass('unfollow');
+                $button.text('Unfollow');
+            }
+        }, function () {
+            if ($button.hasClass('following')) {
+                $button.removeClass('unfollow');
+                $button.text('Following');
+            }
+        });
+
+    </script>
+
+@*        <script>
+            function check() {
+                var a = document.getElementById("chk").value;
+                if (a == 1) {
+                    myFunction();
+                }
+            }
+    </script>*@
+
+    <script>
+            $(document).ready(function () {
+
+                $('#btn-ask').click(function () {
+
+                    var textarea = $('#textarea').val();
+
+                    var tags = document.getElementById("username").innerHTML;
+
+                    if ($('#checkbox').is(":checked")) {
+                        //alert("in cb success");
+                        var x = 1;
+                    }
+                    else {
+                        //alert("in cb 0");
+                        var x = 0;
+                    }
+
+                    if (textarea == "") {
+
+                        alert("Empty");
+
+                    }
+                    else {
+
+                        $.getJSON("/Home/Save_post?" + "&textarea=" + textarea + "&checkbox=" + x + "&tags=" + tags, function (data) {
+                            $('#checking').hide();
+                            if (data) {
+                                myFunction();
+                                document.getElementById("textarea").value = "";
+                            }
+                            else {
+                                alert("unsucessfull");
+                            }
+
+                        });
+                    }
+
+                });
+
+            });
+    </script>
+
+    <script>
+        function like(x) {
+            var a = document.getElementById(x).value;
+            //alert(a);
+            document.getElementById("likefield").value = a;
+            document.getElementById("dislikefield").value = "0";
+        }
+    </script>
+
+    <script>
+        function dislike(x) {
+
+            var a = document.getElementById(x).value;
+            //alert(a);
+            document.getElementById("dislikefield").value = a;
+            document.getElementById("likefield").value = "0";
+        }s
+    </script>
+
+    <script>
+        $(document).ready(function () {
+
+            $(document).on('click', '#like', function () {
+
+                var likefield_id = $('#likefield').val();
+                var dislikefield_id = $('#dislikefield').val();
+
+                //alert(dislikefield_id);
+
+                $.getJSON("/Home/Set_like_dislike?" + "&likefield=" + likefield_id + "&dislikefield=" + dislikefield_id, function (data) {
+                    if (data) {
+                        $('#mydiv').load(location.href + " #mydiv>*", "");
+
+                    }
+                    else {
+                        alert("Already liked !");
+                    }
+
+                });
+
+            });
+
+            $(document).on('click', '#dislike', function () {
+
+                var likefield_id = $('#likefield').val();
+                var dislikefield_id = $('#dislikefield').val();
+
+                //alert(likefield_id);
+
+                $.getJSON("/Home/Set_like_dislike?" + "&likefield=" + likefield_id + "&dislikefield=" + dislikefield_id, function (data) {
+                    if (data) {
+                        $('#mydiv').load(location.href + " #mydiv>*", "");
+
+                    }
+                    else {
+                        alert("Already disliked !");
+                    }
+
+                });
+
+            });
+
+        });
+    </script>
+
+
+</html>
