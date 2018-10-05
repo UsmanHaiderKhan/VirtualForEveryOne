@@ -7,7 +7,7 @@ namespace VirtualForEveryOne.Controllers
 {
     public class AdminController : Controller
     {
-        virtuallyeveryonedbEntities1 db1 = new virtuallyeveryonedbEntities1();
+        VirtualContext db1 = new VirtualContext();
 
 
         static string logged_admin;
@@ -29,7 +29,7 @@ namespace VirtualForEveryOne.Controllers
             }
             else
             {
-                return View(db1.user.ToList());
+                return View(db1.Users.ToList());
             }
         }
 
@@ -41,7 +41,7 @@ namespace VirtualForEveryOne.Controllers
             }
             else
             {
-                return View(db1.group.ToList());
+                return View(db1.Groups.ToList());
             }
         }
 
@@ -54,7 +54,7 @@ namespace VirtualForEveryOne.Controllers
             }
             else
             {
-                return View(db1.report.ToList());
+                return View(db1.Reports.ToList());
             }
         }
 
@@ -64,7 +64,7 @@ namespace VirtualForEveryOne.Controllers
             string username = Request["username"];
             string password = Request["password"];
 
-            foreach (var s in db1.admin)
+            foreach (var s in db1.Admins)
             {
                 if (username.Equals(s.name) && password.Equals(s.password))
                 {
@@ -88,7 +88,7 @@ namespace VirtualForEveryOne.Controllers
             }
             else
             {
-                user u = db1.user.Find(id, username);
+                User u = db1.Users.Find(id, username);
                 if (u == null)
                 {
                     return HttpNotFound();
@@ -109,17 +109,17 @@ namespace VirtualForEveryOne.Controllers
             }
             else
             {
-                user u = db1.user.Find(id, username);
+                User u = db1.Users.Find(id, username);
                 string name = u.username.Remove(0, 1);
-                db1.user.Remove(u);
+                db1.Users.Remove(u);
 
-                db1.answer.Where(p => p.username == name).ToList().ForEach(p => db1.answer.Remove(p));
-                db1.friends.Where(p => p.username == name || p.userfriends == name).ToList().ForEach(p => db1.friends.Remove(p));
+                db1.Answers.Where(p => p.username == name).ToList().ForEach(p => db1.Answers.Remove(p));
+                db1.Friendses.Where(p => p.username == name || p.userfrirends == name).ToList().ForEach(p => db1.Friendses.Remove(p));
                 //db1.notification.Where(p => p.username == name || p.notifier == name).ToList().ForEach(p => db1.notification.Remove(p));
-                db1.post.Where(p => p.username == name).ToList().ForEach(p => db1.post.Remove(p));
-                db1.report.Where(p => p.username == name).ToList().ForEach(p => db1.report.Remove(p));
-                db1.sharedPost.Where(p => p.username == name).ToList().ForEach(p => db1.sharedPost.Remove(p));
-                db1.userLike.Where(p => p.username == name).ToList().ForEach(p => db1.userLike.Remove(p));
+                db1.Posts.Where(p => p.username == name).ToList().ForEach(p => db1.Posts.Remove(p));
+                db1.Reports.Where(p => p.username == name).ToList().ForEach(p => db1.Reports.Remove(p));
+                db1.SharedPosts.Where(p => p.username == name).ToList().ForEach(p => db1.SharedPosts.Remove(p));
+                db1.UserLikes.Where(p => p.username == name).ToList().ForEach(p => db1.UserLikes.Remove(p));
 
                 db1.SaveChanges();
                 TempData["alert message"] = "User has been deleted from All tables";
@@ -137,7 +137,7 @@ namespace VirtualForEveryOne.Controllers
             }
             else
             {
-                group g = db1.group.Find(id, groupid);
+                Group g = db1.Groups.Find(id, groupid);
                 if (g == null)
                 {
                     return HttpNotFound();
@@ -156,8 +156,8 @@ namespace VirtualForEveryOne.Controllers
             }
             else
             {
-                group g = db1.group.Find(id, groupid);
-                db1.group.Remove(g);
+                Group g = db1.Groups.Find(id, groupid);
+                db1.Groups.Remove(g);
 
 
                 db1.SaveChanges();
@@ -180,7 +180,7 @@ namespace VirtualForEveryOne.Controllers
             }
             else
             {
-                report u = db1.report.Find(id);
+                Report u = db1.Reports.Find(id);
                 if (u == null)
                 {
                     return HttpNotFound();
@@ -197,11 +197,11 @@ namespace VirtualForEveryOne.Controllers
             }
             else
             {
-                answer u = db1.answer.Find(id);
+                Answer u = db1.Answers.Find(id);
                 if (u == null)
                 {
                     TempData["alert message"] = "PostId is Invalid";
-                    report r = db1.report.Find(reportid);
+                    Report r = db1.Reports.Find(reportid);
                     r.status = "Complete";
                     db1.SaveChanges();
                     return RedirectToAction("viewReport", new { id = reportid });
@@ -226,26 +226,26 @@ namespace VirtualForEveryOne.Controllers
             else
             {
 
-                answer u = db1.answer.Find(id);
-                db1.answer.Remove(u);
+                Answer u = db1.Answers.Find(id);
+                db1.Answers.Remove(u);
 
-                report r = db1.report.Find(reportid);
+                Report r = db1.Reports.Find(reportid);
                 r.status = "Deleted";
 
                 int i = int.Parse(r.postid);
-                answer a = db1.answer.Where(o => o.Id == i).First(); // notify person against complaint
+                Answer a = db1.Answers.Where(o => o.Id == i).First(); // notify person against complaint
                 string user = a.username;
-                notification n = new notification();
+                Notification n = new Notification();
                 n.postid = "r" + r.postid.ToString();
                 n.username = user;
                 n.notifier = "Admin";
                 n.state = false;
                 n.time = DateTime.Now;
                 n.type = "deleted your post";
-                db1.notification.Add(n);
+                db1.Notifications.Add(n);
 
 
-                notification n1 = new notification(); // notify who complaint
+                Notification n1 = new Notification(); // notify who complaint
                 n1.postid = "r" + r.postid.ToString();
                 n1.username = r.username;
                 n1.notifier = "Admin";
@@ -253,7 +253,7 @@ namespace VirtualForEveryOne.Controllers
                 n1.time = DateTime.Now;
                 n1.type = "took action and deleted the post";
 
-                db1.notification.Add(n1);
+                db1.Notifications.Add(n1);
 
                 db1.SaveChanges();
 
@@ -276,21 +276,21 @@ namespace VirtualForEveryOne.Controllers
             }
             else
             {
-                report r = db1.report.Find(reportid);
+                Report r = db1.Reports.Find(reportid);
                 r.status = "warned";
 
 
                 int i = int.Parse(r.postid);
-                answer a = db1.answer.Where(o => o.Id == i).First(); // notify person against complaint
+                Answer a = db1.Answers.Where(o => o.Id == i).First(); // notify person against complaint
                 string user = a.username;
-                notification n = new notification();
+                Notification n = new Notification();
                 n.postid = "r" + r.postid.ToString();
                 n.username = user;
                 n.notifier = "Admin";
                 n.state = false;
                 n.time = DateTime.Now;
                 n.type = "warned you on your post";
-                db1.notification.Add(n);
+                db1.Notifications.Add(n);
 
 
                 Notification n1 = new Notification(); // notify who complaint
@@ -301,7 +301,7 @@ namespace VirtualForEveryOne.Controllers
                 n1.time = DateTime.Now;
                 n1.type = "gave warning againist your complaint";
 
-                db1.notification.Add(n1);
+                db1.Notifications.Add(n1);
 
                 db1.SaveChanges();
 
