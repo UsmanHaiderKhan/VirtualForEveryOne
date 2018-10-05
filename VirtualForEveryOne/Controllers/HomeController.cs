@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using VirtualForEveryOne.Models;
 
 namespace VirtualForEveryOne.Controllers
 {
@@ -9,7 +10,7 @@ namespace VirtualForEveryOne.Controllers
     {    //
         // GET: /Home/
 
-        virtuallyeveryonedbEntities1 db = new virtuallyeveryonedbEntities1();
+        VirtualContext db = new VirtualContext();
 
         static string logged_user;
         static string search_user;
@@ -30,17 +31,17 @@ namespace VirtualForEveryOne.Controllers
                 string get_user = Session["username"].ToString();
                 ViewBag.username = get_user;
 
-                TempData["friends"] = (from a in db.friends.Where(x => x.username == logged_user) select a).ToList();
+                TempData["friends"] = (from a in db.Friendses.Where(x => x.username == logged_user) select a).ToList();
 
-                TempData["user"] = (from u in db.user select u).ToList();
+                TempData["user"] = (from u in db.Users select u).ToList();
 
-                TempData["sharedPost"] = db.sharedPost.OrderByDescending(u => u.Id).ToList();
+                TempData["sharedPost"] = db.SharedPosts.OrderByDescending(u => u.id).ToList();
 
-                TempData["answer"] = (from n in db.answer where n.status == null || n.status == "1" orderby n.Id descending select n).ToList();
+                TempData["answer"] = (from n in db.Answers where n.status == null || n.status == "1" orderby n.Id descending select n).ToList();
 
-                TempData["faq"] = (from f in db.faq select f).ToList();
+                TempData["faq"] = (from f in db.Faqs select f).ToList();
 
-                ViewBag.count = db.notification.Where(u => u.username == logged_user && u.state == false && u.notifier != logged_user).Count();
+                ViewBag.count = db.Notifications.Where(u => u.username == logged_user && u.state == false && u.notifier != logged_user).Count();
 
                 return View();
             }
@@ -54,10 +55,10 @@ namespace VirtualForEveryOne.Controllers
             }
             else
             {
-                ViewBag.count = db.notification.Where(u => u.username == logged_user && u.state == false && u.notifier != logged_user).Count();
-                TempData["faq"] = (from f in db.faq select f).ToList();
+                ViewBag.count = db.Notifications.Where(u => u.username == logged_user && u.state == false && u.notifier != logged_user).Count();
+                TempData["faq"] = (from f in db.Faqs select f).ToList();
 
-                return View(db.user.First(x => x.username.Equals("@" + logged_user)));
+                return View(db.Users.First(x => x.username.Equals("@" + logged_user)));
 
             }
         }
@@ -74,14 +75,14 @@ namespace VirtualForEveryOne.Controllers
 
                 ViewBag.username = get_user;
 
-                TempData["friends"] = (from a in db.friends.Where(x => x.username == logged_user) select a).ToList();
-                TempData["user"] = (from u in db.user select u).ToList();
+                TempData["friends"] = (from a in db.Friendses.Where(x => x.username == logged_user) select a).ToList();
+                TempData["user"] = (from u in db.Users select u).ToList();
 
-                TempData["post"] = (from n in db.post where n.tags == null || n.tags == logged_user orderby n.Id descending select n).ToList();
+                TempData["post"] = (from n in db.Posts where n.tag == null || n.tag == logged_user orderby n.Id descending select n).ToList();
                 //db.post.OrderByDescending(n => n.Id).ToList();
-                TempData["faq"] = (from f in db.faq select f).ToList();
+                TempData["faq"] = (from f in db.Faqs select f).ToList();
 
-                ViewBag.count = db.notification.Where(u => u.username == logged_user && u.state == false && u.notifier != logged_user).Count();
+                ViewBag.count = db.Notifications.Where(u => u.username == logged_user && u.state == false && u.notifier != logged_user).Count();
 
                 return View();
             }
@@ -97,17 +98,17 @@ namespace VirtualForEveryOne.Controllers
             {
                 var logged_user1 = "@" + (Session["username"].ToString()).Remove(0, 1);
 
-                var getCount = (from a in db.answer where a.username == logged_user select a.like.Value).DefaultIfEmpty(0).Sum();
+                var getCount = (from a in db.Answers where a.username == logged_user select a.like.Value).DefaultIfEmpty(0).Sum();
 
                 ViewBag.totalLike = getCount;
-                ViewBag.totalPost = db.post.Count(x => x.username == logged_user);
-                ViewBag.count = db.notification.Where(u => u.username == logged_user && u.state == false && u.notifier != logged_user).Count();
-                ViewBag.follower = db.friends.Count(f => f.username == logged_user);
+                ViewBag.totalPost = db.Posts.Count(x => x.username == logged_user);
+                ViewBag.count = db.Notifications.Where(u => u.username == logged_user && u.state == false && u.notifier != logged_user).Count();
+                ViewBag.follower = db.Friendses.Count(f => f.username == logged_user);
 
-                TempData["answer"] = (from ans in db.answer where ans.a_username == logged_user || ans.username == logged_user orderby ans.Id descending select ans).ToList();
-                TempData["faq"] = (from f in db.faq select f).ToList();
+                TempData["answer"] = (from ans in db.Answers where ans.a_username == logged_user || ans.username == logged_user orderby ans.Id descending select ans).ToList();
+                TempData["faq"] = (from f in db.Faqs select f).ToList();
 
-                return View(db.user.First(x => x.username == logged_user1));
+                return View(db.Users.First(x => x.username == logged_user1));
             }
         }
 
@@ -126,10 +127,10 @@ namespace VirtualForEveryOne.Controllers
                 }
                 else
                 {
-                    friends check;
+                    Friends check;
                     var search_user1 = search_user.Remove(0, 1);
 
-                    check = (from a in db.friends where a.username == logged_user && a.userfriends == search_user.Remove(0, 1) select a).FirstOrDefault();
+                    check = (from a in db.Friendses where a.username == logged_user && a.userfrirends == search_user.Remove(0, 1) select a).FirstOrDefault();
 
                     if (check == null)
                     {
@@ -140,17 +141,17 @@ namespace VirtualForEveryOne.Controllers
                         ViewBag.check = 1;
                     }
 
-                    var getCount = (from a in db.answer where a.username == search_user1 select a.like.Value).DefaultIfEmpty(0).Sum();
+                    var getCount = (from a in db.Answers where a.username == search_user1 select a.like.Value).DefaultIfEmpty(0).Sum();
 
                     ViewBag.totalLike = getCount;
-                    ViewBag.totalPost = db.post.Count(x => x.username == search_user1);
-                    ViewBag.count = db.notification.Where(u => u.username == logged_user && u.state == false && u.notifier != logged_user).Count();
-                    ViewBag.follower = db.friends.Count(f => f.username == logged_user);
+                    ViewBag.totalPost = db.Posts.Count(x => x.username == search_user1);
+                    ViewBag.count = db.Notifications.Where(u => u.username == logged_user && u.state == false && u.notifier != logged_user).Count();
+                    ViewBag.follower = db.Friendses.Count(f => f.username == logged_user);
 
-                    TempData["answer"] = (from ans in db.answer where ans.a_username == search_user1 || ans.username == search_user1 orderby ans.Id descending select ans).ToList();
-                    TempData["faq"] = (from f in db.faq select f).ToList();
+                    TempData["answer"] = (from ans in db.Answers where ans.a_username == search_user1 || ans.username == search_user1 orderby ans.Id descending select ans).ToList();
+                    TempData["faq"] = (from f in db.Faqs select f).ToList();
 
-                    return View(db.user.First(x => x.username.Equals(search_user)));
+                    return View(db.Users.First(x => x.username.Equals(search_user)));
                 }
             }
         }
@@ -163,13 +164,13 @@ namespace VirtualForEveryOne.Controllers
             }
             else
             {
-                TempData["user"] = (from a in db.user select a).ToList();
-                TempData["faq"] = (from f in db.faq select f).ToList();
+                TempData["user"] = (from a in db.Users select a).ToList();
+                TempData["faq"] = (from f in db.Faqs select f).ToList();
 
                 ViewBag.username = logged_user;
-                ViewBag.count = db.notification.Where(u => u.username == logged_user && u.state == false && u.notifier != logged_user).Count();
+                ViewBag.count = db.Notifications.Where(u => u.username == logged_user && u.state == false && u.notifier != logged_user).Count();
 
-                return View(db.friends.Where(x => x.username == logged_user).ToList());
+                return View(db.Friendses.Where(x => x.username == logged_user).ToList());
             }
         }
 
@@ -181,13 +182,13 @@ namespace VirtualForEveryOne.Controllers
             }
             else
             {
-                TempData["post"] = db.post.ToList();
-                TempData["answer"] = db.answer.ToList();
-                TempData["faq"] = (from f in db.faq select f).ToList();
+                TempData["post"] = db.Posts.ToList();
+                TempData["answer"] = db.Answers.ToList();
+                TempData["faq"] = (from f in db.Faqs select f).ToList();
 
-                ViewBag.count = db.notification.Where(u => u.username == logged_user && u.state == false && u.notifier != logged_user).Count();
+                ViewBag.count = db.Notifications.Where(u => u.username == logged_user && u.state == false && u.notifier != logged_user).Count();
 
-                var query = (from n in db.notification where n.username == logged_user && n.notifier != logged_user orderby n.time descending select n).ToList();
+                var query = (from n in db.Notifications where n.username == logged_user && n.notifier != logged_user orderby n.time descending select n).ToList();
 
                 return View(query);
             }
@@ -198,7 +199,7 @@ namespace VirtualForEveryOne.Controllers
             string con_user = Request["username"];
             string username = "@" + con_user;
 
-            foreach (var s in db.user)
+            foreach (var s in db.Users)
             {
                 if (username.ToLower().Equals(s.username))
                 {
@@ -219,7 +220,7 @@ namespace VirtualForEveryOne.Controllers
             string skills = Request["skills"];
             string password = Request["password"];
 
-            user u = new user();
+            User u = new User();
 
             u.fullname = fullname;
             u.username = "@" + username.ToLower();
@@ -227,7 +228,7 @@ namespace VirtualForEveryOne.Controllers
             u.skills = skills;
             u.password = password;
 
-            db.user.Add(u);
+            db.Users.Add(u);
             db.SaveChanges();
 
             Session["username"] = username;
@@ -241,7 +242,7 @@ namespace VirtualForEveryOne.Controllers
             string username = "@" + Request["log_username"];
             string password = Request["log_password"];
 
-            foreach (var s in db.user)
+            foreach (var s in db.Users)
             {
                 if (username.Equals(s.username) && password.Equals(s.password))
                 {
@@ -265,20 +266,20 @@ namespace VirtualForEveryOne.Controllers
                 tags = null;
             }
 
-            post p = new post();
-            notification noti = new notification();
+            Post p = new Post();
+            Notification noti = new Notification();
 
             p.username = logged_user;
-            p.questions = question;
+            p.question = question;
             p.anonymous = Convert.ToBoolean(Convert.ToInt32(anonymous));
 
             if (tags != null)
             {
-                var query = (from i in db.post orderby i.Id descending select i).FirstOrDefault();
+                var query = (from i in db.Posts orderby i.Id descending select i).FirstOrDefault();
 
                 int id = query.Id + 1;
 
-                p.tags = tags;
+                p.tag = tags;
 
                 noti.postid = "q" + id.ToString();
                 noti.username = tags;
@@ -287,12 +288,12 @@ namespace VirtualForEveryOne.Controllers
                 noti.state = false;
                 noti.time = DateTime.Now;
 
-                db.notification.Add(noti);
+                db.Notifications.Add(noti);
             }
 
             try
             {
-                db.post.Add(p);
+                db.Posts.Add(p);
                 db.SaveChanges();
             }
             catch (Exception e)
@@ -329,7 +330,7 @@ namespace VirtualForEveryOne.Controllers
 
             HttpPostedFileBase f1 = Request.Files[0];
 
-            post p = new post();
+            Post p = new Post();
 
             if (anonymous == false)
             {
@@ -341,7 +342,7 @@ namespace VirtualForEveryOne.Controllers
             }
 
             p.username = logged_user;
-            p.questions = question;
+            p.question = question;
 
             if (f1.FileName != "")
             {
@@ -351,7 +352,7 @@ namespace VirtualForEveryOne.Controllers
                 p.image = image;
             }
 
-            db.post.Add(p);
+            db.Posts.Add(p);
             db.SaveChanges();
 
             TempData["value"] = 1;
@@ -361,20 +362,20 @@ namespace VirtualForEveryOne.Controllers
 
         public JsonResult Save_answer()
         {
-            user u, s_user;
-            notification noti = new notification();
+            User u, s_user;
+            Notification noti = new Notification();
 
             int ques_id = int.Parse(Request["ques_id"]);
 
-            post p = db.post.First(n => n.Id.Equals(ques_id));
+            Post p = db.Posts.First(n => n.Id.Equals(ques_id));
 
-            u = db.user.First(n => n.username.Equals("@" + logged_user));
+            u = db.Users.First(n => n.username.Equals("@" + logged_user));
 
-            s_user = db.user.First(n => n.username.Equals("@" + p.username));
+            s_user = db.Users.First(n => n.username.Equals("@" + p.username));
 
             string answer = Request["ans-textarea"];
 
-            answer a = new answer();
+            Answer a = new Answer();
 
             if (p.anonymous == false)
             {
@@ -384,7 +385,7 @@ namespace VirtualForEveryOne.Controllers
             a.image = p.image;
             a.username = p.username;
             a.a_username = logged_user;
-            a.question = p.questions;
+            a.question = p.question;
             a.ans = answer;
             a.a_profilepic = u.profilepic;
             a.like = 0;
@@ -400,8 +401,8 @@ namespace VirtualForEveryOne.Controllers
 
             try
             {
-                db.answer.Add(a);
-                db.notification.Add(noti);
+                db.Answers.Add(a);
+                db.Notifications.Add(noti);
                 db.SaveChanges();
                 return this.Json(true, JsonRequestBehavior.AllowGet);
             }
@@ -414,28 +415,28 @@ namespace VirtualForEveryOne.Controllers
 
         public JsonResult Set_like_dislike()
         {
-            userLike u_like = new userLike();
-            notification noti = new notification();
-            answer a;
+            UserLike u_like = new UserLike();
+            Notification noti = new Notification();
+            Answer a;
 
             int likefield_id = int.Parse(Request["likefield"]);
             int dislikefield_id = int.Parse(Request["dislikefield"]);
 
             if (likefield_id.Equals(0))
             {
-                a = db.answer.First(n => n.Id.Equals(dislikefield_id));
+                a = db.Answers.First(n => n.Id.Equals(dislikefield_id));
             }
             else
             {
-                a = db.answer.First(n => n.Id.Equals(likefield_id));
+                a = db.Answers.First(n => n.Id.Equals(likefield_id));
             }
 
             u_like.username = logged_user;
-            u_like.questions = a.question;
+            u_like.question = a.question;
             u_like.image = a.image;
             u_like.answer = a.ans;
 
-            var check = (from ch in db.userLike.Where(y => y.questions == a.question && y.answer == a.ans && y.username == logged_user)
+            var check = (from ch in db.UserLikes.Where(y => y.question == a.question && y.answer == a.ans && y.username == logged_user)
                          select ch).SingleOrDefault();
 
             if (check == null && likefield_id.Equals(0))
@@ -451,8 +452,8 @@ namespace VirtualForEveryOne.Controllers
                 noti.time = DateTime.Now;
                 noti.type = "dislike";
 
-                db.notification.Add(noti);
-                db.userLike.Add(u_like);
+                db.Notifications.Add(noti);
+                db.UserLikes.Add(u_like);
                 db.SaveChanges();
 
                 return this.Json(true, JsonRequestBehavior.AllowGet);
@@ -471,8 +472,8 @@ namespace VirtualForEveryOne.Controllers
                 noti.time = DateTime.Now;
                 noti.type = "like";
 
-                db.notification.Add(noti);
-                db.userLike.Add(u_like);
+                db.Notifications.Add(noti);
+                db.UserLikes.Add(u_like);
                 db.SaveChanges();
                 return this.Json(true, JsonRequestBehavior.AllowGet);
             }
@@ -492,7 +493,7 @@ namespace VirtualForEveryOne.Controllers
                 noti.time = DateTime.Now;
                 noti.type = "dislike";
 
-                db.notification.Add(noti);
+                db.Notifications.Add(noti);
                 db.SaveChanges();
                 return this.Json(true, JsonRequestBehavior.AllowGet);
             }
@@ -512,14 +513,14 @@ namespace VirtualForEveryOne.Controllers
                 noti.time = DateTime.Now;
                 noti.type = "like";
 
-                db.notification.Add(noti);
+                db.Notifications.Add(noti);
                 db.SaveChanges();
                 return this.Json(true, JsonRequestBehavior.AllowGet);
             }
             //new
             else if (check != null && likefield_id.Equals(0) && check.dislike.Equals(1))
             {
-                db.userLike.Remove(check);
+                db.UserLikes.Remove(check);
                 a.dislike = a.dislike - 1;
 
                 db.SaveChanges();
