@@ -529,7 +529,7 @@ namespace VirtualForEveryOne.Controllers
 
             else if (check != null && dislikefield_id.Equals(0) && check.like.Equals(1))
             {
-                db.userLike.Remove(check);
+                db.UserLikes.Remove(check);
                 a.like = a.like - 1;
 
                 db.SaveChanges();
@@ -557,13 +557,13 @@ namespace VirtualForEveryOne.Controllers
         [HttpPost]
         public ActionResult Save_settings()
         {
-            user u = (from a in db.user.Where(x => x.username == "@" + logged_user) select a).FirstOrDefault();
+            User u = (from a in db.Users.Where(x => x.username == "@" + logged_user) select a).FirstOrDefault();
 
-            var ans = (from a in db.answer.Where(y => y.a_username == logged_user) select a).ToList();
-            var ans_obj1 = (from obj in db.answer.Where(z => z.username == logged_user) select obj).ToList();
+            var ans = (from a in db.Answers.Where(y => y.a_username == logged_user) select a).ToList();
+            var ans_obj1 = (from obj in db.Answers.Where(z => z.username == logged_user) select obj).ToList();
 
-            answer save_sett;
-            answer save_sett1;
+            Answer save_sett;
+            Answer save_sett1;
 
             string profile_img;
             string cover_img;
@@ -634,14 +634,14 @@ namespace VirtualForEveryOne.Controllers
             }
             else if (fullname.Substring(0, 1) == "@")
             {
-                var get_result = (from a in db.user where a.username.StartsWith(fullname) select a).ToList();
+                var get_result = (from a in db.Users where a.username.StartsWith(fullname) select a).ToList();
                 TempData["data"] = get_result;
 
                 return this.Json(get_result, JsonRequestBehavior.AllowGet);
             }
             else
             {
-                var get_result = (from a in db.user where a.fullname.StartsWith(fullname) select a).ToList();
+                var get_result = (from a in db.Users where a.fullname.StartsWith(fullname) select a).ToList();
                 TempData["data"] = get_result;
 
                 return this.Json(get_result, JsonRequestBehavior.AllowGet);
@@ -658,7 +658,7 @@ namespace VirtualForEveryOne.Controllers
             }
             else
             {
-                var get_result = (from a in db.user where a.skills == skill select a).ToList();
+                var get_result = (from a in db.Users where a.skills == skill select a).ToList();
                 //TempData["data"] = get_result;
                 return this.Json(get_result, JsonRequestBehavior.AllowGet);
             }
@@ -677,16 +677,16 @@ namespace VirtualForEveryOne.Controllers
 
             f_username = f_username.Remove(0, 1).Trim();
 
-            friends f1 = new friends();
-            friends f2 = new friends();
+            Friends f1 = new Friends();
+            Friends f2 = new Friends();
 
             f1.username = logged_user;
-            f1.userfriends = f_username;
-            db.friends.Add(f1);
+            f1.userfrirends = f_username;
+            db.Friendses.Add(f1);
 
             f2.username = f_username;
-            f2.userfriends = logged_user;
-            db.friends.Add(f2);
+            f2.userfrirends = logged_user;
+            db.Friendses.Add(f2);
 
             db.SaveChanges();
 
@@ -699,11 +699,11 @@ namespace VirtualForEveryOne.Controllers
             var f_username = Request["f_username"];
             f_username = f_username.Remove(0, 1).Trim();
 
-            var msc = (from a in db.friends where a.username == logged_user && a.userfriends == f_username select a).SingleOrDefault();
-            var msc1 = (from b in db.friends where b.username == f_username && b.userfriends == logged_user select b).SingleOrDefault();
+            var msc = (from a in db.Friendses where a.username == logged_user && a.userfrirends == f_username select a).SingleOrDefault();
+            var msc1 = (from b in db.Friendses where b.username == f_username && b.userfrirends == logged_user select b).SingleOrDefault();
 
-            db.friends.Remove(msc);
-            db.friends.Remove(msc1);
+            db.Friendses.Remove(msc);
+            db.Friendses.Remove(msc1);
 
             db.SaveChanges();
             return this.Json(true, JsonRequestBehavior.AllowGet);
@@ -714,15 +714,15 @@ namespace VirtualForEveryOne.Controllers
             var postid = Request["postid"];
             var report_comment = Request["report_comment"];
 
-            report rep = new report();
+            Report rep = new Report();
 
             rep.username = logged_user;
             rep.postid = postid;
-            rep.comment = report_comment;
+            rep.comments = report_comment;
             rep.status = "pending";
             rep.time = DateTime.Now;
 
-            db.report.Add(rep);
+            db.Reports.Add(rep);
             db.SaveChanges();
 
             return this.Json(true, JsonRequestBehavior.AllowGet);
@@ -732,13 +732,13 @@ namespace VirtualForEveryOne.Controllers
         {
             var postid = Request["postid"];
 
-            sharedPost shp = new sharedPost();
+            SharedPost shp = new SharedPost();
 
             shp.username = logged_user;
             shp.answerid = Convert.ToInt32(postid);
             shp.time = DateTime.Now;
 
-            db.sharedPost.Add(shp);
+            db.SharedPosts.Add(shp);
             db.SaveChanges();
 
             return this.Json(true, JsonRequestBehavior.AllowGet);
@@ -748,7 +748,7 @@ namespace VirtualForEveryOne.Controllers
         {
             int postid = Convert.ToInt32(Request["postid"]);
 
-            notification noti = db.notification.Where(n => n.Id == postid).FirstOrDefault();
+            Notification noti = db.Notifications.Where(n => n.Id == postid).FirstOrDefault();
 
             noti.state = true;
             db.SaveChanges();
@@ -759,7 +759,7 @@ namespace VirtualForEveryOne.Controllers
         public JsonResult CheckPassword()
         {
             var old_pass = Request["old_pass"];
-            user get_user = db.user.Where(u => u.username == "@" + logged_user).SingleOrDefault();
+            User get_user = db.Users.Where(u => u.username == "@" + logged_user).SingleOrDefault();
 
             if (get_user.password == old_pass)
             {
@@ -775,7 +775,7 @@ namespace VirtualForEveryOne.Controllers
         {
             var new_pass = Request["new_pass"];
 
-            user get_user = db.user.Where(u => u.username == "@" + logged_user).SingleOrDefault();
+            User get_user = db.Users.Where(u => u.username == "@" + logged_user).SingleOrDefault();
 
             get_user.password = new_pass;
 
