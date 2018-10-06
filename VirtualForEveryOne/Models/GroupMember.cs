@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace VirtualForEveryOne.Models
+﻿namespace VirtualForEveryOne.Models
 {
     public class GroupMember
     {
+        public int Id { get; set; }
+        public int groudid { get; set; }
+        public string members { get; set; }
+
     }
 }
