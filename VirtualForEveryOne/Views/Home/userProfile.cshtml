@@ -1,5 +1,4 @@
-﻿@model virtually_everyone.Models.user
-@using virtually_everyone.Models;
+﻿@using VirtualForEveryOne.Models
 
 
 @{
@@ -8,8 +7,8 @@
     var follower = ViewBag.follower;
     ViewBag.page = "UserProfile";
 
-    List<answer> ans = TempData["answer"] as List<answer>;
-    List<faq> faq = TempData["faq"] as List<faq>;
+    List<Answer> ans = TempData["answer"] as List<Answer>;
+    List<Faq> faq = TempData["faq"] as List<Faq>;
 }
 <html lang="en">
 <head>
@@ -148,8 +147,8 @@
             <div class="profile-top" style="background: linear-gradient(rgba(255,0,0,0), rgba(43,50,55,1)),round url('@Model.coverpic')">
 
                 <img src="@Model.profilepic" id="profile_img" alt="Profile Picture" style="cursor:pointer;" />
-               
-                    <!-- The Modal -->
+
+                <!-- The Modal -->
                 <div id="myModal" class="modal">
                     <span class="close">&times;</span>
                     <img src="" class="modal-content" id="profile_img01">
@@ -178,8 +177,8 @@
                         modal.style.display = "none";
                     }
                 </script>
-                
-                <h4 style="color: white; font: bolder"><img src="~/Content/images/online.png" /> @Model.fullname</h4>
+
+                <h4 style="color: white; font-style: italic"><img src="~/Content/images/online.png" /> @Model.fullname</h4>
                 <h5 style="color: white" id="username">@Model.username</h5>
 
             </div>
@@ -187,18 +186,18 @@
             @{
                 if (@Model.coverpic == null)
                 {
-                <script> div_change(1) </script>
+                    <script>div_change(1)</script>
                 }
                 else if (@Model.profilepic == null)
                 {
-                <script> div_change(2) </script>
-                } 
+                    <script>div_change(2)</script>
+                }
             }
 
             <div>
 
                 <div class="well" style="background-color: #1E2326; width: 50%; display: inline-block">
-                    
+
                     <h4 id="ask-well-top">Ask yourself</h4>
 
                     <form action="#" method="post">
@@ -251,14 +250,14 @@
                     </div>
                     <div class="profile-side-div2">
                         <h5>About me</h5>
-                      <a href="~/Home/Settings#profile">  <h6>Edit profile</h6></a>
+                        <a href="~/Home/Settings#profile">  <h6>Edit profile</h6></a>
                     </div>
                     <div class="profile-side-div3">
                         <img src="~/Content/images/ques_icon.png" />
 
                         @if (@Model.bio == null)
                         {
-                           <a href="#"> <p>Tell us some things about yourself...</p></a>
+                            <a href="#"> <p>Tell us some things about yourself...</p></a>
                         }
                         else
                         {
@@ -268,11 +267,11 @@
                         <img src="~/Content/images/ques_icon.png" />
                         @if (@Model.skills == null)
                         {
-                           <a href="#"> <p>Add your skills...</p></a>  
+                            <a href="#"> <p>Add your skills...</p></a>
                         }
                         else
                         {
-                            <a href="#"> <p>Skills : @Model.skills</p></a>   
+                            <a href="#"> <p>Skills : @Model.skills</p></a>
                         }
                     </div>
                 </div>
@@ -288,63 +287,65 @@
 
                             foreach (var a in ans)
                             {
-                            <tr>
-                                <td>
-                                    <hr style="color: gray; width: 475px" />
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td>
+                                        <hr style="color: gray; width: 475px" />
+                                    </td>
+                                </tr>
 
-                            <tr>
-                                <td>
-                                    <h5 style="display: inline-block" id="ques">@a.question</h5>
+                                <tr>
+                                    <td>
+                                        <h5 style="display: inline-block" id="ques">@a.question</h5>
 
-                                    @if (a.image != null)
-                                    {
-                                        <br />
-                                        <img style="display: inline-block; width:300px; cursor:pointer" id="ques-img" class="c-ques-img" src="@a.image" />
-                                    }
-                                    @if (a.s_profilepic != null)
-                                    {
-                                        <img style="width: 25px; height: 25px; display: inline-block" src="@a.s_profilepic" />
-                                    }
-                                </td>
+                                        @if (a.image != null)
+                                        {
+                                            <br />
+                                            <img style="display: inline-block; width:300px; cursor:pointer" id="ques-img" class="c-ques-img" src="@a.image" />
+                                        }
+                                        @if (a.s_profilepic != null)
+                                        {
+                                            <img style="width: 25px; height: 25px; display: inline-block" src="@a.s_profilepic" />
+                                        }
+                                    </td>
 
-                                <td>
-                                    <input type="text" id="likefield" name="likefield" hidden />
-                                    <input type="text" id="dislikefield" name="dislikefield" hidden />
-                                    <input type="text" name="@i" id="@i" value="@a.Id" hidden />
-                                    <input type="text" id="input-field-id" name="input-field-id" value="@a.Id" hidden />
-                                </td>
-                            </tr>
+                                    <td>
+                                        <input type="text" id="likefield" name="likefield" hidden />
+                                        <input type="text" id="dislikefield" name="dislikefield" hidden />
+                                        <input type="text" name="@i" id="@i" value="@a.Id" hidden />
+                                        <input type="text" id="input-field-id" name="input-field-id" value="@a.Id" hidden />
+                                    </td>
+                                </tr>
 
-                            <tr>
-                                <td>
-                                    <div id="ans-div">
-                                        <p><img src="@a.a_profilepic" />@@ @a.a_username</p>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    <p style="font: bolder">@a.ans</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="example">
-                                        <div class="rating" id="rating">
-                                            <button class="btn btn-default like " id="like" onmouseover="like(@i)">
-                                                <img class="img-like" src="~/Content/images/like.png" />Like</button>
-                                            <span class="likes">@a.like</span>
-                                            <button class="btn btn-default dislike" id="dislike" onmouseover="dislike(@i)">
-                                                <img class="img-dislike" src="~/Content/images/dislike.png" />Dislike</button>
-                                            <span class="dislikes">@a.dislike</span>
+                                <tr>
+                                    <td>
+                                        <div id="ans-div">
+                                            <p><img src="@a.a_profilepic" />@@ @a.a_username</p>
                                         </div>
+                                    </td>
+                                </tr>
 
-                                    </div>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td>
+                                        <p style="font-style: italic">@a.ans</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="example">
+                                            <div class="rating" id="rating">
+                                                <button class="btn btn-default like " id="like" onmouseover="like(@i)">
+                                                    <img class="img-like" src="~/Content/images/like.png" />Like
+                                                </button>
+                                                <span class="likes">@a.like</span>
+                                                <button class="btn btn-default dislike" id="dislike" onmouseover="dislike(@i)">
+                                                    <img class="img-dislike" src="~/Content/images/dislike.png" />Dislike
+                                                </button>
+                                                <span class="dislikes">@a.dislike</span>
+                                            </div>
+
+                                        </div>
+                                    </td>
+                                </tr>
 
                                 i++;
                             }
@@ -435,40 +436,40 @@
 
 </body>
 
-    <script>
-        $('button.followButton').click('click', function (e) {
-            e.preventDefault();
-            $button = $(this);
-            if ($button.hasClass('following')) {
+<script>
+    $('button.followButton').click('click', function (e) {
+        e.preventDefault();
+        $button = $(this);
+        if ($button.hasClass('following')) {
 
-                //$.ajax(); Do Unfollow
+            //$.ajax(); Do Unfollow
 
-                $button.removeClass('following');
-                $button.removeClass('unfollow');
-                $button.text('Follow');
-            } else {
+            $button.removeClass('following');
+            $button.removeClass('unfollow');
+            $button.text('Follow');
+        } else {
 
-                // $.ajax(); Do Follow
+            // $.ajax(); Do Follow
 
-                $button.addClass('following');
-                $button.text('Following');
-            }
-        });
+            $button.addClass('following');
+            $button.text('Following');
+        }
+    });
 
-        $('button.followButton').hover(function () {
-            $button = $(this);
-            if ($button.hasClass('following')) {
-                $button.addClass('unfollow');
-                $button.text('Unfollow');
-            }
-        }, function () {
-            if ($button.hasClass('following')) {
-                $button.removeClass('unfollow');
-                $button.text('Following');
-            }
-        });
+    $('button.followButton').hover(function () {
+        $button = $(this);
+        if ($button.hasClass('following')) {
+            $button.addClass('unfollow');
+            $button.text('Unfollow');
+        }
+    }, function () {
+        if ($button.hasClass('following')) {
+            $button.removeClass('unfollow');
+            $button.text('Following');
+        }
+    });
 
-    </script>
+</script>
 
 @*        <script>
             function check() {
@@ -479,113 +480,113 @@
             }
     </script>*@
 
-    <script>
-            $(document).ready(function () {
+<script>
+    $(document).ready(function () {
 
-                $('#btn-ask').click(function () {
+        $('#btn-ask').click(function () {
 
-                    var textarea = $('#textarea').val();
+            var textarea = $('#textarea').val();
 
-                    var tags = document.getElementById("username").innerHTML;
+            var tags = document.getElementById("username").innerHTML;
 
-                    if ($('#checkbox').is(":checked")) {
-                        //alert("in cb success");
-                        var x = 1;
-                    }
-                    else {
-                        //alert("in cb 0");
-                        var x = 0;
-                    }
+            if ($('#checkbox').is(":checked")) {
+                //alert("in cb success");
+                var x = 1;
+            }
+            else {
+                //alert("in cb 0");
+                var x = 0;
+            }
 
-                    if (textarea == "") {
+            if (textarea == "") {
 
-                        alert("Empty");
+                alert("Empty");
 
-                    }
-                    else {
+            }
+            else {
 
-                        $.getJSON("/Home/Save_post?" + "&textarea=" + textarea + "&checkbox=" + x + "&tags=" + tags, function (data) {
-                            $('#checking').hide();
-                            if (data) {
-                                myFunction();
-                                document.getElementById("textarea").value = "";
-                            }
-                            else {
-                                alert("unsucessfull");
-                            }
-
-                        });
-                    }
-
-                });
-
-            });
-    </script>
-
-    <script>
-        function like(x) {
-            var a = document.getElementById(x).value;
-            //alert(a);
-            document.getElementById("likefield").value = a;
-            document.getElementById("dislikefield").value = "0";
-        }
-    </script>
-
-    <script>
-        function dislike(x) {
-
-            var a = document.getElementById(x).value;
-            //alert(a);
-            document.getElementById("dislikefield").value = a;
-            document.getElementById("likefield").value = "0";
-        }s
-    </script>
-
-    <script>
-        $(document).ready(function () {
-
-            $(document).on('click', '#like', function () {
-
-                var likefield_id = $('#likefield').val();
-                var dislikefield_id = $('#dislikefield').val();
-
-                //alert(dislikefield_id);
-
-                $.getJSON("/Home/Set_like_dislike?" + "&likefield=" + likefield_id + "&dislikefield=" + dislikefield_id, function (data) {
+                $.getJSON("/Home/Save_post?" + "&textarea=" + textarea + "&checkbox=" + x + "&tags=" + tags, function (data) {
+                    $('#checking').hide();
                     if (data) {
-                        $('#mydiv').load(location.href + " #mydiv>*", "");
-
+                        myFunction();
+                        document.getElementById("textarea").value = "";
                     }
                     else {
-                        alert("Already liked !");
+                        alert("unsucessfull");
                     }
 
                 });
+            }
 
-            });
+        });
 
-            $(document).on('click', '#dislike', function () {
+    });
+</script>
 
-                var likefield_id = $('#likefield').val();
-                var dislikefield_id = $('#dislikefield').val();
+<script>
+    function like(x) {
+        var a = document.getElementById(x).value;
+        //alert(a);
+        document.getElementById("likefield").value = a;
+        document.getElementById("dislikefield").value = "0";
+    }
+</script>
 
-                //alert(likefield_id);
+<script>
+    function dislike(x) {
 
-                $.getJSON("/Home/Set_like_dislike?" + "&likefield=" + likefield_id + "&dislikefield=" + dislikefield_id, function (data) {
-                    if (data) {
-                        $('#mydiv').load(location.href + " #mydiv>*", "");
+        var a = document.getElementById(x).value;
+        //alert(a);
+        document.getElementById("dislikefield").value = a;
+        document.getElementById("likefield").value = "0";
+    } s
+</script>
 
-                    }
-                    else {
-                        alert("Already disliked !");
-                    }
+<script>
+    $(document).ready(function () {
 
-                });
+        $(document).on('click', '#like', function () {
+
+            var likefield_id = $('#likefield').val();
+            var dislikefield_id = $('#dislikefield').val();
+
+            //alert(dislikefield_id);
+
+            $.getJSON("/Home/Set_like_dislike?" + "&likefield=" + likefield_id + "&dislikefield=" + dislikefield_id, function (data) {
+                if (data) {
+                    $('#mydiv').load(location.href + " #mydiv>*", "");
+
+                }
+                else {
+                    alert("Already liked !");
+                }
 
             });
 
         });
-    </script>
+
+        $(document).on('click', '#dislike', function () {
+
+            var likefield_id = $('#likefield').val();
+            var dislikefield_id = $('#dislikefield').val();
+
+            //alert(likefield_id);
+
+            $.getJSON("/Home/Set_like_dislike?" + "&likefield=" + likefield_id + "&dislikefield=" + dislikefield_id, function (data) {
+                if (data) {
+                    $('#mydiv').load(location.href + " #mydiv>*", "");
+
+                }
+                else {
+                    alert("Already disliked !");
+                }
+
+            });
+
+        });
+
+    });
+</script>
 
 
 </html>
