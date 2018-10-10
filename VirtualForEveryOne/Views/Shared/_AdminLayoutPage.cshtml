@@ -7,12 +7,13 @@
 <html lang="en" class="no-js">
 <head>
 
-   
+
     <style>
         .main clearfix {
             margin: 20px;
             width: 100px;
         }
+
         nav {
             /*letter-spacing:30px;*/
         }
@@ -29,62 +30,62 @@
 
     <link rel="stylesheet" type="text/css" href="~/Content/css/tab-default.css" />
     <link rel="stylesheet" type="text/css" href="~/Content/css/tab-component.css" />
-     <link type="text/css" href="~/Content/css/float.css" rel="stylesheet">
+    <link type="text/css" href="~/Content/css/float.css" rel="stylesheet">
     <link rel="stylesheet" href="~/Content/css/font-awesome.min.css">
 
     <link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
     <link href="~/Content/css/blog-post.css" rel="stylesheet">
     <link rel="stylesheet" href="~/Content/css/default.css" />
     <link rel="stylesheet" href="~/Content/css/component.css" />
-   
-   
+
+
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  
+
 </head>
 
-<body >
+<body>
 
-     <nav id="menu" class="top-nav">
+    <nav id="menu" class="top-nav">
         <img style="height: 150px; width: 200px; float: left; margin-top: -15px" src="~/Content/images/ve.png" />
         <ul>
-             <li>
-                        <a href="~/Admin/Logout">
-                            <span class="icon">
-                                
-                               <i aria-hidden="true" class="material-icons">power_settings_new</i>
-                            </span>
-                            <span>Logout</span>
-                        </a>
-                    </li>
-                    
-
-                    <li>
-                        <a href="~/Admin/Report">
-                            <span class="icon">
-                                <i aria-hidden="true" class="material-icons">report</i>
-                            </span>
-                            <span>Report</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="~/Admin/GroupAdd">
-                            <span class="icon">
-                                <i aria-hidden="true" class="icon-team"></i>
-                            </span>
-                            <span>Group</span>
-                        </a>
-                    </li>
-                   
             <li>
-                        <a href="~/Admin/UserAdd">
-                            <span class="icon">
-                                <i aria-hidden="true" class="glyphicon glyphicon-user"></i>
-                               
-                            </span>
-                            <span>User</span>
-                        </a>
-                    </li>
-           
+                <a href="~/Admin/Logout">
+                    <span class="icon">
+
+                        <i aria-hidden="true" class="material-icons">power_settings_new</i>
+                    </span>
+                    <span>Logout</span>
+                </a>
+            </li>
+
+
+            <li>
+                <a href="~/Admin/Report">
+                    <span class="icon">
+                        <i aria-hidden="true" class="material-icons">report</i>
+                    </span>
+                    <span>Report</span>
+                </a>
+            </li>
+            <li>
+                <a href="~/Admin/GroupAdd">
+                    <span class="icon">
+                        <i aria-hidden="true" class="icon-team"></i>
+                    </span>
+                    <span>Group</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="~/Admin/UserAdd">
+                    <span class="icon">
+                        <i aria-hidden="true" class="glyphicon glyphicon-user"></i>
+
+                    </span>
+                    <span>User</span>
+                </a>
+            </li>
+
 
         </ul>
     </nav>
@@ -92,7 +93,7 @@
 
 
     <div>
-    @RenderBody()
+        @RenderBody()
     </div>
 
     <script type="text/javascript">
@@ -120,7 +121,7 @@
         // Get the <span> element that closes the modal
         var span = document.getElementsByClassName("close")[0];
 
-        // When the user clicks the button, open the modal 
+        // When the user clicks the button, open the modal
         btn.onclick = function () {
             modal.style.display = "block";
         }
@@ -136,21 +137,20 @@
                 modal.style.display = "none";
             }
         }
-</script>
+    </script>
 
 
 
     <script src="~/Scripts/js/jquery.js"></script>
     <script src="~/Scripts/js/bootstrap.min.js"></script>
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="~/Scripts/js/jquery.cbpContentSlider.min.js"></script>
     <script>
         $(function () {
             $('#cbp-contentslider').cbpContentSlider();
         });
-		</script>
-     @Scripts.Render("~/bundles/jquery")
+    </script>
+    @*@Script.Render("~/bundles/jquery")*@
     @RenderSection("scripts", required: false)
 </body>
 </html>
