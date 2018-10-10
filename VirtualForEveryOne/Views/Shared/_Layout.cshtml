@@ -4,8 +4,8 @@
 
     <title>@ViewBag.Title</title>
 
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    @*@Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")*@
 
 
     <link rel="shortcut icon" href="../favicon.ico">
@@ -31,7 +31,7 @@
 
         // Create a new XMLHttpRequest.
         var request = new XMLHttpRequest();
-        // Handle state changes for the request. 
+        // Handle state changes for the request.
         request.onreadystatechange = function (response) {
             if (request.readyState === 4) {
                 if (request.status === 200) {
@@ -80,7 +80,8 @@
 
     <nav id="menu" class="top-nav">
         <a href="~/Home/Feed" style="position: absolute">
-            <img style="height: 150px; width: 200px; float: left; margin-top: -15px" src="~/Content/images/ve.png" /></a>
+            <img style="height: 150px; width: 200px; float: left; margin-top: -15px" src="~/Content/images/ve.png" />
+        </a>
 
         <ul>
 
@@ -96,7 +97,7 @@
             <li>
                 <a id="02" href="~/Home/Notifications#all">
                     <span class="icon">
-                        @if(ViewBag.count != 0)
+                        @if (ViewBag.count != 0)
                         {
                             <span class="fa fa-comment"></span>
                             <span class="num">@ViewBag.count</span>
@@ -203,7 +204,7 @@
         // Get the <span> element that closes the modal
         var span = document.getElementsByClassName("faqclose")[0];
 
-        // When the user clicks the button, open the modal 
+        // When the user clicks the button, open the modal
         faqbtn.onclick = function () {
             modalfaq.style.display = "block";
         }
@@ -275,7 +276,7 @@
         // Get the <span> element that closes the modal
         var span = document.getElementsByClassName("close")[0];
 
-        // When the user clicks the button, open the modal 
+        // When the user clicks the button, open the modal
         btn.onclick = function () {
             modal.style.display = "block";
         }
@@ -366,7 +367,7 @@
     </script>
 
     @*@Scripts.Render("~/bundles/jquery")*@
-@*    @RenderSection("scripts", required: false)*@
+    @*    @RenderSection("scripts", required: false)*@
 
 </body>
 </html>
