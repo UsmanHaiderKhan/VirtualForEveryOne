@@ -12,8 +12,8 @@ namespace VirtualForEveryOne.Models
         public string ans { get; set; }
         public string s_profilepic { get; set; }
         public string a_profilepic { get; set; }
-        public int like { get; set; }
-        public int dislike { get; set; }
+        public int? like { get; set; }
+        public int? dislike { get; set; }
         public DateTime time { get; set; }
         public string status { get; set; }
 
