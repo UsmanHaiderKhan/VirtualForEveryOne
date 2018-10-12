@@ -1,15 +1,10 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-
     <title>@ViewBag.Title</title>
-
     @*@Styles.Render("~/Content/css")
         @Scripts.Render("~/bundles/modernizr")*@
-
-
     <link rel="shortcut icon" href="../favicon.ico">
-
     <link rel="stylesheet" type="text/css" href="~/Content/css/tab-component.css" />
     <link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="~/Content/css/default.css" />
@@ -18,12 +13,9 @@
     <link type="text/css" href="~/Content/css/m-style.css" rel="stylesheet">
     <link type="text/css" href="~/Content/css/float.css" rel="stylesheet">
     <link rel="stylesheet" href="~/Content/css/font-awesome.min.css">
-
     <script src="~/Scripts/js/modernizr.custom.js"></script>
     <script src="~/Scripts/js/modernizr.custom.js"></script>
-
-    <script src="~/Scripts/jquery.cbpContentSlider.min.js.js"></script>
-
+    <script src="~/Scripts/js/jquery.cbpContentSlider.min.js"></script>
     <script>
 
         var dataList = document.getElementById('faq_list');
@@ -72,19 +64,13 @@
         request.send();
 
     </script>
-
 </head>
-
 <body>
-
-
     <nav id="menu" class="top-nav">
         <a href="~/Home/Feed" style="position: absolute">
             <img style="height: 150px; width: 200px; float: left; margin-top: -15px" src="~/Content/images/ve.png" />
         </a>
-
         <ul>
-
             <li>
                 <a id="01" href="~/Home/Settings#profile">
                     <span class="icon">
@@ -93,7 +79,6 @@
                     <span>Settings</span>
                 </a>
             </li>
-
             <li>
                 <a id="02" href="~/Home/Notifications#all">
                     <span class="icon">
@@ -107,7 +92,6 @@
                     <span>Notifications</span>
                 </a>
             </li>
-
             <li>
                 <a id="03" href="~/Home/UserProfile">
                     <span class="icon">
@@ -124,7 +108,6 @@
                     <span>Friends</span>
                 </a>
             </li>
-
             <li>
                 <a id="05" href="~/Home/Questions">
                     <span class="icon">
@@ -133,7 +116,6 @@
                     <span>Questions</span>
                 </a>
             </li>
-
             <li>
                 <a id="06" href="~/Home/Feed" class="active">
                     <span class="icon">
@@ -144,7 +126,6 @@
             </li>
         </ul>
     </nav>
-
     <a href="~/Home/Logout" class="float">
         <i class="fa fa-power-off  my-float"></i>
     </a>
@@ -152,29 +133,20 @@
         <div class="label-text">Log Out</div>
         <i class="fa fa-play label-arrow"></i>
     </div>
-
     @RenderBody()
-
     <!-- The actual snackbar -->
     <div id="snackbar">posted successfuly.</div>
-
     <div class="md-overlay"></div>
-
     <!-- FAQ Modal -->
-
     <div id="myModalfaq" class="modal" style="z-index:1000">
-
         <!-- FAQ Modal content -->
         <div class="modal-content" style="width: 30%; height: 40%">
             <span class="faqclose">&times;</span>
             <p>FAQ</p>
             <p id="faqtextarea"></p>
         </div>
-
     </div>
-
     <script src="~/Scripts/js/like-dislike.js"></script>
-
     <script>
         function faqcheck() {
             var value = document.getElementById("search_faq").value;
@@ -193,7 +165,6 @@
             }
         }
     </script>
-
     <script>
         // Get the modal
         var modalfaq = document.getElementById('myModalfaq');
@@ -221,7 +192,6 @@
             }
         }
     </script>
-
     <script>
         $('#rating').likeDislike({
             //reverseMode: false,
@@ -250,7 +220,6 @@
             disabledClass: 'disable'
         });
     </script>
-
     <script type="text/javascript">
 
         var _gaq = _gaq || [];
@@ -265,7 +234,6 @@
         })();
 
     </script>
-
     <script>
         // Get the modal
         var modal = document.getElementById('myModal');
@@ -293,7 +261,6 @@
             }
         }
     </script>
-
     <script>
         function myFunction() {
             // Get the snackbar DIV
@@ -306,7 +273,6 @@
             setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
         }
     </script>
-
     <script>
 
 
@@ -341,33 +307,23 @@
         });
 
     </script>
-
-
     <script src="~/Scripts/js/bootstrap.min.js"></script>
-
     <script src="~/Scripts/js/classie.js"></script>
-
     <script src="~/Scripts/js/modalEffects.js"></script>
-
     <script>
         // this is important for IEs
         var polyfilter_scriptpath = '/js/';
     </script>
-
     <script src="~/Scripts/js/cssParser.js"></script>
-
     <script src="~/bundles/jquery/css-filters-polyfill.js"></script>
     <script src="~/bundles/jquery/bootstrap.min.js"></script>
     <script src="~/bundles/jquery/jquery.cbpContentSlider.min.js"></script>
-
     <script>
         $(function () {
             $('#cbp-contentslider').cbpContentSlider();
         });
     </script>
-
     @*@Scripts.Render("~/bundles/jquery")*@
-    @*    @RenderSection("scripts", required: false)*@
-
+    @RenderSection("scripts", required: false)
 </body>
 </html>
