@@ -1,38 +1,36 @@
-﻿@using virtually_everyone.Models
-@model List<virtually_everyone.Models.friends>
-
+﻿
+@using VirtualForEveryOne.Models
+@model List<VirtualForEveryOne.Models.Friends>
 @{
+    Layout = "~/Views/Shared/_Layout.cshtml";
     var name = "";
     var skills = "";
     var f_id = -1;
-    
-    List<user> usr = TempData["user"] as List<user>;
-    List<faq> faq = TempData["faq"] as List<faq>;
+
+    List<User> usr = TempData["user"] as List<User>;
+    List<Faq> faq = TempData["faq"] as List<Faq>;
     var usr_new = usr;
     ViewBag.page = "Friends";
 }
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <title>@{ViewBag.Title = "Friend | VirtuallyEveryone";}</title>
-
     <script src="~/Scripts/js/jquery.js"></script>
-
     <style>
+
         .user-results img {
             border-radius: 50%;
             height: 50px;
             width: 50px;
             margin-right: 30px;
         }
-        .user-results a:hover {
 
-            color:#47A3DA;
-            text-decoration:none;
+        .user-results a:hover {
+            color: #47A3DA;
+            text-decoration: none;
         }
     </style>
-
     <script>
 
         var dataList = document.getElementById('user_list');
@@ -40,7 +38,7 @@
 
         // Create a new XMLHttpRequest.
         var request = new XMLHttpRequest();
-        // Handle state changes for the request. 
+        // Handle state changes for the request.
         request.onreadystatechange = function (response) {
             if (request.readyState === 4) {
                 if (request.status === 200) {
@@ -81,7 +79,6 @@
         request.send();
 
     </script>
-
     <script>
 
         var dataList = document.getElementById('user_list1');
@@ -89,7 +86,7 @@
 
         // Create a new XMLHttpRequest.
         var request = new XMLHttpRequest();
-        // Handle state changes for the request. 
+        // Handle state changes for the request.
         request.onreadystatechange = function (response) {
             if (request.readyState === 4) {
                 if (request.status === 200) {
@@ -130,11 +127,8 @@
         request.send();
 
     </script>
-    
 </head>
-
 <body>
-
     <datalist id="faq_list">
         @{
             foreach (var f in faq)
@@ -144,219 +138,140 @@
 
         }
     </datalist>
-
     <datalist id="user_list">
         @{
             foreach (var us in usr)
             {
                 name = @us.fullname;
-                
-            <option value='@name'></option>
-            <option value="@us.username"></option>
-            
+
+                <option value='@name'></option>
+                <option value="@us.username"></option>
+
             }
 
         }
     </datalist>
-
     <datalist id="user_list1">
         @{
             foreach (var us in usr)
             {
                 skills = @us.skills;
-                
-            <option value='@skills'></option>
-            
+
+                <option value='@skills'></option>
+
             }
         }
     </datalist>
-
     <!-- The Modal -->
     <div id="myModal" class="modal" style="z-index:1001">
-
         <!-- Modal content -->
         <div class="modal-content" style="width: 30%; height: 65%">
             <span class="close">&times;</span>
-
             <p>User Results</p>
             <div class="user-results">
-
                 <a href="#" id="a0" onclick="getProfile(0)" hidden>
                     <p style="margin-top: 1em">
                         <img src="~/Content/images/dummy.png" /><span id="6">No results found</span>
-                        <span id="0" hidden > </span>
+                        <span id="0" hidden> </span>
                     </p>
                 </a>
                 <a href="#" id="a1" onclick="getProfile(1)" hidden>
                     <p style="margin-top: 1em">
                         <img src="~/Content/images/dummy.png" /><span id="7">No results found</span>
-                        <span id="1" hidden > </span>
+                        <span id="1" hidden> </span>
                     </p>
                 </a>
                 <a href="#" id="a2" onclick="getProfile(2)" hidden>
                     <p style="margin-top: 1em">
                         <img src="~/Content/images/dummy.png" /><span id="8">No results found</span>
-                        <span id="2" hidden > </span>
+                        <span id="2" hidden> </span>
                     </p>
                 </a>
                 <a href="#" id="a3" onclick="getProfile(3)" hidden>
                     <p style="margin-top: 1em">
                         <img src="~/Content/images/dummy.png" /><span id="9">No results found</span>
-                        <span id="3" hidden > </span>
+                        <span id="3" hidden> </span>
                     </p>
                 </a>
                 <a href="#" id="a4" onclick="getProfile(4)" hidden>
                     <p style="margin-top: 1em">
                         <img src="~/Content/images/dummy.png" /><span id="10">No results found</span>
-                        <span id="4" hidden > </span>
+                        <span id="4" hidden> </span>
                     </p>
                 </a>
-
             </div>
         </div>
-
     </div>
-
     <div id="myModal1" class="modal" style="z-index:1001">
-
         <!-- Modal content -->
         <div class="modal-content" style="width: 30%; height: 65%">
             <span class="close" id="closeBtn">&times;</span>
-
             <p>User Results</p>
             <div class="user-results">
-
                 <a href="#" id="s0" onclick="getProfileBySkill(0)" hidden>
                     <p style="margin-top: 1em">
                         <img src="~/Content/images/dummy.png" /><span id="s6">No results found</span>
-                        <span id="su0" hidden > </span>
+                        <span id="su0" hidden> </span>
                     </p>
                 </a>
-
                 <a href="#" id="s1" onclick="getProfileBySkill(1)" hidden>
                     <p style="margin-top: 1em">
                         <img src="~/Content/images/dummy.png" /><span id="s7">No results found</span>
                         <span id="su1" hidden></span>
                     </p>
                 </a>
-
                 <a href="#" id="s2" onclick="getProfileBySkill(2)" hidden>
                     <p style="margin-top: 1em">
                         <img src="~/Content/images/dummy.png" /><span id="s8">No results found</span>
                         <span id="su2" hidden></span>
                     </p>
                 </a>
-
                 <a href="#" id="s3" onclick="getProfileBySkill(3)" hidden>
                     <p style="margin-top: 1em">
                         <img src="~/Content/images/dummy.png" /><span id="s9">No results found</span>
                         <span id="su3" hidden></span>
                     </p>
                 </a>
-
                 <a href="#" id="s4" onclick="getProfileBySkill(4)" hidden>
                     <p style="margin-top: 1em">
                         <img src="~/Content/images/dummy.png" /><span id="s10">No results found</span>
                         <span id="su4" hidden></span>
                     </p>
                 </a>
-
             </div>
         </div>
-
     </div>
-            
     <div class="container" style="margin-left: 250px">
-
         <div class="row">
-
             <div class="col-lg-8" style="height: 800px; background-color: transparent">
-
                 <div id="cbp-contentslider" class="cbp-contentslider">
-
                     <nav class="frnd-nav">
                         <a href="#friend" class="icon-wolf"><span>Friends</span></a>
                         <a href="#interest" class="icon-rabbit"><span>Interests</span></a>
                         <a href="#group" class="icon-aligator"><span>Groups</span></a>
                     </nav>
-
                     <ul>
                         <li id="friend">
-
                             <div class="input-group">
-
                                 <span class="input-group-btn">
                                     <button class="btn btn-default" type="button" id="myBtn">
                                         <span class="glyphicon glyphicon-search"></span>
                                     </button>
                                 </span>
-
                                 <input type="text" class="form-control" id="search_user" list="user_list" placeholder="Search people by keywords">
                             </div>
-
                             <br />
-
                             <div class="frnds_page_div" style="margin-top: 4em;">
-
                                 <h5>Your friends</h5>
-
                                 @for (var i = 0; i < Model.Count; i++)
                                 {
                                     foreach (var u in usr_new)
                                     {
-                                        if (u.username.Remove(0, 1) == Model[i].userfriends)
-                                        {
-                                    <a href="#">
-                                        <span id="@f_id" hidden>@u.username</span>
-                                        <p id="frnd-list-tag1" onclick="getProfile(@f_id)" style="color:#47a3da">
-                                            @if (@u.profilepic == null || @u.profilepic == "")
-                                            {
-                                                <img src="~/Content/images/ques_icon.png" />@u.fullname
-                                                    }
-                                            else
-                                            {
-                                                <img src="@u.profilepic" />@u.fullname
-                                                    }
-                                        </p>
-                                    </a>
-                                            f_id--;
-                                        }
-                                    }
-                                }
-
-                                @*<span>@Model[1].userfriends</span>*@
-
-                            </div>
-
-                        </li>
-
-                        <li id="interest">
-                            
-                            <div class="input-group">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button" id="skillBtn">
-                                        <span class="glyphicon glyphicon-search"></span>
-                                    </button>
-                                </span>
-                                <input type="text" class="form-control" id="search_user_skill" list="user_list1" placeholder="Search people by Skills">
-                            </div>
-
-                            <br />
-
-                            <div class="frnds_page_div" style="margin-top: 4em;">
-
-                                <h5>Your friends</h5>
-
-                                @for (var i = 0; i < Model.Count; i++)
-                                {
-                                    foreach (var u in usr_new)
-                                    {
-                                        if (u.username.Remove(0, 1) == Model[i].userfriends)
+                                        if (u.username.Remove(0, 1) == Model[i].userfrirends)
                                         {
                                             <a href="#">
                                                 <span id="@f_id" hidden>@u.username</span>
                                                 <p id="frnd-list-tag1" onclick="getProfile(@f_id)" style="color:#47a3da">
-
                                                     @if (@u.profilepic == null || @u.profilepic == "")
                                                     {
                                                         <img src="~/Content/images/ques_icon.png" />@u.fullname
@@ -365,23 +280,56 @@
                                                     {
                                                         <img src="@u.profilepic" />@u.fullname
                                                     }
-
                                                 </p>
                                             </a>
-                                    
                                             f_id--;
                                         }
                                     }
                                 }
-
                                 @*<span>@Model[1].userfriends</span>*@
-
                             </div>
                         </li>
-                        
+                        <li id="interest">
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" id="skillBtn">
+                                        <span class="glyphicon glyphicon-search"></span>
+                                    </button>
+                                </span>
+                                <input type="text" class="form-control" id="search_user_skill" list="user_list1" placeholder="Search people by Skills">
+                            </div>
+                            <br />
+                            <div class="frnds_page_div" style="margin-top: 4em;">
+                                <h5>Your friends</h5>
+                                @for (var i = 0; i < Model.Count; i++)
+                                {
+                                    foreach (var u in usr_new)
+                                    {
+                                        if (u.username.Remove(0, 1) == Model[i].userfrirends)
+                                        {
+                                            <a href="#">
+                                                <span id="@f_id" hidden>@u.username</span>
+                                                <p id="frnd-list-tag1" onclick="getProfile(@f_id)" style="color:#47a3da">
+                                                    @if (@u.profilepic == null || @u.profilepic == "")
+                                                    {
+                                                        <img src="~/Content/images/ques_icon.png" />@u.fullname
+                                                    }
+                                                    else
+                                                    {
+                                                        <img src="@u.profilepic" />@u.fullname
+                                                    }
+                                                </p>
+                                            </a>
+
+                                            f_id--;
+                                        }
+                                    }
+                                }
+                                @*<span>@Model[1].userfriends</span>*@
+                            </div>
+                        </li>
                         <li id="group">
-                            
-                              <div class="input-group">
+                            <div class="input-group">
                                 <span class="input-group-btn">
                                     <button class="btn btn-default" type="button">
                                         <span class="glyphicon glyphicon-search"></span>
@@ -389,32 +337,25 @@
                                 </span>
                                 <input type="text" class="form-control" placeholder="Search Groups">
                             </div>
-                            
                             <br />
-
                             <div style="margin-top: 4em;">
-                                <a href="#"><p style="float:right";">Make new group</p></a>
+                                <a href="#"><p style="float:right">Make new group</p></a>
                                 <br />
                                 <h5>Your Groups</h5>
                                 <div>
-                                   <a href="#"> <p style="margin-top: 1em">
-                                        <img src="~/Content/images/dummy.png" style="border-radius: 50%; height: 50px; width: 50px; margin-right: 30px" />Virtually everyone
-                                    </p></a>
+                                    <a href="#">
+                                        <p style="margin-top: 1em">
+                                            <img src="~/Content/images/dummy.png" style="border-radius: 50%; height: 50px; width: 50px; margin-right: 30px" />Virtually everyone
+                                        </p>
+                                    </a>
                                 </div>
                             </div>
-
                         </li>
-
                     </ul>
-
                 </div>
-
             </div>
-
             <div class="col-md-4">
-
                 <div class="well" id="help-cen-div" style="height: 275px; background-color: #1E2326;">
-
                     <div class="input-group" style="margin-top: 25px">
                         <input type="text" class="form-control" id="search_faq" onchange="faqcheck()" list="faq_list" placeholder="Search Frequently Asked Questions">
                         <span class="input-group-btn">
@@ -428,9 +369,7 @@
                         <img src="~/Content/images/help.png" style="margin-left: 10px; height: 30px;" />
                         <span></span>
                         <img src="~/Content/images/247.png" style="margin-left: 10px; height: 30px;" />
-
                         <img src="~/Content/images/support.png" style="margin-left: 10px; height: 30px;" />
-
                         <p style="margin-top: 15px; font-size: small; float: right; color: #CC2222;">
                             <font size="3"><b>VirtuallyEveryone Help Center</b></font>.
                             <br />
@@ -438,25 +377,18 @@
                         </p>
                     </div>
                 </div>
-
                 <div class="well" style="background-color: #1E2326;">
                     <p style="color: white;">
                         <img src="~/Content/images/vesmall.png" style="margin-left: 10px; height: 20px;" />
                         <img src="~/Content/images/copyright.png" style="margin-left: 10px; height: 20px;" />
                         <span style="font-size:medium"><b>VirtuallyEveryone 2018</b></span>
                     </p>
-
                 </div>
-
             </div>
-
         </div>
-
     </div>
-
     <script>
-        function getProfile(x)
-        {
+        function getProfile(x) {
             var a = document.getElementById(x).innerHTML;
             $.post("/Home/Fprofile?a=" + a, function (data) {
                 window.location.href = '/Home/frndsprofile';
@@ -472,7 +404,6 @@
             });
         }
     </script>
-
     <script>
 
         $(document).ready(function () {
@@ -481,8 +412,7 @@
 
                 var search_user = $('#search_user').val();
 
-                for (var itr = 0; itr < 5; itr++)
-                {
+                for (var itr = 0; itr < 5; itr++) {
                     $('#a' + itr).hide();
                 }
 
@@ -491,9 +421,8 @@
 
                     var value = data;
 
-                    for(var itr=0 ; itr<Object.keys(data).length;itr++)
-                    {
-                        $('#a'+itr).show();
+                    for (var itr = 0; itr < Object.keys(data).length; itr++) {
+                        $('#a' + itr).show();
                         document.getElementById(itr + 6).innerHTML = data[itr].fullname;
                         document.getElementById(itr).innerHTML = value[itr].username;
                     }
@@ -505,7 +434,6 @@
         });
 
     </script>
-
     <script>
         // Get the modal
         var modal1 = document.getElementById('myModal1');
@@ -516,7 +444,7 @@
         // Get the <span> element that closes the modal
         var span1 = document.getElementById("closeBtn");
 
-        // When the user clicks the button, open the modal 
+        // When the user clicks the button, open the modal
         btn1.onclick = function () {
             modal1.style.display = "block";
         }
@@ -533,7 +461,6 @@
             }
         }
     </script>
-
     <script>
 
         $(document).ready(function () {
@@ -552,13 +479,13 @@
 
                     var value = data;
 
-                    for (var itr = 0 ; itr < Object.keys(data).length; itr++) {
+                    for (var itr = 0; itr < Object.keys(data).length; itr++) {
 
                         //alert(data[itr].fullname);
 
                         $('#s' + itr).show();
-                        document.getElementById("s"+(itr + 6)).innerHTML = data[itr].fullname;
-                        document.getElementById("su"+itr).innerHTML = value[itr].username;
+                        document.getElementById("s" + (itr + 6)).innerHTML = data[itr].fullname;
+                        document.getElementById("su" + itr).innerHTML = value[itr].username;
                     }
 
                 });
@@ -568,7 +495,5 @@
         });
 
     </script>
-
 </body>
-
 </html>
