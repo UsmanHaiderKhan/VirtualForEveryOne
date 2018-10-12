@@ -1,47 +1,48 @@
-﻿@model virtually_everyone.Models.group
+﻿@model VirtualForEveryOne.Models.Group
 
-@{
-    ViewBag.Title = "DeleteGroup";
-    Layout = "";
-}
+    @{
+        ViewBag.Title = "DeleteGroup";
+        Layout = "";
+    }
 
-<h2>DeleteGroup</h2>
-<h3>Are you sure you want to delete this?</h3>
-<fieldset>
-    <legend>Group</legend>
+    <h2>DeleteGroup</h2>
+    <h3>Are you sure you want to delete this?</h3>
+    <fieldset>
+        <legend>Group</legend>
 
-    
-        @if(@Model.image != null)
+
+        @if (@Model.image != null)
         {
             <div>
-  <img src="@Model.image" id="profile_img"     style="width:300px; height:400px" />
-                 </div>
+                <img src="@Model.image" id="profile_img" style="width:300px; height:400px" />
+            </div>
         }
-           
-    <div >
-        
-       Id:  @Model.Id
-    </div>
-    
-    <div >
-        GroupID : @Model.groupid
-    </div>
-    
 
-    <div >
-       GroupName : @Model.groupname
-    </div>
-    <div >
-        GroupAdmin: @Model.groupadmin
-    </div>
-    <div >
-        Info : @Model.info
-    </div>
-    
-</fieldset>
-@using (Html.BeginForm()) {
-    <p>
-        <input type="submit" value="DeleteGroup" /> |
-        @Html.ActionLink("Back to List", "GroupAdd")
-    </p>
-}
+        <div>
+
+            Id:  @Model.Id
+        </div>
+
+        <div>
+            GroupID : @Model.groupid
+        </div>
+
+
+        <div>
+            GroupName : @Model.groupname
+        </div>
+        <div>
+            GroupAdmin: @Model.groupadmin
+        </div>
+        <div>
+            Info : @Model.info
+        </div>
+
+    </fieldset>
+    @using (Html.BeginForm())
+    {
+        <p>
+            <input type="submit" value="DeleteGroup" /> |
+            @Html.ActionLink("Back to List", "GroupAdd")
+        </p>
+    }
