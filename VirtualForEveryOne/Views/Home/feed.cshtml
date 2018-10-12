@@ -1,33 +1,27 @@
-﻿@using virtually_everyone.Models;
-
+﻿
+@using VirtualForEveryOne.Models
 @{
+    Layout = "~/Views/Shared/_Layout.cshtml";
     var abc = TempData["value"];
     var f_id = -1;
 
-    List<friends> frnds = TempData["friends"] as List<friends>;
-    List<user> user = TempData["user"] as List<user>;
-    List<sharedPost> shp = TempData["sharedPost"] as List<sharedPost>;
-    List<answer> ans = TempData["answer"] as List<answer>;
-    List<faq> faq = TempData["faq"] as List<faq>;
+    List<Friends> frnds = TempData["friends"] as List<Friends>;
+    List<User> user = TempData["user"] as List<User>;
+    List<SharedPost> shp = TempData["sharedPost"] as List<SharedPost>;
+    List<Answer> ans = TempData["answer"] as List<Answer>;
+    List<Faq> faq = TempData["faq"] as List<Faq>;
 
     ViewBag.page = "Feed";
 }
-
 <html lang="en">
 <head>
     <title>@{ViewBag.Title = "Feed | VituallyEveryone ";}</title>
-
     <script src="~/Scripts/js/jquery.js"></script>
     <script src="~/Scripts/js/bootstrap.min.js"></script>
-
-    <link rel="stylesheet" type="text/css" href="~/Content/css/jquery.flexdatalist.css" >
-
+    <link rel="stylesheet" type="text/css" href="~/Content/css/jquery.flexdatalist.css">
 </head>
-
 <body onload="check()">
-
-    <input type="text" id="chk" value="@abc" hidden/>
-    
+    <input type="text" id="chk" value="@abc" hidden />
     <datalist id="faq_list">
         @{
             foreach (var f in faq)
@@ -37,7 +31,6 @@
 
         }
     </datalist>
-
     <datalist id="tag_user_list">
         @{
             foreach (var us in user)
@@ -46,13 +39,9 @@
             }
         }
     </datalist>
-
-
     <div class="container" style="margin-left: 250px">
-
         <!-- Report Modal -->
         <div id="myModal5" class="modal">
-
             <!-- Report Modal content -->
             <div class="modal-content" style="width: 30%; height: 40%">
                 <span class="close5">&times;</span>
@@ -62,37 +51,28 @@
                 <button id="report-btn">Submit</button>
             </div>
         </div>
-
         <div class="row">
-
             <div>
-
                 <div class="well well-new" id="">
-
                     <div style="display: inline-block">
                         <img src="~/Content/images/ques_icon.png" />
                         <h4>Questions</h4>
                     </div>
-
                     <div class="photo-sharing" style="display: inline-block">
                         <img src="~/Content/images/image_icon.png" />
                         <a href="#">
                             <h4 id="myBtn">Photo Sharing</h4>
                         </a>
-
                         <!-- The Modal -->
                         <div id="myModal" class="modal">
-
                             <!-- Modal content -->
                             <div class="modal-content" style="width: 30%; height: 40%">
                                 <span class="close">&times;</span>
                                 <p>Upload Image</p>
                                 <form method="post" action="/Home/Save_img_post" enctype="multipart/form-data">
-
                                     <div class="form-group">
                                         <textarea class="form-control" name="imgTxt"></textarea>
                                     </div>
-
                                     <table>
                                         <tr>
                                             <td>
@@ -100,34 +80,23 @@
                                                     <input type="checkbox" name="img_checkbox" id="img_checkbox">
                                                     <span class="slider"></span>
                                                 </label>
-
                                             </td>
                                             <td>
                                                 <h5 style="margin-left: 5px; color: #CC2222">Ask anonymously</h5>
                                             </td>
                                         </tr>
                                     </table>
-
                                     <input type="file" multiple accept="image/*" name="upload" id="upload" required />
-
                                     <input type="image" id="upload_img" src="~/Content/images/upload.png" alt="submit" />
-
                                 </form>
                             </div>
-
                         </div>
                     </div>
-
                     <div class="form-group">
-
                         <input type="text" name="user" value="username" hidden />
-                        
                         <input type='text' id="tags" placeholder='Tags' class='flexdatalist form-control' data-min-length='1' data-searchcontain='true' multiple='multiple' list='tag_user_list'>
-
                         <textarea class="form-control" placeholder="Your text" id="textarea" name="textarea" required></textarea>
-
                     </div>
-
                     <table>
                         <tr>
                             <td>
@@ -135,7 +104,6 @@
                                     <input type="checkbox" id="checkbox">
                                     <span class="slider"></span>
                                 </label>
-
                             </td>
                             <td>
                                 <h5 style="margin-left: 5px; color: #CC2222">Ask anonymously</h5>
@@ -145,25 +113,19 @@
                             </td>
                         </tr>
                     </table>
-
                 </div>
-
                 <div class="col-md-4" id="frnd_list_div" style="overflow-x:hidden; overflow-y:auto">
                     <h5>Friends</h5>
                     <hr />
-
-
                     @for (var itr = 0; itr < frnds.Count; itr++)
                     {
                         foreach (var u in user)
                         {
-                            if (u.username.Remove(0, 1) == frnds[itr].userfriends)
+                            if (u.username.Remove(0, 1) == frnds[itr].userfrirends)
                             {
                                 <a href="#">
                                     <span id="@f_id" hidden>@u.username</span>
-
                                     <p id="frnd-list-tag1" onclick="getProfile(@f_id)">
-
                                         @if (@u.profilepic == null || @u.profilepic == "")
                                         {
                                             <img src="~/Content/images/ques_icon.png" />@u.fullname
@@ -174,20 +136,16 @@
                                         }
                                     </p>
                                 </a>
-                                        f_id--;
+                                f_id--;
                             }
                         }
                     }
-
                     <a href="~/Home/Friends#friend">
                         <p id="frnd-list-tag2">See all friends</p>
                     </a>
                 </div>
-
             </div>
-
             <div class="col-lg-8" style="border: solid 1px; border-color: lightgrey">
-
                 <div id="mydiv">
                     <table class="ques-table2">
                         @{
@@ -205,216 +163,201 @@
 
                             for (var itr = 0; itr < count; itr++)
                             {
-                                
+
                                 <tr><td><hr style="color: gray; width: 475px" /></td></tr>
-                            
+
                                 if (itr < shp.Count && shp[itr].time > ans[itr].time)
                                 {
                                     <tr><td><p><b>@@@shp[itr].username </b> shared a post</p></td></tr>
-                            
+
                                     foreach (var obj in ans)
                                     {
                                         if (obj.Id == shp[itr].answerid)
                                         {
-                                                <tr style="background-color:whitesmoke" >
-                                                    <td>
-                                                        <h5 style="display: inline-block" id="ques">@obj.question</h5>
+                                            <tr style="background-color:whitesmoke">
+                                                <td>
+                                                    <h5 style="display: inline-block" id="ques">@obj.question</h5>
+                                                    @if (obj.image != null)
+                                                    {
+                                                        <br />
+                                                        <img style="display: inline-block; width:300px; cursor:pointer" id="ques-img" class="c-ques-img" src="@obj.image" />
+                                                    }
+                                                    @if (obj.s_profilepic != null)
+                                                    {
+                                                        <img class="sender_img" src="@obj.s_profilepic" />
 
-                                                        @if (obj.image != null)
-                                                        {
-                                                            <br />
-                                                            <img style="display: inline-block; width:300px; cursor:pointer" id="ques-img" class="c-ques-img" src="@obj.image" />
-                                                        }
-                                                        @if (obj.s_profilepic != null)
-                                                        {
-                                                            <img class="sender_img" src="@obj.s_profilepic" />
-                                                            
-                                                        }
-                                                    </td>
-                                                </tr>
+                                                    }
+                                                </td>
+                                            </tr>
 
-                                                <tr style="background-color:whitesmoke" >
-                                                    <td>
-                                                        <div id="ans-div">
-                                                            <p>
-                                                                <img src="@obj.a_profilepic" />@@ @obj.a_username
-                                                            </p>
+                                            <tr style="background-color:whitesmoke">
+                                                <td>
+                                                    <div id="ans-div">
+                                                        <p>
+                                                            <img src="@obj.a_profilepic" />@@ @obj.a_username
+                                                        </p>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                            <tr style="background-color:whitesmoke">
+                                                <td>
+                                                    <p style="font-style: italic">@obj.ans</p>
+                                                </td>
+                                            </tr>
+
+                                            <tr style="background-color:whitesmoke">
+                                                <td>
+                                                    <div class="example">
+                                                        <div class="rating" id="rating">
+                                                            <img style="margin-left: 5px" class="img-like" src="~/Content/images/like.png" />
+                                                            <span class="likes" style="margin-right: 14px">@obj.like</span>
+                                                            <img class="img-dislike" src="~/Content/images/dislike.png" />
+                                                            <span class="dislikes">@obj.dislike</span>
                                                         </div>
-                                                    </td>
-                                                </tr>
-                                                
-                                                <tr style="background-color:whitesmoke" >
-                                                    <td>
-                                                        <p style="font: bolder">@obj.ans</p>
-                                                    </td>
-                                                </tr>
-                            
-                                                <tr style="background-color:whitesmoke" >
-                                                    <td>
-                                                        <div class="example">
-                                                            <div class="rating" id="rating">
+                                                    </div>
+                                                </td>
+                                            </tr>
 
-                                                                <img style="margin-left: 5px" class="img-like" src="~/Content/images/like.png" />
-                                                                <span class="likes" style="margin-right: 14px">@obj.like</span>
-                                                                <img class="img-dislike" src="~/Content/images/dislike.png" />
-                                                                <span class="dislikes">@obj.dislike</span>
-                                                            </div>
+                                            <tr><td><hr style="color: gray; width: 475px" /></td></tr>
 
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                
-                                                <tr><td><hr style="color: gray; width: 475px" /></td></tr>
-                            
                                         }
                                     }
                                 }
-                                 
-                                 
-                                    <tr>
-                                        <td>
-                                            <h5 style="display: inline-block" id="ques">@ans[itr].question</h5>
 
-                                            @if (ans[itr].image != null)
-                                            {
-                                                <br />
-                                                <img style="display: inline-block; width:300px; cursor:pointer" id="ques-img" class="c-ques-img" src="@ans[itr].image" />
-                                            }
-                                            
-                                            @if (ans[itr].s_profilepic != null)
-                                            {
-                                                <img class="sender_img" title="@ans[itr].username" src="@ans[itr].s_profilepic" />
-                                            }
 
-                                            <div class="dropdown" style="float: right;">
-                                                <span data-toggle="dropdown" class="caret" style="cursor: pointer"></span>
-
-                                                <ul class="dropdown-menu" style="cursor: pointer">
-                                                    <li><a href="#" id="shareBtn" onclick="sharePost(@i)">Share</a>
-                                                        <span id="shpostid_@i" hidden>@ans[itr].Id</span>
-                                                    </li>
-
-                                                    <li><a href="#" id="myBtn5" class="rbtn" onmouseover="report(@i)">Report</a>
-                                                        <span id="postid_@i" hidden>@ans[itr].Id</span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-
-                                        </td>
-
-                                        <td>
-                                            <input type="text" id="likefield" name="likefield" hidden />
-                                            <input type="text" id="dislikefield" name="dislikefield" hidden />
-                                            <input type="text" name="@i" id="@i" value="@ans[itr].Id" hidden />
-                                            <input type="text" id="input-field-id" name="input-field-id" value="@ans[itr].Id" hidden />
-                                        </td>
-
-                                    </tr>
-                            
-                                    <tr>
-                                        <td>
-                                            <div id="ans-div">
-                                                <p>
-                                                    <img src="@ans[itr].a_profilepic" />@@ @ans[itr].a_username
-                                                </p>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>
-                                            <p style="font: bolder">@ans[itr].ans</p>
-                                        </td>
-                                    </tr>
-                            
-                                    <tr>
-                                        <td>
-                                            <div class="example">
-                                                <div class="rating" id="rating">
-                                                    <button class="btn btn-default like " id="like" onmouseover="like(@i)">
-                                                        <img class="img-like" src="~/Content/images/like.png" />Like</button>
-                                                    <span class="likes">@ans[itr].like</span>
-                                                    <button class="btn btn-default dislike" id="dislike" onmouseover="dislike(@i)">
-                                                        <img class="img-dislike" src="~/Content/images/dislike.png" />Dislike</button>
-                                                    <span class="dislikes">@ans[itr].dislike</span>
-                                                </div>
-
-                                            </div>
-                                        </td>
-                                    </tr>
-                            
-                                            if (itr < shp.Count && shp[itr].time < ans[itr].time)
-                                            {
-                                        <tr><td><hr style="color: gray; width: 475px;" /></td></tr>
-                                        <tr><td><p><b>@@@shp[itr].username </b> shared a post</p></td></tr>
-                                        
-                                                foreach (var obj in ans)
-                                                {
-                                                    if (obj.Id == shp[itr].answerid)
-                                                    {
-                                                <tr style="background-color: whitesmoke">
-                                                    <td>
-                                                        <h5 style="display: inline-block" id="ques">@obj.question</h5>
-
-                                                        @if (obj.image != null)
-                                                        {
-                                                            <br />
-                                                            <img style="display: inline-block; width:300px; cursor:pointer" id="ques-img" class="c-ques-img" src="@obj.image" />
-                                                        }
-                                                        @if (obj.s_profilepic != null)
-                                                        {
-                                                            <img style="width: 25px; height: 25px; display: inline-block" src="@obj.s_profilepic" />
-                                                        }
-                                                    </td>
-
-                                                 </tr>
-
-                                                <tr style="background-color: whitesmoke">
-                                <td>
-                                    <div id="ans-div">
-                                        <p>
-                                            <img src="@obj.a_profilepic" />@@ @obj.a_username
-                                        </p>
-                                    </div>
-                                </td>
-                            </tr>
-                                                
-                            <tr style="background-color: whitesmoke">
-                                <td>
-                                    <p style="font: bolder">@obj.ans</p>
-                                </td>
-                            </tr>
-                            
-                                                <tr style="background-color: whitesmoke">
-                                <td>
-                                    <div class="example">
-                                        <div class="rating" id="rating">
-
-                                            <img style="margin-left: 5px" class="img-like" src="~/Content/images/like.png" />
-                                            <span class="likes" style="margin-right: 14px">@obj.like</span>
-                                            <img class="img-dislike" src="~/Content/images/dislike.png" />
-                                            <span class="dislikes">@obj.dislike</span>
+                                <tr>
+                                    <td>
+                                        <h5 style="display: inline-block" id="ques">@ans[itr].question</h5>
+                                        @if (ans[itr].image != null)
+                                        {
+                                            <br />
+                                            <img style="display: inline-block; width:300px; cursor:pointer" id="ques-img" class="c-ques-img" src="@ans[itr].image" />
+                                        }
+                                        @if (ans[itr].s_profilepic != null)
+                                        {
+                                            <img class="sender_img" title="@ans[itr].username" src="@ans[itr].s_profilepic" />
+                                        }
+                                        <div class="dropdown" style="float: right;">
+                                            <span data-toggle="dropdown" class="caret" style="cursor: pointer"></span>
+                                            <ul class="dropdown-menu" style="cursor: pointer">
+                                                <li>
+                                                    <a href="#" id="shareBtn" onclick="sharePost(@i)">Share</a>
+                                                    <span id="shpostid_@i" hidden>@ans[itr].Id</span>
+                                                </li>
+                                                <li>
+                                                    <a href="#" id="myBtn5" class="rbtn" onmouseover="report(@i)">Report</a>
+                                                    <span id="postid_@i" hidden>@ans[itr].Id</span>
+                                                </li>
+                                            </ul>
                                         </div>
+                                    </td>
+                                    <td>
+                                        <input type="text" id="likefield" name="likefield" hidden />
+                                        <input type="text" id="dislikefield" name="dislikefield" hidden />
+                                        <input type="text" name="@i" id="@i" value="@ans[itr].Id" hidden />
+                                        <input type="text" id="input-field-id" name="input-field-id" value="@ans[itr].Id" hidden />
+                                    </td>
+                                </tr>
 
-                                    </div>
-                                </td>
-                            </tr> 
-                            
-                                             }
+                                <tr>
+                                    <td>
+                                        <div id="ans-div">
+                                            <p>
+                                                <img src="@ans[itr].a_profilepic" />@@ @ans[itr].a_username
+                                            </p>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <p style="font-style: italic">@ans[itr].ans</p>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <div class="example">
+                                            <div class="rating" id="rating">
+                                                <button class="btn btn-default like " id="like" onmouseover="like(@i)">
+                                                    <img class="img-like" src="~/Content/images/like.png" />Like
+                                                </button>
+                                                <span class="likes">@ans[itr].like</span>
+                                                <button class="btn btn-default dislike" id="dislike" onmouseover="dislike(@i)">
+                                                    <img class="img-dislike" src="~/Content/images/dislike.png" />Dislike
+                                                </button>
+                                                <span class="dislikes">@ans[itr].dislike</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                if (itr < shp.Count && shp[itr].time < ans[itr].time)
+                                {
+                                    <tr><td><hr style="color: gray; width: 475px;" /></td></tr>
+                                    <tr><td><p><b>@@@shp[itr].username </b> shared a post</p></td></tr>
+
+                                    foreach (var obj in ans)
+                                    {
+                                        if (obj.Id == shp[itr].answerid)
+                                        {
+                                            <tr style="background-color: whitesmoke">
+                                                <td>
+                                                    <h5 style="display: inline-block" id="ques">@obj.question</h5>
+                                                    @if (obj.image != null)
+                                                    {
+                                                        <br />
+                                                        <img style="display: inline-block; width:300px; cursor:pointer" id="ques-img" class="c-ques-img" src="@obj.image" />
+                                                    }
+                                                    @if (obj.s_profilepic != null)
+                                                    {
+                                                        <img style="width: 25px; height: 25px; display: inline-block" src="@obj.s_profilepic" />
+                                                    }
+                                                </td>
+                                            </tr>
+
+                                            <tr style="background-color: whitesmoke">
+                                                <td>
+                                                    <div id="ans-div">
+                                                        <p>
+                                                            <img src="@obj.a_profilepic" />@@ @obj.a_username
+                                                        </p>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                            <tr style="background-color: whitesmoke">
+                                                <td>
+                                                    <p style="font-style: italic">@obj.ans</p>
+                                                </td>
+                                            </tr>
+
+                                            <tr style="background-color: whitesmoke">
+                                                <td>
+                                                    <div class="example">
+                                                        <div class="rating" id="rating">
+                                                            <img style="margin-left: 5px" class="img-like" src="~/Content/images/like.png" />
+                                                            <span class="likes" style="margin-right: 14px">@obj.like</span>
+                                                            <img class="img-dislike" src="~/Content/images/dislike.png" />
+                                                            <span class="dislikes">@obj.dislike</span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
                                         }
                                     }
+                                }
 
-                                        i++;
-                                  }
+                                i++;
+                            }
                         }
                     </table>
                 </div>
             </div>
-
             <div class="col-md-4">
-
                 <div class="well" id="help-cen-div" style="height: 275px; background-color: #1E2326;">
-
                     <div class="input-group" style="margin-top: 25px; z-index:0">
                         <input type="text" class="form-control" id="search_faq" list="faq_list" onchange="faqcheck()" placeholder="Search Frequently Asked Questions">
                         <span class="input-group-btn">
@@ -423,15 +366,12 @@
                             </button>
                         </span>
                     </div>
-
                     <div id="well-div2">
                         <img src="~/Content/images/download.png" style="margin-left: 10px; height: 40px;" />
                         <img src="~/Content/images/help.png" style="margin-left: 10px; height: 30px;" />
                         <span></span>
                         <img src="~/Content/images/247.png" style="margin-left: 10px; height: 30px;" />
-
                         <img src="~/Content/images/support.png" style="margin-left: 10px; height: 30px;" />
-
                         <p style="margin-top: 15px; font-size: small; float: right; color: #CC2222;">
                             <font size="3"><b>VirtuallyEveryone Help Center</b></font>.
                             <br />
@@ -439,26 +379,20 @@
                         </p>
                     </div>
                 </div>
-
                 <div class="well" style="background-color: #1E2326;">
                     <p style="color: white;">
                         <img src="~/Content/images/vesmall.png" style="margin-left: 10px; height: 20px;" />
                         <img src="~/Content/images/copyright.png" style="margin-left: 10px; height: 20px;" />
                         <span style="font-size: medium"><b>VirtuallyEveryone 2018</b></span>
                     </p>
-
                 </div>
-
             </div>
-
         </div>
-
         <div id="myModal1" class="modal1">
             <span class="close1">&times;</span>
             <img src="" class="modal-content1" id="q_img01">
             <div id="caption"></div>
         </div>
-
         <script>
             // Get the modal
             var modal1 = document.getElementById('myModal1');
@@ -484,26 +418,23 @@
             span.onclick = function () {
                 modal1.style.display = "none";
             }
-            
+
         </script>
-
     </div>
-
     <script>
         $(document).ready(function () {
 
             $('#myBtn5').click(function (e) {
-                    e.preventDefault();
+                e.preventDefault();
             });
         });
     </script>
-
     <script>
         function sharePost(x) {
 
             var postid = document.getElementById("shpostid_" + x).innerHTML;
 
-            $.getJSON("/Home/ResharePost?postid=" + postid , function (data) {
+            $.getJSON("/Home/ResharePost?postid=" + postid, function (data) {
 
                 if (data) {
                     alert(" Successfull ");
@@ -514,7 +445,6 @@
             });
         }
     </script>
-
     <script>
         // Get the modal
         var modal5 = document.getElementById('myModal5');
@@ -527,7 +457,7 @@
         // Get the <span> element that closes the modal
         var span5 = document.getElementsByClassName("close5")[0];
 
-        // When the user clicks the button, open the modal 
+        // When the user clicks the button, open the modal
         var showModal = function () {
             modal5.style.display = "block";
         }
@@ -548,7 +478,6 @@
             }
         }
     </script>
-
     <script>
         function getProfile(x) {
 
@@ -560,7 +489,6 @@
             });
         }
     </script>
-
     <script>
         function check() {
             var a = document.getElementById("chk").value;
@@ -569,7 +497,6 @@
             }
         }
     </script>
-
     <script>
         function like(x) {
             var a = document.getElementById(x).value;
@@ -578,7 +505,6 @@
             document.getElementById("dislikefield").value = "0";
         }
     </script>
-
     <script>
         function dislike(x) {
 
@@ -588,7 +514,6 @@
             document.getElementById("likefield").value = "0";
         }
     </script>
-
     <script>
         $(document).ready(function () {
 
@@ -634,7 +559,6 @@
 
         });
     </script>
-
     <script>
         $(document).ready(function () {
 
@@ -680,14 +604,12 @@
 
         });
     </script>
-
     <script>
         function report(x) {
             var a = document.getElementById("postid_" + x).innerHTML;
             document.getElementById("postid").value = a;
         }
     </script>
-
     <script>
         $(document).ready(function () {
 
@@ -701,7 +623,7 @@
                     if (data) {
 
                         modal5.style.display = "none";
-                        document.getElementById("report_comment").value = " " ;
+                        document.getElementById("report_comment").value = " ";
                         alert(" Successfull ");
                     }
                     else {
@@ -714,12 +636,8 @@
 
         });
     </script>
-
     <script src="~/Scripts/js/bootstrap.min.js"></script>
-
     <script src="http://code.jquery.com/jquery-1.12.1.min.js"></script>
     <script type="text/javascript" src="~/Scripts/jquery.flexdatalist.js"></script>
-
 </body>
-
 </html>
