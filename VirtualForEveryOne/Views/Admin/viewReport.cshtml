@@ -1,58 +1,58 @@
-﻿@model virtually_everyone.Models.report
-@{
-    ViewBag.Title = "viewReport";
+﻿@model VirtualForEveryOne.Models.Report
+    @{
+        ViewBag.Title = "viewReport";
         Layout = "";
-        if(null != TempData["alert message"])
-    {
-          <script type="text/javascript">
+        if (null != TempData["alert message"])
+        {
+            <script type="text/javascript">
               alert("@TempData["alert message"]");
-          </script>
+            </script>
+        }
     }
-}
-     
 
 
 
 
-<h2>Report</h2>
+
+    <h2>Report</h2>
 
 
 
 
-<h3>Complete report details are there</h3>
-<fieldset>
-    <legend>Report</legend>
+    <h3>Complete report details are there</h3>
+    <fieldset>
+        <legend>Report</legend>
 
-    <div >
-        
-       Id:  @Model.Id
-    </div>
-    
-    <div >
-        Username : @Model.username
-    </div>
-    
+        <div>
 
-    <div >
-       PostId : @Model.postid
-    </div>
-    <div >
-        Comment : @Model.comment
-    </div>
-    <div >
-        Status : @Model.status
-    </div>
-    <div >
-        Time : @Model.time
-    </div>
-    
-</fieldset>
-@using (Html.BeginForm()) {
-    <p>
-       
-        @Html.ActionLink("View Post", "DeletePost", new { id = Model.postid, reportid = Model.Id }) |  
-        @Html.ActionLink("Warn", "Warn", new {reportid = Model.Id })|
-        @Html.ActionLink("Back to List", "Report") 
-    </p>
-}
+            Id:  @Model.Id
+        </div>
 
+        <div>
+            Username : @Model.username
+        </div>
+
+
+        <div>
+            PostId : @Model.postid
+        </div>
+        <div>
+            Comment : @Model.comments
+        </div>
+        <div>
+            Status : @Model.status
+        </div>
+        <div>
+            Time : @Model.time
+        </div>
+
+    </fieldset>
+    @using (Html.BeginForm())
+    {
+        <p>
+
+            @Html.ActionLink("View Post", "DeletePost", new { id = Model.postid, reportid = Model.Id }) |
+            @Html.ActionLink("Warn", "Warn", new { reportid = Model.Id })|
+            @Html.ActionLink("Back to List", "Report")
+        </p>
+    }
