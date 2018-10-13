@@ -1,24 +1,20 @@
-﻿@using virtually_everyone.Models;
-
-@model virtually_everyone.Models.user
-
+﻿@using VirtualForEveryOne.Models
 @{
-    ViewBag.page = "Settings";
-    List<faq> faq = TempData["faq"] as List<faq>;
-}
 
+    ViewBag.page = "Settings";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<Faq> faq = TempData["faq"] as List<Faq>;
+}
 <head>
     <title>@{ViewBag.Title = "Friend | VirtuallyEveryone";}</title>
-
     <style>
+
         .cbp-contentslider nav a {
             width: 50.00%;
         }
     </style>
 </head>
-
 <body id="back-body">
-
     <datalist id="faq_list">
         @{
             foreach (var f in faq)
@@ -28,58 +24,42 @@
 
         }
     </datalist>
-
     <div class="container">
-
         <!-- Password Change Modal -->
-
         <div id="myModal2" class="modal" style="height:115%;z-index:1001">
-
             <!-- Modal content -->
             <div class="modal-content" style="width: 30%; height: 40%">
                 <span class="close2">&times;</span>
                 <p><b>Change Password</b></p>
                 <input id="old_pass" class="form-control" type="password" placeholder="old password" required />
                 <p id="result" hidden></p>
-                <input id="new_pass" class="form-control" type="password" placeholder="new password" style="margin-top:5px ;margin-bottom:5px" required/>
-                <input id="c_pass" class="form-control" type="password" placeholder="confirm password" required/>
+                <input id="new_pass" class="form-control" type="password" placeholder="new password" style="margin-top:5px ;margin-bottom:5px" required />
+                <input id="c_pass" class="form-control" type="password" placeholder="confirm password" required />
                 <span id="result1" hidden></span>
                 <button id="btn-changepass" class="btn btn-primary" style="margin-top: 10px; float:right" disabled>Change</button>
             </div>
-
         </div>
-
         <!-- Deactivate Account Modal -->
         <div id="myModal" class="modal" style="z-index:1001">
-
             <!-- Modal content -->
             <div class="modal-content" style="width: 30%; height: 40%">
                 <span id="close2" class="close">&times;</span>
                 <p>We are sorry that you are leaving :(</p>
                 <p>Help us to improve !</p>
-
                 <div class="form-group">
                     <textarea class="form-control"></textarea>
                 </div>
-
                 <a href="~/Home/Deactivate"><h5 style="margin-left: 5px; color: #CC2222">Deactivate Account</h5></a>
             </div>
-
         </div>
-
         <div class="row">
-
             <!-- Main Body Column -->
-
             <div class=" col-lg-8" style="height: 580px; border: solid 0.4px; background: none; margin-bottom: 50px; margin-left: 65px">
-
                 <div id="sett-cbp-contentslider" class="cbp-contentslider" style="height: 560px">
-
                     <nav class="nav nav-tabs">
                         <a href="#profile" class="active" id="1"><span>Profile</span></a>
                         <a href="#account" class="icon-aligator" id="3"><span>Account</span></a>
                     </nav>
-
                     <ul>
                         <li id="profile" style="">
                             <br />
@@ -92,66 +72,55 @@
                                                     <h5>Full Name</h5>
                                                 </td>
                                             </tr>
-
                                             <tr>
                                                 <td>
                                                     <input type="text" class="form-control" name="fullname" value="@Model.fullname" />
                                                 </td>
                                             </tr>
-
                                             <tr>
                                                 <td>
                                                     <h5>Skills</h5>
                                                 </td>
                                             </tr>
-
                                             <tr>
                                                 <td>
                                                     <textarea class="form-control" name="skills" style="height: 50px">@Model.skills</textarea>
-
                                                 </td>
                                             </tr>
-
                                             <tr>
                                                 <td>
                                                     <h6>A Little about yourself</h6>
                                                     <textarea class="form-control" name="bio" style="height: 50px">@Model.bio</textarea>
                                                 </td>
                                             </tr>
-
                                             <tr>
                                                 <td>
                                                     <h5>Username</h5>
                                                 </td>
                                             </tr>
-
                                             <tr>
                                                 <td>
                                                     <input type="text" class="form-control" placeholder="@Model.username" readonly>
                                                     <h6>Username can't be changed </h6>
                                                 </td>
                                             </tr>
-
                                             <tr>
                                                 <td>
                                                     <h5>Email</h5>
                                                 </td>
                                             </tr>
-
                                             <tr>
                                                 <td id="sett-td1">
                                                     <input type="email" class="form-control" value="@Model.email" readonly>
                                                     @*<a href="#emailConfirm" style="color:red;"><h6>Resend confirmation email</h6></a>*@
                                                 </td>
                                             </tr>
-
                                             <tr>
                                                 <td>
                                                     <h5>Birthday</h5>
                                                 </td>
                                             </tr>
                                         </table>
-
                                         <table>
                                             <tr>
                                                 <td>
@@ -163,21 +132,18 @@
                                                     <p style="color:lightgrey">@Model.dob</p>
                                                 </td>
                                             </tr>
-@*                                                                                        <tr>
-                                                <td>
-                                                    <h6 style="color:lightgrey">Your age will not be visible to other users</h6>
-                                                </td>
-                                            </tr>*@
-
+                                            @*                                                                                        <tr>
+                                                    <td>
+                                                        <h6 style="color:lightgrey">Your age will not be visible to other users</h6>
+                                                    </td>
+                                                </tr>*@
                                         </table>
-
                                         <table class="sett-table">
                                             <tr>
                                                 <td>
                                                     <h5>Gender</h5>
                                                 </td>
                                             </tr>
-
                                             <tr>
                                                 <td>
                                                     <select name="gender">
@@ -186,13 +152,11 @@
                                                     </select>
                                                 </td>
                                             </tr>
-
                                             <tr>
                                                 <td>
                                                     <h1 style="border-top: 5px solid red; width: 100%; margin-bottom: 18px"></h1>
                                                 </td>
                                             </tr>
-
                                         </table>
                                         <div style="margin-left: 10px; color: red">
                                             <div>
@@ -205,12 +169,10 @@
                                                             <div class="checkboxF">
                                                                 <input id="c1" style="margin-right: 10px; float: right;" type="checkbox" name="chkbox-1" value="yes" checked>
                                                                 <label for="c1"></label>
-
                                                             </div>
                                                         </td>
                                                     </tr>
                                                 </table>
-
                                             </div>
                                             <hr id="hr-1" />
                                             <div>
@@ -227,12 +189,9 @@
                                                         </td>
                                                     </tr>
                                                 </table>
-
                                             </div>
                                         </div>
-
                                         <h1 style="border-top: 5px solid red; width: 100%; padding-bottom: 10px"></h1>
-
                                         <div>
                                             <table>
                                                 <tr>
@@ -240,11 +199,9 @@
                                                         <h4>Photo</h4>
                                                         @*/*****tab-component*******\*@
                                                     </td>
-
                                                     <td>
                                                         <div>
                                                             <img id="sett_profile_img" src="@Model.profilepic" style="border-radius: 3%; height: 150px; width: 200px;margin-left:31% " />
-
                                                             <div class="overlay">
                                                                 <input multiple accept="image/*" type="file" name="profile_img" class="imgInput" style="margin-left: 32%" />
                                                             </div>
@@ -253,9 +210,7 @@
                                                 </tr>
                                             </table>
                                         </div>
-
                                         <hr id="hr-1" />
-
                                         <div>
                                             <table>
                                                 <tr>
@@ -269,20 +224,15 @@
                                                                 <input multiple accept="image/*" type="file" name="background_img" class="imgInput" style="margin-left: 23%" />
                                                             </div>
                                                         </div>
-
                                                     </td>
                                                 </tr>
                                             </table>
-
                                         </div>
-
                                         <hr id="hr-1" />
-
                                         <div class="zoom">
                                             <input type="submit" value="SAVE CHANGES" style="width: 150px; background-color: #2b3237; color: #ff0404; font-weight: bold;height: 35px;border-radius: 5px; margin-left: 35%" />
                                         </div>
                                         <hr id="hr-1" />
-
                                         <h6 style="padding-top: 30px">
                                             <b>*</b>
                                             Information you provide (other than your password) may be shared with affiliates,
@@ -290,44 +240,34 @@
                                             If you do not want us to share your information, please do not provide it.
                                             <b>*</b>
                                         </h6>
-
                                     </form>
                                 </div>
                             </div>
                         </li>
-
                         <li id="account">
-
                             <div class="accountSet">
                                 <div>
                                     <a href="#changePassword" style="color: red;"><span id="myBtn2"><b>Change Password</b></span></a>
                                 </div>
                                 <hr id="hr-1" style="margin-right: 20px" />
-
                                 <div>
-                                    <a href="#deactivateAccount" style="color: red;"><span id="myBtn" ><b>Deactivate Account</b></span></a>
+                                    <a href="#deactivateAccount" style="color: red;"><span id="myBtn"><b>Deactivate Account</b></span></a>
                                 </div>
-
-@*                                <hr id="hr-1" style="margin-right: 20px" />
-                                <div>
-                                    <a href="#viewBlockList" style="color: red;"><span><b>View Block List</b></span></a>
-                                </div>*@
-
+                                @*                                <hr id="hr-1" style="margin-right: 20px" />
+                                    <div>
+                                        <a href="#viewBlockList" style="color: red;"><span><b>View Block List</b></span></a>
+                                    </div>*@
                                 <hr id="hr-1" style="margin-right: 20px" />
                                 <div>
                                     <a href="~/Home/Logout" style="color: red;"><span><b>Log Out</b></span></a>
                                 </div>
                             </div>
-
                         </li>
                     </ul>
                 </div>
             </div>
-
             <div class="col-md-4" style="border-radius: 15px; margin-left: 30px; margin-top: 5%">
-
                 <div class="well" id="help-cen-div" style="height: 275px; background-color: #1E2326;">
-
                     <div class="input-group" style="margin-top: 25px">
                         <input type="text" class="form-control" id="search_faq" onchange="faqcheck()" list="faq_list" placeholder="Search Frequently Asked Questions">
                         <span class="input-group-btn">
@@ -341,9 +281,7 @@
                         <img src="~/Content/images/help.png" style="margin-left: 10px; height: 30px;" />
                         <span></span>
                         <img src="~/Content/images/247.png" style="margin-left: 10px; height: 30px;" />
-
                         <img src="~/Content/images/support.png" style="margin-left: 10px; height: 30px;" />
-
                         <p style="margin-top: 15px; font-size: small; float: right; color: #CC2222;">
                             <font size="3"><b>VirtuallyEveryone Help Center</b></font>.
                             <br />
@@ -351,22 +289,16 @@
                         </p>
                     </div>
                 </div>
-
                 <div class="well" style="background-color: #1E2326;">
                     <p style="color: white;">
                         <img src="~/Content/images/vesmall.png" style="margin-left: 10px; height: 20px;" />
                         <img src="~/Content/images/copyright.png" style="margin-left: 10px; height: 20px;" />
                         <font size="3"><b>VirtuallyEveryone 2018</b></font>
                     </p>
-
                 </div>
-
             </div>
-
         </div>
-
     </div>
-
     <script>
         // Get the modal
         var modal2 = document.getElementById('myModal2');
@@ -377,7 +309,7 @@
         // Get the <span> element that closes the modal
         var span2 = document.getElementsByClassName("close2")[0];
 
-        // When the user clicks the button, open the modal 
+        // When the user clicks the button, open the modal
         btn2.onclick = function () {
             modal2.style.display = "block";
         }
@@ -394,7 +326,6 @@
             }
         }
     </script>
-
     <script>
         $(document).ready(function () {
 
@@ -448,7 +379,7 @@
 
                 var new_pass = $('#new_pass').val();
 
-                $.getJSON("/Home/ChangePassword?new_pass="+new_pass, function (data) {
+                $.getJSON("/Home/ChangePassword?new_pass=" + new_pass, function (data) {
                     if (data) {
                         document.getElementById('old_pass').value = '';
                         document.getElementById('new_pass').value = '';
@@ -469,9 +400,7 @@
         });
     </script>
 
-
 </body>
-
 
 @****************ACTIVE MENU HIGHLIGHT****************@
 <script src="~/Scripts/js/jquery.js"></script>
