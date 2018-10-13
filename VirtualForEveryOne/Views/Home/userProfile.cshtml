@@ -1,7 +1,7 @@
 ﻿@using VirtualForEveryOne.Models
 
-
 @{
+    Layout = "~/Views/Shared/_Layout.cshtml";
     var totalPost = ViewBag.totalPost;
     var totalLike = ViewBag.totalLike;
     var follower = ViewBag.follower;
@@ -13,12 +13,10 @@
 <html lang="en">
 <head>
     <title>@{ViewBag.Title = "Profile | VituallyEveryone ";}</title>
-
     <link rel="stylesheet" href="~/Content/css/follow-btn.css" />
-
     <script src="~/Scripts/js/jquery.js"></script>
-
     <style>
+
         #profile_img:hover {
             opacity: 0.7;
         }
@@ -111,7 +109,6 @@
             }
         }
     </style>
-
     <script>
         function div_change(x) {
             if (x = 1) {
@@ -126,11 +123,8 @@
 
         }
     </script>
-
 </head>
-
 <body>
-
     <datalist id="faq_list">
         @{
             foreach (var f in faq)
@@ -140,21 +134,16 @@
 
         }
     </datalist>
-
     <div class="container" style="margin-left: 250px">
-
         <div class="row">
             <div class="profile-top" style="background: linear-gradient(rgba(255,0,0,0), rgba(43,50,55,1)),round url('@Model.coverpic')">
-
                 <img src="@Model.profilepic" id="profile_img" alt="Profile Picture" style="cursor:pointer;" />
-
                 <!-- The Modal -->
                 <div id="myModal" class="modal">
                     <span class="close">&times;</span>
                     <img src="" class="modal-content" id="profile_img01">
                     <div id="caption"></div>
                 </div>
-
                 <script>
                     // Get the modal
                     var modal = document.getElementById('myModal');
@@ -177,12 +166,9 @@
                         modal.style.display = "none";
                     }
                 </script>
-
                 <h4 style="color: white; font-style: italic"><img src="~/Content/images/online.png" /> @Model.fullname</h4>
                 <h5 style="color: white" id="username">@Model.username</h5>
-
             </div>
-
             @{
                 if (@Model.coverpic == null)
                 {
@@ -193,18 +179,12 @@
                     <script>div_change(2)</script>
                 }
             }
-
             <div>
-
                 <div class="well" style="background-color: #1E2326; width: 50%; display: inline-block">
-
                     <h4 id="ask-well-top">Ask yourself</h4>
-
                     <form action="#" method="post">
                         <div class="form-group">
-
                             <input type="text" name="user" value="username" hidden />
-
                             <textarea id="textarea" class="form-control" name="textarea" required></textarea>
                         </div>
                         <table>
@@ -214,7 +194,6 @@
                                         <input type="checkbox" id="checkbox">
                                         <span class="slider"></span>
                                     </label>
-
                                 </td>
                                 <td>
                                     <h5 style="margin-left: 5px; color: #CC2222">Ask anonymously</h5>
@@ -225,11 +204,8 @@
                             </tr>
                         </table>
                     </form>
-
                 </div>
-
                 <div class="col-md-4" id="profile_side_div">
-
                     <div class="profile-side-div">
                         <div style="border-left:none">
                             <img src="~/Content/images/post.png" /><br />
@@ -241,7 +217,6 @@
                             <h4>@totalLike</h4>
                             <h6>likes</h6>
                         </div>
-
                         <div>
                             <img src="~/Content/images/follower.png" /><br />
                             <h4>@follower</h4>
@@ -254,7 +229,6 @@
                     </div>
                     <div class="profile-side-div3">
                         <img src="~/Content/images/ques_icon.png" />
-
                         @if (@Model.bio == null)
                         {
                             <a href="#"> <p>Tell us some things about yourself...</p></a>
@@ -275,11 +249,8 @@
                         }
                     </div>
                 </div>
-
             </div>
-
             <div class="col-lg-8" style="border: solid 1px; border-color: lightgrey">
-
                 <div id="mydiv">
                     <table class="ques-table2">
                         @{
@@ -296,7 +267,6 @@
                                 <tr>
                                     <td>
                                         <h5 style="display: inline-block" id="ques">@a.question</h5>
-
                                         @if (a.image != null)
                                         {
                                             <br />
@@ -307,7 +277,6 @@
                                             <img style="width: 25px; height: 25px; display: inline-block" src="@a.s_profilepic" />
                                         }
                                     </td>
-
                                     <td>
                                         <input type="text" id="likefield" name="likefield" hidden />
                                         <input type="text" id="dislikefield" name="dislikefield" hidden />
@@ -342,7 +311,6 @@
                                                 </button>
                                                 <span class="dislikes">@a.dislike</span>
                                             </div>
-
                                         </div>
                                     </td>
                                 </tr>
@@ -353,11 +321,8 @@
                     </table>
                 </div>
             </div>
-
             <div class="col-md-4">
-
                 <div class="well" id="help-cen-div" style="height: 275px; background-color: #1E2326;">
-
                     <div class="input-group" style="margin-top: 25px">
                         <input type="text" class="form-control" id="search_faq" onchange="faqcheck()" list="faq_list" placeholder="Search Frequently Asked Questions">
                         <span class="input-group-btn">
@@ -371,9 +336,7 @@
                         <img src="~/Content/images/help.png" style="margin-left: 10px; height: 30px;" />
                         <span></span>
                         <img src="~/Content/images/247.png" style="margin-left: 10px; height: 30px;" />
-
                         <img src="~/Content/images/support.png" style="margin-left: 10px; height: 30px;" />
-
                         <p style="margin-top: 15px; font-size: small; float: right; color: #CC2222;">
                             <font size="3"><b>VirtuallyEveryone Help Center</b></font>.
                             <br />
@@ -381,26 +344,20 @@
                         </p>
                     </div>
                 </div>
-
                 <div class="well" style="background-color: #1E2326;">
                     <p style="color: white;">
                         <img src="~/Content/images/vesmall.png" style="margin-left: 10px; height: 20px;" />
                         <img src="~/Content/images/copyright.png" style="margin-left: 10px; height: 20px;" />
                         <font size="3"><b>VirtuallyEveryone 2018</b></font>
                     </p>
-
                 </div>
-
             </div>
-
         </div>
-
         <div id="myModal1" class="modal1">
             <span class="close1">&times;</span>
             <img src="" class="modal-content1" id="q_img01">
             <div id="caption1"></div>
         </div>
-
         <script>
             // Get the modal
             var modal1 = document.getElementById('myModal1');
@@ -428,14 +385,10 @@
             }
 
         </script>
-
     </div>
-
     <script src="~/Scripts/js/jquery.js"></script>
     <script src="~/Scripts/js/bootstrap.min.js"></script>
-
 </body>
-
 <script>
     $('button.followButton').click('click', function (e) {
         e.preventDefault();
@@ -470,7 +423,6 @@
     });
 
 </script>
-
 @*        <script>
             function check() {
                 var a = document.getElementById("chk").value;
@@ -479,7 +431,6 @@
                 }
             }
     </script>*@
-
 <script>
     $(document).ready(function () {
 
@@ -522,7 +473,6 @@
 
     });
 </script>
-
 <script>
     function like(x) {
         var a = document.getElementById(x).value;
@@ -531,7 +481,6 @@
         document.getElementById("dislikefield").value = "0";
     }
 </script>
-
 <script>
     function dislike(x) {
 
@@ -541,7 +490,6 @@
         document.getElementById("likefield").value = "0";
     } s
 </script>
-
 <script>
     $(document).ready(function () {
 
@@ -587,6 +535,5 @@
 
     });
 </script>
-
 
 </html>
