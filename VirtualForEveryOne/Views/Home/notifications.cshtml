@@ -1,21 +1,17 @@
-﻿@using virtually_everyone.Models
-@model List<virtually_everyone.Models.notification>
-
-
+﻿@using VirtualForEveryOne.Models
+@model List<VirtualForEveryOne.Models.Notification>
 @{
+    Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Notification | VirtuallyEverone";
     ViewBag.page = "Notifications";
 
     //List<notification> noti = TempData["notification"] as List<notification>;
-    List<post> post = TempData["post"] as List<post>;
-    List<answer> answer = TempData["answer"] as List<answer>;
-    List<faq> faq = TempData["faq"] as List<faq>;
+    List<Post> post = TempData["post"] as List<Post>;
+    List<Answer> answer = TempData["answer"] as List<Answer>;
+    List<Faq> faq = TempData["faq"] as List<Faq>;
 }
-
 <head>
-
     <title>@{ViewBag.Title = "Notification | VituallyEveryone ";}</title>
-
     <script>
         function noti_div_change(x) {
 
@@ -28,7 +24,6 @@
             classname1[x].style.backgroundColor = "lightgrey";
         }
     </script>
-
     <script>
 
         function setBackground(x) {
@@ -54,11 +49,8 @@
         }
 
     </script>
-
 </head>
-
 <body id="back-body">
-
     <datalist id="faq_list">
         @{
             foreach (var f in faq)
@@ -68,22 +60,17 @@
 
         }
     </datalist>
-
     <div class="container">
         <div class="row">
-
             <!-- Main Body Column -->
             <div class="col-lg-8" style=" height: 580px; border: solid 0.4px; background: none; margin-bottom: 50px; margin-left:65px">
-
                 <div id="noti-cbp-contentslider" class="cbp-contentslider" style="height :560px">
-
                     <nav class="nav nav-tabs">
                         <a id="001" href="#all" class="active"><span>All</span></a>
                         <a id="002" href="#questions" class="icon-rabbit"><span>Question</span></a>
                         <a id="003" href="#answers" class="icon-rabbit"><span>Answers</span></a>
                         <a id="004" href="#likes" class="icon-aligator"><span>Likes</span></a>
                     </nav>
-
                     <ul>
                         <li id="all">
                             <div>
@@ -95,71 +82,62 @@
                                         {
                                             if (Model[itr].type == "question")
                                             {
-                                                 <div class="noti_div1">
-
-                                                     <table class="not_tbl" style="margin-top:10px">
-                                                         <tr style="cursor:pointer" onclick="change_noti_status1(@Model[itr].Id)">
-                                                             <td>
-                                                                 <img style="margin-left: 10px; width: 60px; height: 60px; margin-top:-15px; display: inline-block" src="~/Content/images/dummy.png" />
-                                                             </td>
-
-                                                             <td class="td">
-                                                                 <table>
-                                                                     <tr>
-                                                                         <td>
-                                                                             <h10>You recieved a new question from <a href="#username" style="color:red;"><span><b>@@@Model[itr].notifier</b></span></a>: </h10>
-                                                                         </td>
-                                                                     </tr>
-                                                                     <tr>
-                                                                         <td class="not">
-                                                                             <h11>@p.questions</h11>
-                                                                         </td>
-                                                                     </tr>
-                                                                     <tr>
-                                                                         <td class="post_time">@Model[itr].time</td>
-                                                                     </tr>
-                                                                 </table>
-                                                         </tr>
-                                                     </table>
-
-                                                 </div>
+                                                <div class="noti_div1">
+                                                    <table class="not_tbl" style="margin-top:10px">
+                                                        <tr style="cursor:pointer" onclick="change_noti_status1(@Model[itr].Id)">
+                                                            <td>
+                                                                <img style="margin-left: 10px; width: 60px; height: 60px; margin-top:-15px; display: inline-block" src="~/Content/images/dummy.png" />
+                                                            </td>
+                                                            <td class="td">
+                                                                <table>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <h10>You recieved a new question from <a href="#username" style="color:red;"><span><b>@@@Model[itr].notifier</b></span></a>: </h10>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="not">
+                                                                            <h11>@p.question</h11>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="post_time">@Model[itr].time</td>
+                                                                    </tr>
+                                                                </table>
+                                                        </tr>
+                                                    </table>
+                                                </div>
                                             }
 
                                             else if (Model[itr].type == "answer")
                                             {
-                                                 <div class="noti_div1">
-
+                                                <div class="noti_div1">
                                                     <table class="not_tbl" style="margin-top: 10px">
                                                         <tr style="cursor:pointer" onclick="change_noti_status(@Model[itr].Id)">
-@*                                                            <td>
-                                                                <img style="margin-left: 10px; width: 60px; height: 60px; display: inline-block" src="~/Content/images/dummy.png" />
-                                                            </td>*@
+                                                            @*                                                            <td>
+                                                                    <img style="margin-left: 10px; width: 60px; height: 60px; display: inline-block" src="~/Content/images/dummy.png" />
+                                                                </td>*@
                                                             <td class="td">
                                                                 <table>
-
                                                                     <tr>
                                                                         <td>
                                                                             <h10><a href="#username" style="color:red;"><span><b>@@@Model[itr].notifier</b></span></a> answered your post: </h10>
                                                                         </td>
                                                                     </tr>
-
                                                                     <tr>
                                                                         <td class="not">
-                                                                            <h11>@p.questions</h11>
+                                                                            <h11>@p.question</h11>
                                                                             <img id="q-img" class="c-ques-img" src="@p.image" />
                                                                         </td>
                                                                     </tr>
-                                                                    
                                                                     <tr>
                                                                         <td class="post_time">@Model[itr].time</td>
                                                                     </tr>
-
                                                                 </table>
-                                                              </td>
-                                                          </tr>
+                                                            </td>
+                                                        </tr>
                                                     </table>
-
-                                                 </div>
+                                                </div>
                                             }
                                         }
                                     }
@@ -173,7 +151,6 @@
                                             {
                                                 <div class="noti_div1">
                                                     <table class="not_tbl" style="margin-top: 10px">
-
                                                         <tr style="cursor:pointer" onclick="change_noti_status(@Model[itr].Id)">
                                                             <td class="td">
                                                                 <table>
@@ -189,20 +166,19 @@
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td class="post_time">@Model[itr].time
+                                                                        <td class="post_time">
+                                                                            @Model[itr].time
                                                                         </td>
                                                                     </tr>
                                                                 </table>
-
                                                         </tr>
                                                     </table>
                                                 </div>
                                             }
-                                            else if (Model[itr].type == "deleted your post" || Model[itr].type =="took action and deleted the post" )
+                                            else if (Model[itr].type == "deleted your post" || Model[itr].type == "took action and deleted the post")
                                             {
                                                 <div class="noti_div1">
                                                     <table class="not_tbl" style="margin-top: 10px">
-
                                                         <tr style="cursor:pointer" onclick="change_noti_status(@Model[itr].Id)">
                                                             <td class="td">
                                                                 <table>
@@ -211,23 +187,22 @@
                                                                             <h10><a href="#username" style="color:red;"><span><b>@@@Model[itr].notifier</b></span></a> @Model[itr].type </h10>
                                                                         </td>
                                                                     </tr>
-
                                                                     <tr>
                                                                         <td class="not">
                                                                             <a href="#request" style="color: #645959"><span><b>@ans.question</b></span></a>
                                                                             <img id="q-img" class="c-ques-img" src="@ans.image" />
                                                                         </td>
                                                                     </tr>
-
                                                                     <tr>
-                                                                        <td class="post_time">@Model[itr].time
+                                                                        <td class="post_time">
+                                                                            @Model[itr].time
                                                                         </td>
                                                                     </tr>
                                                                 </table>
                                                         </tr>
                                                     </table>
                                                 </div>
-                                                 
+
                                             }
                                         }
 
@@ -235,7 +210,6 @@
                                 }
                             </div>
                         </li>
-
                         <li id="questions">
                             <div>
                                 @for (var itr = 0; itr < Model.Count; itr++)
@@ -251,14 +225,13 @@
                                                 //    //<script>noti_div_change(@itr)</script>
                                                 //    //<script>setBackground(@itr)</script>
                                                 //}
-                                                
+
                                                 <div id="@itr">
                                                     <table class="not_tbl">
                                                         <tr style="cursor:pointer" onclick="change_noti_status1(@Model[itr].Id)">
                                                             <td>
                                                                 <img style="margin-left: 10px; width: 60px; height: 60px;margin-top:-15px; display: inline-block" src="~/Content/images/dummy.png" />
                                                             </td>
-
                                                             <td class="td">
                                                                 <table>
                                                                     <tr>
@@ -268,7 +241,7 @@
                                                                     </tr>
                                                                     <tr>
                                                                         <td class="not">
-                                                                            <h11>@p.questions</h11>
+                                                                            <h11>@p.question</h11>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -290,7 +263,6 @@
                                 }
                             </div>
                         </li>
-
                         <li id="answers">
                             <div>
                                 @for (var itr = 0; itr < Model.Count; itr++)
@@ -301,33 +273,28 @@
                                         {
 
                                             if (Model[itr].type == "answer")
-                                            {   
+                                            {
                                                 <div id="@itr">
                                                     <table class="not_tbl" style="margin-top: 10px">
                                                         <tr style="cursor:pointer" onclick="change_noti_status(@Model[itr].Id)">
                                                             <td class="td">
                                                                 <table>
-
                                                                     <tr>
                                                                         <td>
                                                                             <h10><a href="#username" style="color:red;"><span><b>@@@Model[itr].notifier</b></span></a> answered your post: </h10>
                                                                         </td>
                                                                     </tr>
-
                                                                     <tr>
                                                                         <td class="not">
-                                                                            <h11>@p.questions</h11>
+                                                                            <h11>@p.question</h11>
                                                                             <img src="@p.image" id="q-img" class="c-ques-img" />
                                                                         </td>
                                                                     </tr>
-
                                                                     <tr>
                                                                         <td class="post_time">@Model[itr].time</td>
                                                                     </tr>
-
                                                                 </table>
                                                         </tr>
-
                                                     </table>
                                                 </div>
                                             }
@@ -343,7 +310,6 @@
                                 }
                             </div>
                         </li>
-
                         <li id="likes">
                             <div>
                                 @for (var itr = 0; itr < Model.Count; itr++)
@@ -353,7 +319,7 @@
                                         if (Model[itr].postid.Remove(0, 1) == ans.Id.ToString())
                                         {
                                             if (Model[itr].type == "like" || Model[itr].type == "dislike")
-                                            { 
+                                            {
                                                 <div id="@itr">
                                                     <table class="not_tbl" style="margin-top: 10px">
                                                         <tr style="cursor:pointer" onclick="change_noti_status(@Model[itr].Id)">
@@ -371,11 +337,11 @@
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td class="post_time">@Model[itr].time
+                                                                        <td class="post_time">
+                                                                            @Model[itr].time
                                                                         </td>
                                                                     </tr>
                                                                 </table>
-
                                                         </tr>
                                                     </table>
                                                 </div>
@@ -396,11 +362,8 @@
                     </ul>
                 </div>
             </div>
-
             <div class="col-md-4" style="border-radius: 15px; margin-left: 30px; margin-top: 5%">
-
                 <div class="well" id="help-cen-div" style="height: 275px; background-color: #1E2326;">
-
                     <div class="input-group" style="margin-top: 25px">
                         <input type="text" class="form-control" id="search_faq" onchange="faqcheck()" list="faq_list" placeholder="Search Frequently Asked Questions">
                         <span class="input-group-btn">
@@ -414,9 +377,7 @@
                         <img src="~/Content/images/help.png" style="margin-left: 10px; height: 30px;" />
                         <span></span>
                         <img src="~/Content/images/247.png" style="margin-left: 10px; height: 30px;" />
-
                         <img src="~/Content/images/support.png" style="margin-left: 10px; height: 30px;" />
-
                         <p style="margin-top: 15px; font-size: small; float: right; color: #CC2222;">
                             <font size="3"><b>VirtuallyEveryone Help Center</b></font>.
                             <br />
@@ -424,26 +385,20 @@
                         </p>
                     </div>
                 </div>
-
                 <div class="well" style="background-color: #1E2326;">
                     <p style="color: white;">
                         <img src="~/Content/images/vesmall.png" style="margin-left: 10px; height: 20px;" />
                         <img src="~/Content/images/copyright.png" style="margin-left: 10px; height: 20px;" />
                         <font size="3"><b>VirtuallyEveryone 2018</b></font>
                     </p>
-
                 </div>
-
             </div>
-
         </div>
-
         <div id="myModal1" class="modal1">
             <span class="close1">&times;</span>
             <img src="" class="modal-content1" id="q_img01">
             <div id="caption"></div>
         </div>
-
         <script>
             // Get the modal
             var modal1 = document.getElementById('myModal1');
@@ -472,12 +427,10 @@
             }
 
         </script>
-
         <script>
-            function change_noti_status(x)
-            {
+            function change_noti_status(x) {
                 //alert(x);
-                $.getJSON("/Home/HandleNotification?postid=" +x , function (data) {
+                $.getJSON("/Home/HandleNotification?postid=" + x, function (data) {
                     if (data) {
                         window.location.href = '/Home/Feed';
                     }
@@ -500,12 +453,8 @@
                 });
             }
         </script>
-
     </div>
 </body>
-
-
-
 
 @****************ACTIVE MENU HIGHLIGHT****************@
 <script src="~/Scripts/js/jquery.js"></script>
