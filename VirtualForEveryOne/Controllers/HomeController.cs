@@ -71,6 +71,29 @@ namespace VirtualForEveryOne.Controllers
 
             answer.time = DateTime.Now;
             new UserMethods().UpdateAnswer(answer);
+            ViewBag.successMessageForAnswer = "Answer is Updated SuccessFully";
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult EditQuestion(int id)
+        {
+            Post post = new UserMethods().GetQuestionById(id);
+
+            return View(post);
+        }
+
+        [HttpPost]
+        public ActionResult EditQuestion(Post post)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            //post.time = DateTime.Now;
+            new UserMethods().UpdateQuestion(post);
+            ViewBag.successMessage = "Question Updated SuccessFully";
             return View();
         }
 
