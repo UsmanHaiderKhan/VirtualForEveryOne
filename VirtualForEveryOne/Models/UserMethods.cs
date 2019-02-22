@@ -8,7 +8,23 @@ namespace VirtualForEveryOne.Models
     {
 
         private VirtualContext db = new VirtualContext();
-
+        public void UpdateUser(User user)
+        {
+            using (db)
+            {
+                db.Entry(user).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+        }
+        public User GetUserByEmail(string email)
+        {
+            using (db)
+            {
+                return (from u in db.Users
+                        where u.email == email
+                        select u).FirstOrDefault();
+            }
+        }
         public User GetUser()
         {
             using (db)
@@ -48,12 +64,27 @@ namespace VirtualForEveryOne.Models
                 return (from v in db.Answers where v.Id == id select v).SingleOrDefault();
             }
         }
+        public Post GetQuestionById(int id)
+        {
+            using (db)
+            {
+                return (from v in db.Posts where v.Id == id select v).SingleOrDefault();
+            }
+        }
 
         public void UpdateAnswer(Answer answer)
         {
             using (db)
             {
                 db.Entry(answer).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+        }
+        public void UpdateQuestion(Post post)
+        {
+            using (db)
+            {
+                db.Entry(post).State = EntityState.Modified;
                 db.SaveChanges();
             }
         }
