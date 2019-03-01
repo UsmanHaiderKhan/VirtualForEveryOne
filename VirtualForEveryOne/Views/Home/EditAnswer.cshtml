@@ -2,6 +2,17 @@
 
 @{
     ViewBag.Title = "EditAnswer";
+    var success_message = ViewBag.successMessageForAnswer;
+    if (success_message != null)
+    {
+        <script type="text/javascript">
+            var messgae = '@success_message';
+            if (messgae) {
+                window.alert(messgae);
+            }
+        </script>
+
+    }
 }
 
 
