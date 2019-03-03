@@ -1,6 +1,8 @@
-﻿@model List<VirtualForEveryOne.Models.User>
+﻿@model VirtualForEveryOne.Models.User
 @{
     ViewBag.Title = "VirtuallyEveryone";
+    @*@model VirtualForEveryOne.Models.User*@
+
 }
 <html>
 <head>
@@ -13,10 +15,13 @@
     <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Open+Sans:400,300'>
     <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
     <link rel="stylesheet" href="~/Content/css/style.css">
+    <style>
+    </style>
 </head>
 @{
     Layout = null;
 }
+
 <body style="background-image: url(/Content/images/background31.jpg)">
     <div class="cotn_principal">
         <div class="cont_centrar">
@@ -65,25 +70,64 @@
                         <a href="#" onclick="ocultar_login_sign_up()"><i class="material-icons">&#xE5C4;</i></a>
                         <h2>LOGIN</h2>
                         <input type="text" name="log_username" id="log_username" placeholder="username" />
+                        @Html.ValidationMessageFor(m => m.username, "", new { @class = "text-danger" })
+
                         <input type="password" name="log_password" id="log_password" placeholder="Password" />
+                        @Html.ValidationMessageFor(m => m.password, "", new { @class = "text-danger" })
+
+                        <a href="@Url.Action("ForgotPassword","Home")">Recover Your Password...!</a>
+
                         <button class="btn_login" id="btn_log">LOGIN</button>
                     </div>
-                    <form method="post" action="~/Home/Save_signup_info">
+                    @using (Html.BeginForm("Save_signup_info", "Home", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="cont_form_sign_up">
                             <a href="#" onclick="ocultar_login_sign_up()"><i class="material-icons">&#xE5C4;</i></a>
                             <h2>SIGN UP</h2>
-                            <input type="text" id="fullname" name="fullname" placeholder="Fullname" required />
-                            <input type="text" id="user" name="username" placeholder="Username" required />
-                            <h6 id="result" style="margin-bottom:-14px;"></h6>
-                            <h6 id="checking"></h6>
-                            <input type="email" name="email" placeholder="Email" required />
-                            <input type="text" id="skills" name="skills" placeholder="Skills" required />
-                            <input type="password" id="pass" name="password" placeholder="Password" required />
-                            <input type="password" id="c_pass" name="c_password" placeholder="Confirm Password" required />
+                            <div class="form-group">
+                                @Html.TextBoxFor(m => m.fullname, "", new { @class = "form-control", id = "fullname", name = "fullname", placeholder = "Fullname" })
+                                <br />
+                                @Html.ValidationMessageFor(m => m.fullname, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                @Html.TextBoxFor(m => m.username, "", new { @class = "form-control", id = "user", name = "username", placeholder = "Username" })
+                                <h6 id="result" style="margin-bottom: -14px;"></h6>
+                                <h6 id="checking"></h6>
+                                <br />
+                                @Html.ValidationMessageFor(m => m.username, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.TextBoxFor(m => m.email, "", new { @class = "form-control", id = "email", type = "email", name = "email", placeholder = "Email" })
+                                <br />
+                                @Html.ValidationMessageFor(m => m.email, "", new { @class = "text-danger" })
+
+                            </div>
+                            <div class="form-group">
+                                @Html.TextBoxFor(m => m.skills, "", new { @class = "form-control", id = "skills", name = "skills", placeholder = "Skills" })
+                                <br />
+                                @Html.ValidationMessageFor(m => m.skills, "", new { @class = "text-danger" })
+
+                            </div>
+
+                            <div class="form-group">
+                                @Html.TextBoxFor(m => m.password, "", new { type = "password", @class = "form-control", id = "pass", name = "password", placeholder = "Password" })
+                                <br />
+                                @Html.ValidationMessageFor(m => m.password, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group">
+                                <input type="password" class="form-control" id="c_pass" name="c_password" placeholder="Confirm Password" required />
+                            </div>
+
+
                             <button id="btn_signup" class="btn_sign_up">SIGN UP</button>
                             <h6 id="result2"></h6>
                         </div>
-                    </form>
+                    }
                 </div>
             </div>
         </div>
@@ -147,7 +191,6 @@
             $('#checking').hide();
 
             $('#btn_log').click(function () {
-                alert("Some");
                 var username = $('#log_username').val();
                 var password = $('#log_password').val();
 
@@ -172,6 +215,10 @@
     <script src="~/Scripts/js/jquery.js"></script>
     <script src="~/Scripts/js/bootstrap.min.js"></script>
     <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src="~/Scripts/jquery-1.12.1.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
     <script src="~/Scripts/js/index.js"></script>
 </body>
 </html>
