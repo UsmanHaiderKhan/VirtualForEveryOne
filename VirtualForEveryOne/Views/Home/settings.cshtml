@@ -5,12 +5,18 @@
     ViewBag.page = "Settings";
     Layout = "~/Views/Shared/_Layout.cshtml";
     List<Faq> faq = TempData["faq"] as List<Faq>;
-    User currentuser = (User)Session["username"];
+    string currentuser = (string)Session["username"];
 
 }
 <head>
     <title>@{ViewBag.Title = "Friend | VirtuallyEveryone";}</title>
     <style>
+
+
+
+
+
+
 
 
 
@@ -252,7 +258,7 @@
                         <li id="account">
                             <div class="accountSet">
                                 <div>
-                                    <a href="@Url.Action("ChangePassword","Home",new{id=currentuser.Id}))" style="color: red;"><span id="myBtn2"><b>Change Password</b></span></a>
+                                    <a href="@Url.Action("ChangePassword","Home",new{username=@currentuser})" style="color: red;"><span id="myBtn2"><b>Change Password</b></span></a>
                                 </div>
                                 <hr id="hr-1" style="margin-right: 20px" />
                                 <div>
