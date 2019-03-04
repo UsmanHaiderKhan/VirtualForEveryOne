@@ -20,6 +20,7 @@
     <link rel="stylesheet" type="text/css" href="~/Content/css/jquery.flexdatalist.css">
     <style>
 
+
         #q_img:hover {
             opacity: 0.7;
         }
@@ -158,11 +159,13 @@
                             <h4 style="display: inline-block">Questions</h4>
                             <button id="rand-btn" class="btn btn-primary" onclick="/Home/Questions">Get Random questions</button>
                         </div>
-                        @*                        <div class="delete-ques-div">
+                        @*
+                            <div class="delete-ques-div">
                                 <a href="#">
                                     <h6 style="padding: 10px">Delete all questions</h6>
                                 </a>
-                            </div>*@
+                            </div>
+                        *@
                     </div>
                     <hr id="hr-1">
                     <div>
@@ -171,14 +174,18 @@
                                 int i = 1;
                                 foreach (var ps in pos)
                                 {
-
-
                                     <tr>
                                         <td>
-                                            <h5 id="ques">@ps.question</h5>
+                                            @if (Session["username"] != null)
+                                            {
+                                                <a href="@Url.Action("EditQuestion", "Home", new {id = ps.Id})" style="color: #000 !important;">
+                                                    <h5 id="ques">@ps.question</h5>
+                                                </a>
+                                            }
+
                                             @if (ps.image != null)
                                             {
-                                                <img style="width:300px; cursor:pointer" id="q_img" src="@ps.image" alt="Picture" />
+                                                <img style="width: 300px; cursor: pointer" id="q_img" src="@ps.image" alt="Picture" />
                                             }
 
                                             @*                                        <div class="dropdown" style="float: right;">
