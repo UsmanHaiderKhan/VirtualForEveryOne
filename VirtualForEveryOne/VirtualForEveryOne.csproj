@@ -323,6 +323,7 @@
     <Compile Include="Models\GroupMember.cs" />
     <Compile Include="Models\Notification.cs" />
     <Compile Include="Models\Post.cs" />
+    <Compile Include="Models\recoveryEmail.cs" />
     <Compile Include="Models\Report.cs" />
     <Compile Include="Models\SharedPost.cs" />
     <Compile Include="Models\User.cs" />
@@ -358,6 +359,10 @@
     <Content Include="Views\Home\Group.cshtml" />
     <Content Include="Views\Home\success.cshtml" />
     <Content Include="Views\Home\VisitGroup.cshtml" />
+    <Content Include="Views\Home\AddMembers.cshtml" />
+    <Content Include="Views\Home\EditAnswer.cshtml" />
+    <Content Include="Views\Home\EditQuestion.cshtml" />
+    <Content Include="Views\Home\ForgotPassword.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
