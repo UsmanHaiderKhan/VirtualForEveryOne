@@ -9,6 +9,9 @@
     <title>@{ViewBag.Title = "Friend | VirtuallyEveryone";}</title>
     <style>
 
+
+
+
         .cbp-contentslider nav a {
             width: 50.00%;
         }
@@ -49,7 +52,7 @@
                 <div class="form-group">
                     <textarea class="form-control"></textarea>
                 </div>
-                <a href="~/Home/Deactivate"><h5 style="margin-left: 5px; color: #CC2222">Deactivate Account</h5></a>
+                <a href="@Url.Action("Deactivate","Home")"><h5 style="margin-left: 5px; color: #CC2222">Deactivate Account</h5></a>
             </div>
         </div>
         <div class="row">
@@ -259,7 +262,7 @@
                                     </div>*@
                                 <hr id="hr-1" style="margin-right: 20px" />
                                 <div>
-                                    <a href="~/Home/Logout" style="color: red;"><span><b>Log Out</b></span></a>
+                                    <a href="@Url.Action("Logout","Home")" style="color: red;"><span><b>Log Out</b></span></a>
                                 </div>
                             </div>
                         </li>

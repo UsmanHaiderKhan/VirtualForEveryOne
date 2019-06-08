@@ -80,7 +80,7 @@ namespace VirtualForEveryOne.Controllers
 
 
 
-        public ActionResult Delete(int id = 0, string username = null)
+        public ActionResult Delete(int id, string username)
         {
             if (Session["admin"] == null)
             {
@@ -88,7 +88,7 @@ namespace VirtualForEveryOne.Controllers
             }
             else
             {
-                User u = db1.Users.Find(id, username);
+                User u = db1.Users.SingleOrDefault(m => m.Id == id);
                 if (u == null)
                 {
                     return HttpNotFound();
@@ -109,7 +109,7 @@ namespace VirtualForEveryOne.Controllers
             }
             else
             {
-                User u = db1.Users.Find(id, username);
+                User u = db1.Users.SingleOrDefault(m => m.Id == id);
                 string name = u.username.Remove(0, 1);
                 db1.Users.Remove(u);
 
