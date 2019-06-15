@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -7,7 +8,8 @@ using VirtualForEveryOne.Models;
 namespace VirtualForEveryOne.Controllers
 {
     public class HomeController : Controller
-    {    //
+    {
+        //
         // GET: /Home/
 
         VirtualContext db = new VirtualContext();
@@ -37,11 +39,14 @@ namespace VirtualForEveryOne.Controllers
 
                 TempData["sharedPost"] = db.SharedPosts.OrderByDescending(u => u.id).ToList();
 
-                TempData["answer"] = (from n in db.Answers where n.status == null || n.status == "1" orderby n.Id descending select n).ToList();
+                TempData["answer"] =
+                    (from n in db.Answers where n.status == null || n.status == "1" orderby n.Id descending select n)
+                    .ToList();
 
                 TempData["faq"] = (from f in db.Faqs select f).ToList();
 
-                ViewBag.count = db.Notifications.Where(u => u.username == logged_user && u.state == false && u.notifier != logged_user).Count();
+                ViewBag.count = db.Notifications
+                    .Where(u => u.username == logged_user && u.state == false && u.notifier != logged_user).Count();
 
                 return View();
             }
@@ -55,9 +60,11 @@ namespace VirtualForEveryOne.Controllers
             }
             else
             {
-                ViewBag.count = db.Notifications.Where(u => u.username == logged_user && u.state == false && u.notifier != logged_user).Count();
+                //User us = new UserMethods().GetUser();
+                ViewBag.count = db.Notifications
+                    .Where(u => u.username == logged_user && u.state == false && u.notifier != logged_user).Count();
                 TempData["faq"] = (from f in db.Faqs select f).ToList();
-
+                //Session.Add(logged_user, us);
                 return View(db.Users.First(x => x.username.Equals("@" + logged_user)));
 
             }
@@ -78,11 +85,14 @@ namespace VirtualForEveryOne.Controllers
                 TempData["friends"] = (from a in db.Friendses.Where(x => x.username == logged_user) select a).ToList();
                 TempData["user"] = (from u in db.Users select u).ToList();
 
-                TempData["post"] = (from n in db.Posts where n.tag == null || n.tag == logged_user orderby n.Id descending select n).ToList();
+                TempData["post"] =
+                    (from n in db.Posts where n.tag == null || n.tag == logged_user orderby n.Id descending select n)
+                    .ToList();
                 //db.post.OrderByDescending(n => n.Id).ToList();
                 TempData["faq"] = (from f in db.Faqs select f).ToList();
 
-                ViewBag.count = db.Notifications.Where(u => u.username == logged_user && u.state == false && u.notifier != logged_user).Count();
+                ViewBag.count = db.Notifications
+                    .Where(u => u.username == logged_user && u.state == false && u.notifier != logged_user).Count();
 
                 return View();
             }
@@ -98,14 +108,20 @@ namespace VirtualForEveryOne.Controllers
             {
                 var logged_user1 = "@" + (Session["username"].ToString()).Remove(0, 1);
 
-                var getCount = (from a in db.Answers where a.username == logged_user select a.like.Value).DefaultIfEmpty(0).Sum();
+                var getCount = (from a in db.Answers where a.username == logged_user select a.like.Value)
+                    .DefaultIfEmpty(0).Sum();
 
                 ViewBag.totalLike = getCount;
                 ViewBag.totalPost = db.Posts.Count(x => x.username == logged_user);
-                ViewBag.count = db.Notifications.Where(u => u.username == logged_user && u.state == false && u.notifier != logged_user).Count();
+                ViewBag.count = db.Notifications
+                    .Where(u => u.username == logged_user && u.state == false && u.notifier != logged_user).Count();
                 ViewBag.follower = db.Friendses.Count(f => f.username == logged_user);
 
-                TempData["answer"] = (from ans in db.Answers where ans.a_username == logged_user || ans.username == logged_user orderby ans.Id descending select ans).ToList();
+                TempData["answer"] =
+                    (from ans in db.Answers
+                     where ans.a_username == logged_user || ans.username == logged_user
+                     orderby ans.Id descending
+                     select ans).ToList();
                 TempData["faq"] = (from f in db.Faqs select f).ToList();
 
                 return View(db.Users.First(x => x.username == logged_user1));
@@ -130,7 +146,9 @@ namespace VirtualForEveryOne.Controllers
                     Friends check;
                     var search_user1 = search_user.Remove(0, 1);
 
-                    check = (from a in db.Friendses where a.username == logged_user && a.userfrirends == search_user.Remove(0, 1) select a).FirstOrDefault();
+                    check = (from a in db.Friendses
+                             where a.username == logged_user && a.userfrirends == search_user.Remove(0, 1)
+                             select a).FirstOrDefault();
 
                     if (check == null)
                     {
@@ -141,14 +159,20 @@ namespace VirtualForEveryOne.Controllers
                         ViewBag.check = 1;
                     }
 
-                    var getCount = (from a in db.Answers where a.username == search_user1 select a.like.Value).DefaultIfEmpty(0).Sum();
+                    var getCount = (from a in db.Answers where a.username == search_user1 select a.like.Value)
+                        .DefaultIfEmpty(0).Sum();
 
                     ViewBag.totalLike = getCount;
                     ViewBag.totalPost = db.Posts.Count(x => x.username == search_user1);
-                    ViewBag.count = db.Notifications.Where(u => u.username == logged_user && u.state == false && u.notifier != logged_user).Count();
+                    ViewBag.count = db.Notifications.Where(u =>
+                        u.username == logged_user && u.state == false && u.notifier != logged_user).Count();
                     ViewBag.follower = db.Friendses.Count(f => f.username == logged_user);
 
-                    TempData["answer"] = (from ans in db.Answers where ans.a_username == search_user1 || ans.username == search_user1 orderby ans.Id descending select ans).ToList();
+                    TempData["answer"] =
+                        (from ans in db.Answers
+                         where ans.a_username == search_user1 || ans.username == search_user1
+                         orderby ans.Id descending
+                         select ans).ToList();
                     TempData["faq"] = (from f in db.Faqs select f).ToList();
 
                     return View(db.Users.First(x => x.username.Equals(search_user)));
@@ -168,7 +192,8 @@ namespace VirtualForEveryOne.Controllers
                 TempData["faq"] = (from f in db.Faqs select f).ToList();
 
                 ViewBag.username = logged_user;
-                ViewBag.count = db.Notifications.Where(u => u.username == logged_user && u.state == false && u.notifier != logged_user).Count();
+                ViewBag.count = db.Notifications
+                    .Where(u => u.username == logged_user && u.state == false && u.notifier != logged_user).Count();
 
                 return View(db.Friendses.Where(x => x.username == logged_user).ToList());
             }
@@ -186,9 +211,13 @@ namespace VirtualForEveryOne.Controllers
                 TempData["answer"] = db.Answers.ToList();
                 TempData["faq"] = (from f in db.Faqs select f).ToList();
 
-                ViewBag.count = db.Notifications.Where(u => u.username == logged_user && u.state == false && u.notifier != logged_user).Count();
+                ViewBag.count = db.Notifications
+                    .Where(u => u.username == logged_user && u.state == false && u.notifier != logged_user).Count();
 
-                var query = (from n in db.Notifications where n.username == logged_user && n.notifier != logged_user orderby n.time descending select n).ToList();
+                var query = (from n in db.Notifications
+                             where n.username == logged_user && n.notifier != logged_user
+                             orderby n.time descending
+                             select n).ToList();
 
                 return View(query);
             }
@@ -436,7 +465,8 @@ namespace VirtualForEveryOne.Controllers
             u_like.image = a.image;
             u_like.answer = a.ans;
 
-            var check = (from ch in db.UserLikes.Where(y => y.question == a.question && y.answer == a.ans && y.username == logged_user)
+            var check = (from ch in db.UserLikes.Where(y =>
+                    y.question == a.question && y.answer == a.ans && y.username == logged_user)
                          select ch).SingleOrDefault();
 
             if (check == null && likefield_id.Equals(0))
@@ -699,8 +729,10 @@ namespace VirtualForEveryOne.Controllers
             var f_username = Request["f_username"];
             f_username = f_username.Remove(0, 1).Trim();
 
-            var msc = (from a in db.Friendses where a.username == logged_user && a.userfrirends == f_username select a).SingleOrDefault();
-            var msc1 = (from b in db.Friendses where b.username == f_username && b.userfrirends == logged_user select b).SingleOrDefault();
+            var msc = (from a in db.Friendses where a.username == logged_user && a.userfrirends == f_username select a)
+                .SingleOrDefault();
+            var msc1 = (from b in db.Friendses where b.username == f_username && b.userfrirends == logged_user select b)
+                .SingleOrDefault();
 
             db.Friendses.Remove(msc);
             db.Friendses.Remove(msc1);
@@ -756,37 +788,102 @@ namespace VirtualForEveryOne.Controllers
             return this.Json(true, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult CheckPassword()
+        [HttpGet]
+        public ActionResult ChangePassword(string username)
         {
-            var old_pass = Request["old_pass"];
-            User get_user = db.Users.Where(u => u.username == "@" + logged_user).SingleOrDefault();
-
-            if (get_user.password == old_pass)
-            {
-                return this.Json(true, JsonRequestBehavior.AllowGet);
-            }
-            else
-            {
-                return this.Json(false, JsonRequestBehavior.AllowGet);
-            }
+            ViewBag.username = username;
+            return View();
         }
 
-        public JsonResult ChangePassword()
+        [HttpPost]
+        public ActionResult ChangePassword(FormCollection formdata, string username)
         {
-            var new_pass = Request["new_pass"];
 
-            User get_user = db.Users.Where(u => u.username == "@" + logged_user).SingleOrDefault();
+            using (db)
+            {
+                User user = db.Users.SingleOrDefault(x => x.username == username);
+                if (user != null)
+                {
 
-            get_user.password = new_pass;
+                    user.password = formdata["password"];
+                    db.Entry(user).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("MainPage", "Home");
+                }
+            }
 
-            db.SaveChanges();
-
-            return this.Json(true, JsonRequestBehavior.AllowGet);
+            return View();
         }
+        //public JsonResult CheckPassword()
+        //{
+        //    var old_pass = Request["old_pass"];
+        //    User get_user = db.Users.Where(u => u.username == "@" + logged_user).SingleOrDefault();
 
+        //    if (get_user.password == old_pass)
+        //    {
+        //        return this.Json(true, JsonRequestBehavior.AllowGet);
+        //    }
+        //    else
+        //    {
+        //        return this.Json(false, JsonRequestBehavior.AllowGet);
+        //    }
+        //}
+
+        //public JsonResult ChangePassword()
+        //{
+        //    var new_pass = Request["new_pass"];
+
+        //    User get_user = db.Users.Where(u => u.username == "@" + logged_user).SingleOrDefault();
+
+        //    get_user.password = new_pass;
+
+        //    db.SaveChanges();
+
+        //    return this.Json(true, JsonRequestBehavior.AllowGet);
+        //}
+        [HttpGet]
         public ActionResult Group()
         {
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult Group(Group group)
+        {
+            if (Session["username"] != null)
+            {
+                if (group != null)
+                {
+                    long numb = DateTime.Now.Ticks;
+                    int count = 0;
+
+                    for (int i = 0; i < Request.Files.Count; i++)
+                    {
+                        HttpPostedFileBase file = Request.Files[i];
+                        if (file != null && file.ContentLength > 0)
+                        {
+                            string name = file.FileName;
+                            string url = "/group/" + numb + "_" + ++count +
+                                         file.FileName.Substring(file.FileName.LastIndexOf("."));
+                            string path = Request.MapPath(url);
+                            file.SaveAs(path);
+
+                        }
+                        else
+                        {
+                            string name = "No Image";
+                            string url = "https://dummyimage.com/800x600/d6d6d6/000000.jpg&text=Sorry+No+Image+Avaialable";
+
+                        }
+                    }
+
+                    db.Groups.Add(group);
+                    db.SaveChanges();
+                    return RedirectToAction("success", "Home");
+                }
+            }
+            return View();
+
         }
 
         public ActionResult Logout()
@@ -800,5 +897,12 @@ namespace VirtualForEveryOne.Controllers
             Session["username"] = null;
             return RedirectToAction("MainPage", "Home");
         }
+
+        public ActionResult success()
+        {
+            return View();
+
+        }
+
     }
 }
