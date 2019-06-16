@@ -129,7 +129,7 @@ namespace VirtualForEveryOne.Controllers
 
 
         //group delete
-        public ActionResult DeleteGroup(int id = 0, int groupid = 0)
+        public ActionResult DeleteGroup(int id = 0)
         {
             if (Session["admin"] == null)
             {
@@ -137,7 +137,7 @@ namespace VirtualForEveryOne.Controllers
             }
             else
             {
-                Group g = db1.Groups.Find(id, groupid);
+                Group g = db1.Groups.Find(id);
                 if (g == null)
                 {
                     return HttpNotFound();
@@ -148,7 +148,7 @@ namespace VirtualForEveryOne.Controllers
 
 
         [HttpPost, ActionName("DeleteGroup")]
-        public ActionResult DeleteGroupConfirmed(int id, int groupid)
+        public ActionResult DeleteGroupConfirmed(int id)
         {
             if (Session["admin"] == null)
             {
@@ -156,7 +156,7 @@ namespace VirtualForEveryOne.Controllers
             }
             else
             {
-                Group g = db1.Groups.Find(id, groupid);
+                Group g = db1.Groups.Find(id);
                 db1.Groups.Remove(g);
 
 

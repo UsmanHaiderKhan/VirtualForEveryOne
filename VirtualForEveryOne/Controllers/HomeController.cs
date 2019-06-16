@@ -241,22 +241,24 @@ namespace VirtualForEveryOne.Controllers
         }
 
         [HttpPost]
-        public ActionResult Save_signup_info()
+        [ValidateAntiForgeryToken]
+        public ActionResult Save_signup_info(User u)
         {
+
             string fullname = Request["fullname"];
             string username = Request["username"];
             string email = Request["Email"];
             string skills = Request["skills"];
             string password = Request["password"];
-
-            User u = new User();
-
             u.fullname = fullname;
             u.username = "@" + username.ToLower();
             u.email = email;
             u.skills = skills;
             u.password = password;
-
+            if (!ModelState.IsValid)
+            {
+                return View("mainPage");
+            }
             db.Users.Add(u);
             db.SaveChanges();
 
@@ -901,6 +903,13 @@ namespace VirtualForEveryOne.Controllers
         public ActionResult success()
         {
             return View();
+
+        }
+
+        public ActionResult VisitGroup(int id)
+        {
+            Group group = new UserMethods().GetGroupById(id);
+            return View(group);
 
         }
 
