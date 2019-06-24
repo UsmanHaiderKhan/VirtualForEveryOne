@@ -67,12 +67,12 @@
 </head>
 <body>
     <nav id="menu" class="top-nav">
-        <a href="~/Home/Feed" style="position: absolute">
+        <a href="@Url.Action("Feed","Home")" style="position: absolute">
             <img style="height: 150px; width: 200px; float: left; margin-top: -15px" src="~/Content/images/ve.png" />
         </a>
         <ul>
             <li>
-                <a id="01" href="~/Home/Settings#profile">
+                <a id="01" href="@Url.Action("Settings","Home")#profile">
                     <span class="icon">
                         <i aria-hidden="true" class="icon-portfolio"></i>
                     </span>
@@ -315,9 +315,13 @@
         var polyfilter_scriptpath = '/js/';
     </script>
     <script src="~/Scripts/js/cssParser.js"></script>
-    <script src="~/bundles/jquery/css-filters-polyfill.js"></script>
-    <script src="~/bundles/jquery/bootstrap.min.js"></script>
-    <script src="~/bundles/jquery/jquery.cbpContentSlider.min.js"></script>
+    <script src="~/Scripts/jquery-1.12.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+    @* <script src="~/bundles/jquery/css-filters-polyfill.js"></script>
+        <script src="~/bundles/jquery/bootstrap.min.js"></script>
+           <script src="~/bundles/jquery/jquery.cbpContentSlider.min.js"></script>*@
     <script>
         $(function () {
             $('#cbp-contentslider').cbpContentSlider();
