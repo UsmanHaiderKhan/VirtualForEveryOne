@@ -302,6 +302,19 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201906061212063_InitialCreate.cs" />
+    <Compile Include="Migrations\201906061212063_InitialCreate.Designer.cs">
+      <DependentUpon>201906061212063_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906160458259_addedValidation.cs" />
+    <Compile Include="Migrations\201906160458259_addedValidation.Designer.cs">
+      <DependentUpon>201906160458259_addedValidation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906160751007_updateValidation.cs" />
+    <Compile Include="Migrations\201906160751007_updateValidation.Designer.cs">
+      <DependentUpon>201906160751007_updateValidation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Admin.cs" />
     <Compile Include="Models\Answer.cs" />
     <Compile Include="Models\Faq.cs" />
@@ -314,6 +327,7 @@
     <Compile Include="Models\SharedPost.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserLike.cs" />
+    <Compile Include="Models\UserMethods.cs" />
     <Compile Include="Models\VirtualContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -331,7 +345,6 @@
     <Content Include="Views\Home\feed.cshtml" />
     <Content Include="Views\Home\friends.cshtml" />
     <Content Include="Views\Home\frndsprofile.cshtml" />
-    <Content Include="Views\Home\group.cshtml" />
     <Content Include="Views\Home\mainPage.cshtml" />
     <Content Include="Views\Home\notifications.cshtml" />
     <Content Include="Views\Home\questions.cshtml" />
@@ -340,6 +353,11 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_AdminLayoutPage.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Home\ChangePassword.cshtml" />
+    <Content Include="Views\Home\Group.cshtml" />
+    <Content Include="Views\Home\success.cshtml" />
+    <Content Include="Views\Home\VisitGroup.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -349,6 +367,18 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\group\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201906061212063_InitialCreate.resx">
+      <DependentUpon>201906061212063_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906160458259_addedValidation.resx">
+      <DependentUpon>201906160458259_addedValidation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906160751007_updateValidation.resx">
+      <DependentUpon>201906160751007_updateValidation.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
