@@ -865,7 +865,7 @@ namespace VirtualForEveryOne.Controllers
                         if (file != null && file.ContentLength > 0)
                         {
                             string name = file.FileName;
-                            string url = "/group/" + numb + "_" + ++count +
+                            string url = "/Content/group/" + numb + "_" + ++count +
                                          file.FileName.Substring(file.FileName.LastIndexOf("."));
                             string path = Request.MapPath(url);
                             file.SaveAs(path);
