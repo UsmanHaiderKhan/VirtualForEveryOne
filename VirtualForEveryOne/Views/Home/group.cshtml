@@ -7,30 +7,9 @@
 <style>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     .panel {
         padding: 40px;
     }
-
-
-
-
-
-
-
-
 
     .control-label {
         text-align: left !important;
@@ -48,54 +27,54 @@
 <div class="row">
     <div class="col-md-6 col-md-offset-3">
         <div class="panel">
-            @using (Html.BeginForm())
+            @using (Html.BeginForm("Group", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
-                @Html.AntiForgeryToken()
+            @Html.AntiForgeryToken()
 
-                <div class="form-horizontal">
-                    <h4 class="text-primary">Create Group</h4>
-                    <hr />
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.groupid, htmlAttributes: new { @class = "control-label col-md-2" })
-                        @Html.EditorFor(model => model.groupid, new { htmlAttributes = new { @class = "form-control", PlaceHolder = "Enter Unique ID *" } })
-                        @Html.ValidationMessageFor(model => model.groupid, "", new { @class = "text-danger" })
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.groupname, htmlAttributes: new { @class = "control-label col-md-2" })
-
-                        @Html.EditorFor(model => model.groupname, new { htmlAttributes = new { @class = "form-control", PlaceHolder = "Enter group Name *" } })
-                        @Html.ValidationMessageFor(model => model.groupname, "", new { @class = "text-danger" })
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.groupadmin, htmlAttributes: new { @class = "control-label col-md-2" })
-
-                        @Html.EditorFor(model => model.groupadmin, new { htmlAttributes = new { @class = "form-control", PlaceHolder = "Enter Group Admin Name" } })
-                        @Html.ValidationMessageFor(model => model.groupadmin, "", new { @class = "text-danger" })
-
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.image, htmlAttributes: new { @class = "control-label col-md-2" })
-
-                        @Html.EditorFor(model => model.image, new { htmlAttributes = new { @class = "form-control", type = "file" } })
-                        @Html.ValidationMessageFor(model => model.image, "", new { @class = "text-danger" })
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.info, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <textarea class="form-control " rows="9" placeholder="Group Rules or Activities" name="info"></textarea>
-                        @Html.ValidationMessageFor(model => model.info, "", new { @class = "text-danger" })
-                    </div>
-
-                    <div class="form-group">
-
-                        <input type="submit" value="Create Group" class="btn btn-success text-left btn-lg" />
-
-                    </div>
+            <div class="form-horizontal">
+                <h4 class="text-primary">Create Group</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.groupid, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.EditorFor(model => model.groupid, new { htmlAttributes = new { @class = "form-control", PlaceHolder = "Enter Unique ID *" } })
+                    @Html.ValidationMessageFor(model => model.groupid, "", new { @class = "text-danger" })
                 </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.groupname, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                    @Html.EditorFor(model => model.groupname, new { htmlAttributes = new { @class = "form-control", PlaceHolder = "Enter group Name *" } })
+                    @Html.ValidationMessageFor(model => model.groupname, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.groupadmin, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                    @Html.EditorFor(model => model.groupadmin, new { htmlAttributes = new { @class = "form-control", PlaceHolder = "Enter Group Admin Name" } })
+                    @Html.ValidationMessageFor(model => model.groupadmin, "", new { @class = "text-danger" })
+
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.image, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                    @Html.EditorFor(model => model.image, new { htmlAttributes = new { @class = "form-control", type = "file" } })
+                    @Html.ValidationMessageFor(model => model.image, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.info, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <textarea class="form-control " rows="9" placeholder="Group Rules or Activities" name="info"></textarea>
+                    @Html.ValidationMessageFor(model => model.info, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+
+                    <input type="submit" value="Create Group" class="btn btn-success text-left btn-lg" />
+
+                </div>
+            </div>
             }
         </div>
 
