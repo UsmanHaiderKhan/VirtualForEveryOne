@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
@@ -50,6 +51,25 @@ namespace VirtualForEveryOne.Controllers
 
                 return View();
             }
+        }
+        [HttpGet]
+        public ActionResult EditAnswer(int id)
+        {
+            Answer answers = new UserMethods().GetAnswersById(id);
+            return View(answers);
+        }
+
+        [HttpPost]
+        public ActionResult EditAnswer(Answer answer)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            answer.time = DateTime.Now;
+            new UserMethods().UpdateAnswer(answer);
+            return View();
         }
 
         public ActionResult Settings()
@@ -909,9 +929,45 @@ namespace VirtualForEveryOne.Controllers
         public ActionResult VisitGroup(int id)
         {
             Group group = new UserMethods().GetGroupById(id);
+            if (id != null)
+            {
+                ViewBag.groupMembers = new UserMethods().GetGroupMembers(id);
+            }
             return View(group);
 
         }
+        [HttpGet]
+        public ActionResult AddMembers(int groupId)
+        {
+            ViewBag.groupId = groupId;
+            return View();
+        }
+        [HttpPost]
+        public ActionResult AddMembers(GroupMember groupMember, int groupId)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
 
+            groupMember.groudid = groupId;
+            db.GroupMembers.Add(groupMember);
+            db.SaveChanges();
+            return View("success");
+        }
+
+        public List<GroupMember> GetGroupMember(int groupid)
+        {
+            if (groupid != null)
+            {
+                List<GroupMember> groupMembers = new UserMethods().GetGroupMembers(groupid);
+
+                return groupMembers;
+            }
+
+            return null;
+        }
     }
+
+
 }
