@@ -17,6 +17,7 @@
     <script src="~/Scripts/js/jquery.js"></script>
     <style>
 
+
         #profile_img:hover {
             opacity: 0.7;
         }
@@ -228,7 +229,7 @@
                         <a href="~/Home/Settings#profile">  <h6>Edit profile</h6></a>
                     </div>
                     <div class="profile-side-div3">
-                        <img src="~/Content/images/ques_icon.png" />
+                        @*<img src="~/Content/images/ques_icon.png" />*@
                         @if (@Model.bio == null)
                         {
                             <a href="#"> <p>Tell us some things about yourself...</p></a>

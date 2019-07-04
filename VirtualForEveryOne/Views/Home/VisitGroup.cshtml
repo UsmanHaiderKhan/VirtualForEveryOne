@@ -3,32 +3,376 @@
 
 @{
     ViewBag.Title = "VisitGroup";
+    List<GroupMember> groupMembers = ViewBag.groupMembers;
 }
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 @*@{
         List<Group> group = new UserMethods().GetAllGroups();
     }*@
 <h2>VisitGroup</h2>
 
 <div class="container">
-    <div class="row">
-        <div class="col-md-4">
+    <div class="row" style="margin-top: 110px;">
+        <div class="col-md-4" id="panels">
             <div class="panel">
                 <h4>Group Rules</h4>
                 <p style="font-weight: bold; font-size: 18px; color: red;">
                     @Model.info
                 </p>
                 <div style="background: cornsilk; width: 98%; height: 2px;"></div>
+                <style>
+                    #panels .panel {
+                        padding: 30px;
+                    }
+
+                    .mt-50 {
+                        margin-top: 10px;
+                    }
+
+                    .msg-header {
+                        border: 1px solid #ccc;
+                        width: 100%;
+                        height: 10%;
+                        border-bottom: none;
+                        display: inline-block;
+                        background-color: #007bff;
+                    }
+
+                    /* img {
+                        max-width: 100%;
+                    } */
+
+                    .msg-header-img {
+                        width: 40px;
+                        height: 50px;
+                        border-radius: 50%;
+                        margin-left: 5%;
+                        margin-top: 6px;
+                        float: left;
+                    }
+
+                    .msg-header .active {
+                        width: 170px;
+                        float: left;
+                        margin-bottom: 14px;
+                        margin-top: 10px;
+                    }
+
+                    .active h4 {
+                        font-size: 15px;
+                        margin-left: 20px;
+                        color: #fff;
+                    }
+
+                    .active h6 {
+                        font-size: 11px;
+                        margin-left: 20px;
+                        line-height: 2px;
+                        color: #fff;
+                    }
+
+                    .header-icons {
+                        width: 120px;
+                        float: right;
+                        margin-top: 17px;
+                        margin-right: 10px;
+                    }
+
+                        .header-icons .fa {
+                            color: #fff;
+                            cursor: pointer;
+                            margin: 10px;
+                        }
+
+                    .chat-page {
+                        padding: 0 0 1px 0;
+                    }
+
+                    .msg-inbox {
+                        border: 1px solid #ccc;
+                        overflow: hidden;
+                        padding-bottom: 30px;
+                    }
+
+                    .chats {
+                        padding: 30px 15px 0 25px;
+                    }
+
+                    .msg-page {
+                        height: 360px;
+                        overflow-y: auto;
+                    }
+
+                    .received-chat-img {
+                        display: inline-block;
+                        width: 20px !important;
+                        float: left;
+                    }
+
+                    .received-msg {
+                        display: inline-block;
+                        padding: 0 0 0 24px;
+                        vertical-align: top;
+                        width: 92%;
+                    }
+
+                    .received-msg-inbox {
+                        width: 57%;
+                    }
+
+                        .received-msg-inbox p {
+                            background: #efefef none no-repeat scroll 0 0;
+                            border-radius: 10px;
+                            color: #646464;
+                            font-size: 14px;
+                            margin: 0;
+                            padding: 5px 10px 5px 12px;
+                            width: 100%;
+                        }
+
+                    .time {
+                        color: #777;
+                        display: block;
+                        font-size: 12px;
+                        margin: 8px 0 0;
+                    }
+
+                    .outgoing-chats {
+                        overflow: hidden;
+                        margin: 26px 20px;
+                    }
+
+                    .outgoing-chat-msg p {
+                        background: #007bff none repeat scroll 0 0;
+                        color: #fff;
+                        font-size: 14px;
+                        margin: 0;
+                        padding: 5px 10px 5px 12px;
+                        width: 100%;
+                        border-radius: 10px;
+                        -webkit-border-radius: 10px;
+                        -moz-border-radius: 10px;
+                        -ms-border-radius: 10px;
+                        -o-border-radius: 10px;
+                    }
+
+                    .outgoing-chat-msg {
+                        float: left;
+                        width: 45%;
+                        margin-left: 45%;
+                    }
+
+                    .outgoing-chat-img {
+                        display: inline-block;
+                        width: 20px;
+                        float: right;
+                    }
+
+                    .user-img {
+                        width: 25px;
+                        height: 25px;
+                        border-radius: 50%;
+                        -webkit-border-radius: 50%;
+                        -moz-border-radius: 50%;
+                        -ms-border-radius: 50%;
+                        -o-border-radius: 50%;
+                    }
+
+                    .msg-bottom {
+                        position: relative;
+                        height: 10%;
+                        background: #007bff;
+                    }
+
+                    .input-group {
+                        float: right;
+                        margin-top: 13px;
+                        margin-right: 20px;
+                        outline: none !important;
+                        border-radius: 20px;
+                        width: 61%;
+                        background-color: #fff;
+                        -webkit-border-radius: 20px;
+                        -moz-border-radius: 20px;
+                        -ms-border-radius: 20px;
+                        -o-border-radius: 20px;
+                    }
+
+                    .form-control {
+                        border: none !important;
+                        border-radius: 20px !important;
+                        -webkit-border-radius: 20px !important;
+                        -moz-border-radius: 20px !important;
+                        -ms-border-radius: 20px !important;
+                        -o-border-radius: 20px !important;
+                    }
+
+                    .input-group-text {
+                        border: none !important;
+                        background: transparent !important;
+                    }
+
+                    .input-group .f {
+                        color: #007bff;
+                        float: right;
+                    }
+
+                    .bottom-icons {
+                        float: left;
+                        margin-top: 17px;
+                        width: 30%;
+                        margin-left: 22px;
+                    }
+
+                        .bottom-icons .fa {
+                            color: #fff;
+                            padding: 5px;
+                        }
+
+                    .form-control:focus {
+                        border-color: transparent !important;
+                        box-shadow: none !important;
+                        border-radius: 20px;
+                        -webkit-border-radius: 20px;
+                        -moz-border-radius: 20px;
+                        -ms-border-radius: 20px;
+                        -o-border-radius: 20px;
+                        z-index: 9;
+                    }
+
+                    .input-group-append {
+                        margin-left: -1px;
+                    }
+
+                    .input-group-append, .input-group-prepend {
+                        display: -webkit-box;
+                        display: -ms-flexbox;
+                        display: flex;
+                    }
+
+                    .input-group-text {
+                        z-index: 2;
+                        margin-left: -44px;
+                        display: -webkit-box;
+                        display: -ms-flexbox;
+                        display: flex;
+                        -webkit-box-align: center;
+                        -ms-flex-align: center;
+                        align-items: center;
+                        padding: .375rem .75rem;
+                        margin-bottom: 8px;
+                        font-size: 2rem;
+                        font-weight: 400;
+                        line-height: 47.5px;
+                        color: #495057;
+                        text-align: center;
+                        white-space: nowrap;
+                        background-color: #e9ecef;
+                        border: 1px solid #ced4da;
+                        border-radius: .25rem;
+                    }
+
+                    .input-group {
+                        float: right;
+                        margin-top: 13px;
+                        margin-right: 20px;
+                        outline: none !important;
+                        border-radius: 20px;
+                        width: 61%;
+                        background-color: #fff;
+                        -webkit-border-radius: 20px;
+                        -moz-border-radius: 20px;
+                        -ms-border-radius: 20px;
+                        -o-border-radius: 20px;
+                    }
+                </style>
                 <h4>Group Members</h4>
+                @ViewBag.GroupMember
+                @*@Model.groupid.ToString();*@
+                <a href="@Url.Action("AddMembers","Home",new{ groupId = Model.Id})" class="mt-50 btn btn-danger">Add New Members</a>
+                <ul class="list-group">
+                    @if (groupMembers != null)
+                    {
+                        foreach (var groupMember in groupMembers)
+                        {
+                            <li class="list-group-item"> @groupMember.members</li>
+
+                        }
+                    }
+                </ul>
+
             </div>
         </div>
         <div class="col-md-8">
-            <div class="panel">
-                <img src="@Url.Content(Model.image)" alt="" />
-                <h2 class="text-center" style="font-weight: bold; font-family: fantasy; color: #1a1a1a;">@Model.groupname</h2>
-                <p class="text-center" style="font-style: italic; font-size: 16px; color: brown;">Group Admin:@Model.groupadmin</p>
+            @*<div class="panel">
+                    <img src="@Url.Content(Model.image)" alt="" />
+
+                </div>*@
+
+            <div class="msg-header">
+
+                <div class="active">
+                    <h4 class="text-center" style="font-weight: bold; font-family: fantasy; color: #ffffff;">@Model.groupname</h4>
+                    <h6 class="text-center" style="font-style: italic; font-size: 16px; color: #ffffff;">@Model.groupadmin</h6>
+                    @*<h4>Arslan Ameer</h4>
+                        <h6>3 hour ago...</h6>*@
+                </div>
+
+                <div class="header-icons">
+                    <i class="fa fa-phone"></i>
+                    <i class="fa fa-video-camera"></i>
+                    <i class="fa fa-info-circle"></i>
+                </div>
+            </div>
+            <div class="chat-page">
+                <div class="msg-inbox">
+                    <div class="chats">
+                        <div class="msg-page">
+                            <div class="received-chats">
+                                <div class="received-chat-img">
+                                    <img src="user.png" class="user-img" alt="" srcset="">
+                                </div>
+                                <dv class="received-msg">
+                                    <div class="received-msg-inbox">
+                                        <p>Hi !!! This Msg From Usman Haider Khan</p>
+                                        <span class="time">11:01 PM | October 11</span>
+                                    </div>
+                                    <!-- <img src="" alt="" srcset=""> -->
+                                </dv>
+                            </div>
+                            <div class="outgoing-chats">
+                                <dv class="outgoing-chat-msg">
+                                    <p>Hi !!! This Msg From Arslan Ameer</p>
+                                    <span class="time">11:01 PM | October 11</span>
+
+                                    <!-- <img src="" alt="" srcset=""> -->
+                                </dv>
+                                <div class="outgoing-chat-img">
+                                    <img src="user.png" class="user-img" alt="" srcset="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-
+            <div class="msg-bottom">
+                @*<div class="bottom-icons">
+                        <i class="fa fa-plus-circle"></i>
+                        <i class="fa fa-camera"></i>
+                        <i class="fa fa-microphone"></i>
+                        <i class="fas fa-simle-wink"></i>
+                    </div>*@
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="write message...">
+                    <div class="input-group-append">
+                        <span class="input-group-text">
+                            <i class="fa fa-paper-plane"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
