@@ -168,7 +168,7 @@
 
                                 if (itr < shp.Count && shp[itr].time > ans[itr].time)
                                 {
-                                    <tr><td><p><b>@@@shp[itr].username </b> shared a post</p></td></tr>
+                                    <tr><td><p><b>@shp[itr].username </b> shared a post</p></td></tr>
 
                                     foreach (var obj in ans)
                                     {
@@ -202,7 +202,9 @@
 
                                             <tr style="background-color:whitesmoke">
                                                 <td>
-                                                    <p style="font-style: italic">@obj.ans</p>
+                                                    <a href="@Url.Action("EditAnswer", "Home", new {id = obj.Id})">
+                                                        <p style="font-style: italic;color: #000000 !important">@obj.ans</p>
+                                                    </a>
                                                 </td>
                                             </tr>
 
@@ -272,6 +274,7 @@
 
                                 <tr>
                                     <td>
+
                                         <p style="font-style: italic">@ans[itr].ans</p>
                                     </td>
                                 </tr>
@@ -329,7 +332,10 @@
 
                                             <tr style="background-color: whitesmoke">
                                                 <td>
-                                                    <p style="font-style: italic">@obj.ans</p>
+                                                    <a href="@Url.Action("EditAnswer", "Home", new {id = obj.Id})">
+                                                        <p style="font-style: italic;color: #000000 !important">@obj.ans</p>
+                                                    </a>
+
                                                 </td>
                                             </tr>
 
