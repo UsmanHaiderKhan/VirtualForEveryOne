@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using VirtualForEveryOne.Models;
@@ -967,6 +969,66 @@ namespace VirtualForEveryOne.Controllers
 
             return null;
         }
+        [HttpGet]
+        public ActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ForgotPassword(recoveryEmail data)
+        {
+
+            if (ModelState.IsValid)
+            {
+                User user = new UserMethods().GetUserByEmail(data.Email);
+                if (user == null)
+                {
+                    ViewBag.error = "Email Not Registered. Please Enter Registered Email Address";
+                    return View();
+                }
+
+                try
+                {
+                    string randomnumb = Path.GetRandomFileName().Replace(".", "");
+                    var message = new MailMessage { From = new MailAddress("eps.system54@gmail.com") };
+                    message.To.Add(data.Email);
+                    message.Subject = "-No-Reply- Password Recovery Email by EPS System";
+                    message.IsBodyHtml = true;
+                    message.Body = "Please use this password: <b><u>" + randomnumb +
+                                   "</u></b> , Next Time You Login! And dont forget to change your password";
+
+                    SmtpClient smtp = new SmtpClient
+                    {
+                        Host = "smtp.gmail.com",
+                        Port = 587,
+                        Credentials = new System.Net.NetworkCredential
+                            ("eps.system54@gmail.com", "eps.system786"),
+                        EnableSsl = true
+                    };
+
+
+
+                    smtp.Send(message);
+                    user.password = randomnumb;
+                    new UserMethods().UpdateUser(user);
+                    ViewBag.success = "Email Has been sent to  " + data.Email;
+
+                    ViewBag.HideSlider = true;
+                    return View();
+                }
+                catch (Exception)
+                {
+                    ViewBag.error = "Error Sending Mail. Please Try Again Later!";
+                    ViewBag.HideSlider = true;
+                    return View();
+                }
+            }
+            return View();
+        }
+
+
+
     }
 
 
