@@ -17,7 +17,8 @@ namespace VirtualForEveryOne.Models
         [DataType(DataType.EmailAddress)]
         [RegularExpression(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", ErrorMessage = "Email is not valid.")]
         public string email { get; set; }
-
+        [Required]
+        [StringLength(12, MinimumLength = 6)]
         public string password { get; set; }
         public string dob { get; set; }
         [Required]

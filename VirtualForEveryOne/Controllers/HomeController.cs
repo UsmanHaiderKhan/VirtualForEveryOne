@@ -79,8 +79,13 @@ namespace VirtualForEveryOne.Controllers
         public ActionResult EditQuestion(int id)
         {
             Post post = new UserMethods().GetQuestionById(id);
+            var session = Session["username"];
+            if (session.Equals("@" + post.username))
+            {
+                return View(post);
+            }
 
-            return View(post);
+            return RedirectToAction("Questions", "Home");
         }
 
         [HttpPost]

@@ -71,7 +71,6 @@ namespace VirtualForEveryOne.Models
                 return (from v in db.Posts where v.Id == id select v).SingleOrDefault();
             }
         }
-
         public void UpdateAnswer(Answer answer)
         {
             using (db)

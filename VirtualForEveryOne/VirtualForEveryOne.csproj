@@ -314,6 +314,14 @@
     <Compile Include="Migrations\201906160751007_updateValidation.Designer.cs">
       <DependentUpon>201906160751007_updateValidation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201907151733459_applyvalidationopassword.cs" />
+    <Compile Include="Migrations\201907151733459_applyvalidationopassword.Designer.cs">
+      <DependentUpon>201907151733459_applyvalidationopassword.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907151737045_applypasswordValidation.cs" />
+    <Compile Include="Migrations\201907151737045_applypasswordValidation.Designer.cs">
+      <DependentUpon>201907151737045_applypasswordValidation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Admin.cs" />
     <Compile Include="Models\Answer.cs" />
@@ -383,6 +391,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906160751007_updateValidation.resx">
       <DependentUpon>201906160751007_updateValidation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907151733459_applyvalidationopassword.resx">
+      <DependentUpon>201907151733459_applyvalidationopassword.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907151737045_applypasswordValidation.resx">
+      <DependentUpon>201907151737045_applypasswordValidation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
