@@ -116,13 +116,11 @@
             if (x = 1) {
                 $('.profile-top').css("background", "linear-gradient(rgba(255,0,0,0), rgba(43,50,55,1)),round url('/Content/images/dummy_cover.jpg')");
             }
-            else if (x = 2) {
-                //var img = document.getElementById("profile_img");
-                //img.src = "/Content/images/dummy.png";
-
-                //document.getElementById("profile_img").src = "/Content/images/dummy.png";
+        }
+        function profilepic() {
+            if (x = 1) {
+                $('#profile_img').css("background", "linear-gradient(rgba(255,0,0,0), rgba(43,50,55,1)),round url('~/Content/images/dumy.png.jpg')");
             }
-
         }
     </script>
 </head>
@@ -139,7 +137,16 @@
     <div class="container" style="margin-left: 250px">
         <div class="row">
             <div class="profile-top" style="background: linear-gradient(rgba(255,0,0,0), rgba(43,50,55,1)),round url('@Model.coverpic')">
-                <img src="@Model.profilepic" id="profile_img" alt="Profile Picture" style="cursor:pointer;" />
+                @if (Model.profilepic != null)
+                {
+                    <img src="@Model.profilepic" id="profile_img" alt="Profile Picture" style="cursor:pointer;" />
+                }
+                else
+                {
+                    <img src="~/Content/userimage.png" id="profile_img" alt="Profile Picture" style="cursor:pointer;" />
+
+                }
+
                 <!-- The Modal -->
                 <div id="myModal" class="modal">
                     <span class="close">&times;</span>
@@ -178,7 +185,7 @@
                 }
                 else if (@Model.profilepic == null)
                 {
-                    <script>div_change(2)</script>
+                    <script>profilepic()</script>
                 }
             }
             <div>
