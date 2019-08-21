@@ -12,15 +12,6 @@
     <title>@{ViewBag.Title = "Friend | VirtuallyEveryone";}</title>
     <style>
 
-
-
-
-
-
-
-
-
-
         .cbp-contentslider nav a {
             width: 50.00%;
         }
@@ -213,10 +204,21 @@
                                                     </td>
                                                     <td>
                                                         <div>
-                                                            <img id="sett_profile_img" src="@Model.profilepic" style="border-radius: 3%; height: 150px; width: 200px;margin-left:31% " />
-                                                            <div class="overlay">
-                                                                <input multiple accept="image/*" type="file" name="profile_img" class="imgInput" style="margin-left: 32%" />
-                                                            </div>
+                                                            @if (Model.profilepic != null)
+                                                            {
+                                                                <img id="sett_profile_img" src="@Model.profilepic" style="border-radius: 3%; height: 150px; width: 200px; margin-left: 31%" />
+                                                                <div class="overlay">
+                                                                    <input multiple accept="image/*" type="file" name="profile_img" class="imgInput" style="margin-left: 32%" />
+                                                                </div>
+                                                            }
+                                                            else
+                                                            {
+                                                                <img id="sett_profile_img" src="~/Content/userimage.png" style="border-radius: 3%; height: 150px; width: 200px; margin-left: 31%" />
+                                                                <div class="overlay">
+                                                                    <input multiple accept="image/*" type="file" name="profile_img" class="imgInput" style="margin-left: 32%" />
+                                                                </div>
+                                                            }
+
                                                         </div>
                                                     </td>
                                                 </tr>
