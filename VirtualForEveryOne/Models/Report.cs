@@ -10,6 +10,7 @@ namespace VirtualForEveryOne.Models
         public string comments { get; set; }
         public string status { get; set; }
         public DateTime time { get; set; }
+        public string admincomments { get; set; }
 
     }
 }
