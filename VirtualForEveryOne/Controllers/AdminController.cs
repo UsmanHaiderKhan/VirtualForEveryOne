@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 using VirtualForEveryOne.Models;
@@ -189,6 +190,29 @@ namespace VirtualForEveryOne.Controllers
             }
         }
 
+        [HttpGet]
+        public ActionResult NotificationMessage(int reportid)
+        {
+            Report u = db1.Reports.Find(reportid);
+            return View(u);
+        }
+        [HttpPost]
+        public ActionResult NotificationMessage(Report report)
+        {
+            using (db1)
+            {
+                db1.Entry(report).State = EntityState.Modified;
+                //db1.Entry(report.postid).State = EntityState.Unchanged;
+                db1.SaveChanges();
+                return RedirectToAction("notyMessage", "Admin");
+            }
+
+        }
+
+        public ActionResult notyMessage()
+        {
+            return View();
+        }
         public ActionResult DeletePost(int id = 0, int reportid = 0)
         {
             if (Session["admin"] == null)
