@@ -237,6 +237,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="Content\userimage.png" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\jquery-1.12.1.min.js" />
     <Content Include="Content\fonts\codropsicons\.DS_Store" />
@@ -322,6 +323,18 @@
     <Compile Include="Migrations\201907151737045_applypasswordValidation.Designer.cs">
       <DependentUpon>201907151737045_applypasswordValidation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201908210711428_updateTblAdminComment.cs" />
+    <Compile Include="Migrations\201908210711428_updateTblAdminComment.Designer.cs">
+      <DependentUpon>201908210711428_updateTblAdminComment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908210800224_updateTblAdminComment1.cs" />
+    <Compile Include="Migrations\201908210800224_updateTblAdminComment1.Designer.cs">
+      <DependentUpon>201908210800224_updateTblAdminComment1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908210800480_updateAdminSideTBL.cs" />
+    <Compile Include="Migrations\201908210800480_updateAdminSideTBL.Designer.cs">
+      <DependentUpon>201908210800480_updateAdminSideTBL.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Admin.cs" />
     <Compile Include="Models\Answer.cs" />
@@ -359,7 +372,6 @@
     <Content Include="Views\Home\questions.cshtml" />
     <Content Include="Views\Home\settings.cshtml" />
     <Content Include="Views\Home\userProfile.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_AdminLayoutPage.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
@@ -371,6 +383,8 @@
     <Content Include="Views\Home\EditAnswer.cshtml" />
     <Content Include="Views\Home\EditQuestion.cshtml" />
     <Content Include="Views\Home\ForgotPassword.cshtml" />
+    <Content Include="Views\Admin\NotificationMessage.cshtml" />
+    <Content Include="Views\Admin\notyMessage.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -397,6 +411,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201907151737045_applypasswordValidation.resx">
       <DependentUpon>201907151737045_applypasswordValidation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908210711428_updateTblAdminComment.resx">
+      <DependentUpon>201908210711428_updateTblAdminComment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908210800224_updateTblAdminComment1.resx">
+      <DependentUpon>201908210800224_updateTblAdminComment1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908210800480_updateAdminSideTBL.resx">
+      <DependentUpon>201908210800480_updateAdminSideTBL.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
