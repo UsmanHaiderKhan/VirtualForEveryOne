@@ -49,7 +49,7 @@
         }
 
 
-/**/</script>
+        /**/</script>
 </head>
 <body id="back-body">
     <datalist id="faq_list">
@@ -74,6 +74,10 @@
                     </nav>
                     <ul>
                         <li id="all">
+                            <p style="color: black; padding-top: 40px; letter-spacing: 0; background: red;color:white">
+                                Reported Message:
+                                @ViewBag.report
+                            </p>
                             <div>
                                 @for (var itr = 0; itr < Model.Count; itr++)
                                 {
@@ -84,16 +88,16 @@
                                             if (Model[itr].type == "question")
                                             {
                                                 <div class="noti_div1">
-                                                    <table class="not_tbl" style="margin-top:10px">
-                                                        <tr style="cursor:pointer" onclick="change_noti_status1(@Model[itr].Id)">
+                                                    <table class="not_tbl" style="margin-top: 10px">
+                                                        <tr style="cursor: pointer" onclick="change_noti_status1(@Model[itr].Id)">
                                                             <td>
-                                                                <img style="margin-left: 10px; width: 60px; height: 60px; margin-top:-15px; display: inline-block" src="~/Content/images/dummy.png" />
+                                                                <img style="margin-left: 10px; width: 60px; height: 60px; margin-top: -15px; display: inline-block" src="~/Content/images/dummy.png" />
                                                             </td>
                                                             <td class="td">
                                                                 <table>
                                                                     <tr>
                                                                         <td>
-                                                                            <h10>You recieved a new question from <a href="#username" style="color:red;"><span><b>@@@Model[itr].notifier</b></span></a>: </h10>
+                                                                            <h10>You recieved a new question from <a href="#username" style="color: red;"><span><b>@@@Model[itr].notifier</b></span></a>: </h10>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -114,7 +118,7 @@
                                             {
                                                 <div class="noti_div1">
                                                     <table class="not_tbl" style="margin-top: 10px">
-                                                        <tr style="cursor:pointer" onclick="change_noti_status(@Model[itr].Id)">
+                                                        <tr style="cursor: pointer" onclick="change_noti_status(@Model[itr].Id)">
                                                             @*                                                            <td>
                                                                     <img style="margin-left: 10px; width: 60px; height: 60px; display: inline-block" src="~/Content/images/dummy.png" />
                                                                 </td>*@
@@ -122,7 +126,7 @@
                                                                 <table>
                                                                     <tr>
                                                                         <td>
-                                                                            <h10><a href="#username" style="color:red;"><span><b>@@@Model[itr].notifier</b></span></a> answered your post: </h10>
+                                                                            <h10><a href="#username" style="color: red;"><span><b>@@@Model[itr].notifier</b></span></a> answered your post: </h10>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -152,12 +156,12 @@
                                             {
                                                 <div class="noti_div1">
                                                     <table class="not_tbl" style="margin-top: 10px">
-                                                        <tr style="cursor:pointer" onclick="change_noti_status(@Model[itr].Id)">
+                                                        <tr style="cursor: pointer" onclick="change_noti_status(@Model[itr].Id)">
                                                             <td class="td">
                                                                 <table>
                                                                     <tr>
                                                                         <td>
-                                                                            <h10><a href="#username" style="color:red;"><span><b>@@@Model[itr].notifier</b></span></a> @Model[itr].type your post: </h10>
+                                                                            <h10><a href="#username" style="color: red;"><span><b>@@@Model[itr].notifier</b></span></a> @Model[itr].type your post: </h10>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -180,12 +184,12 @@
                                             {
                                                 <div class="noti_div1">
                                                     <table class="not_tbl" style="margin-top: 10px">
-                                                        <tr style="cursor:pointer" onclick="change_noti_status(@Model[itr].Id)">
+                                                        <tr style="cursor: pointer" onclick="change_noti_status(@Model[itr].Id)">
                                                             <td class="td">
                                                                 <table>
                                                                     <tr>
                                                                         <td>
-                                                                            <h10><a href="#username" style="color:red;"><span><b>@@@Model[itr].notifier</b></span></a> @Model[itr].type </h10>
+                                                                            <h10><a href="#username" style="color: red;"><span><b>@@@Model[itr].notifier</b></span></a> @Model[itr].type </h10>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
