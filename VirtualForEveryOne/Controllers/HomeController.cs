@@ -257,6 +257,17 @@ namespace VirtualForEveryOne.Controllers
             }
             else
             {
+
+                var cUser = (string)Session["username"];
+                var myString = cUser;
+                string myuser = myString.Substring(1);
+
+                Report report = new UserMethods().GetReportByUser(myuser);
+                if (report != null)
+                {
+                    ViewBag.report = report.admincomments;
+                }
+
                 TempData["post"] = db.Posts.ToList();
                 TempData["answer"] = db.Answers.ToList();
                 TempData["faq"] = (from f in db.Faqs select f).ToList();
