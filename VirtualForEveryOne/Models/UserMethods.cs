@@ -87,5 +87,14 @@ namespace VirtualForEveryOne.Models
                 db.SaveChanges();
             }
         }
+
+        public Report GetReportByUser(string name)
+        {
+
+            using (db)
+            {
+                return (from c in db.Reports where name == c.username select c).FirstOrDefault();
+            }
+        }
     }
 }
